@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FAF",
+    "ANA",
+    "FAF"
+  ],
+  "key": {
+    "F": {
+      "item": "mdf:creeper_fruit"
+    },
+    "A": {
+      "item": "minecraft:golden_apple"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "mdf:blessed_creeper_fruit"
+  }
+}

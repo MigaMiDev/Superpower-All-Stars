@@ -1,0 +1,10 @@
+{
+  "type": "mdf:fire_fruit_on_bartering",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:gameplay/piglin_bartering"
+    }
+  ],
+  "item": "mdf:fire_fruit"
+}

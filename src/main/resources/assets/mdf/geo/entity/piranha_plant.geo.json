@@ -1,0 +1,42 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 6,
+				"visible_bounds_height": 9,
+				"visible_bounds_offset": [0, 2.5, 0]
+			},
+			"bones": [
+				{
+					"name": "plant",
+					"pivot": [0, 6, 15.6],
+					"cubes": [
+						{"origin": [0, -3, 5.6], "size": [0, 20, 20], "pivot": [0, 7, 15.6], "rotation": [0, -90, 45], "uv": [0, 43]}
+					]
+				},
+				{
+					"name": "lower_jaw",
+					"parent": "plant",
+					"pivot": [0, 7, 15.6],
+					"cubes": [
+						{"origin": [-11, 5, -11], "size": [22, 11, 22], "pivot": [0, 6, 0], "rotation": [0, -45, 0], "uv": [0, 0]},
+						{"origin": [-11, 10, -11], "size": [22, 0, 22], "pivot": [0, 11, 0], "rotation": [0, -45, 0], "uv": [-22, 83]}
+					]
+				},
+				{
+					"name": "upper_jaw",
+					"parent": "plant",
+					"pivot": [0, 7, 15.6],
+					"cubes": [
+						{"origin": [-10, 0, -9], "size": [20, 10, 20], "pivot": [0, 0, 1], "rotation": [0, -45, 0], "uv": [0, 33]},
+						{"origin": [-10, 2, -9], "size": [20, 0, 20], "pivot": [0, 2, 1], "rotation": [0, -45, 0], "uv": [-20, 105]}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "mdf:squid_fruit_on_guardian",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/guardian"
+    }
+  ],
+  "item": "mdf:squid_fruit"
+}

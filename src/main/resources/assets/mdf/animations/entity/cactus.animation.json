@@ -1,0 +1,109 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.cactus.spawn": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.625,
+			"bones": {
+				"cactus": {
+					"scale": {
+						"0.0": {
+							"vector": [0.1, 0.1, 0.1]
+						},
+						"0.3333": {
+							"vector": [3.1, 3.1, 3.1],
+							"easing": "easeInQuint"
+						},
+						"0.4583": {
+							"vector": [2.6, 2.6, 2.6],
+							"easing": "easeInQuart"
+						}
+					}
+				},
+				"big_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -20]
+						},
+						"0.3333": {
+							"vector": [0, 0, 0]
+						},
+						"0.4583": {
+							"vector": [0, 0, 12.5],
+							"easing": "linear"
+						},
+						"0.625": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutExpo"
+						}
+					}
+				},
+				"small_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 20]
+						},
+						"0.3333": {
+							"vector": [0, 0, 0]
+						},
+						"0.4583": {
+							"vector": [0, 0, -12.5],
+							"easing": "linear"
+						},
+						"0.625": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutExpo"
+						}
+					}
+				}
+			}
+		},
+		"animation.cactus.idle": {
+			"loop": true,
+			"bones": {
+				"cactus": {
+					"scale": {
+						"vector": [1.9, 1.9, 1.9],
+						"easing": "easeInQuart"
+					}
+				}
+			}
+		},
+		"animation.cactus.despawn": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.4583,
+			"bones": {
+				"cactus": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2083": {
+							"vector": [0, 0, 0],
+							"easing": "easeInQuart"
+						},
+						"0.4583": {
+							"vector": [0, -7, 0],
+							"easing": "easeInQuart"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [2.6, 2.6, 2.6],
+							"easing": "easeInQuart"
+						},
+						"0.125": {
+							"vector": [3.1, 3.1, 3.1],
+							"easing": "easeInOutExpo"
+						},
+						"0.4583": {
+							"vector": [0.1, 0.1, 0.1],
+							"easing": "easeInQuint"
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

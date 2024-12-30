@@ -1,0 +1,163 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "fruit",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{
+							"origin": [-3, 0, -3],
+							"size": [6, 6, 6],
+							"uv": {
+								"north": {"uv": [16, 16], "uv_size": [16, 16]},
+								"east": {"uv": [0, 16], "uv_size": [16, 16]},
+								"south": {"uv": [32, 16], "uv_size": [16, 16]},
+								"west": {"uv": [48, 16], "uv_size": [16, 16]},
+								"up": {"uv": [32, 0], "uv_size": [-16, 16]},
+								"down": {"uv": [48, 16], "uv_size": [-16, -16]}
+							}
+						},
+						{
+							"origin": [-3.5, 0.20711, -2.995],
+							"size": [1, 1, 5.99],
+							"pivot": [-3, 0.70711, 0],
+							"rotation": [0, 0, -45],
+							"uv": {
+								"north": {"uv": [15, 15], "uv_size": [1, 1]},
+								"east": {"uv": [0, 14], "uv_size": [16, 2]},
+								"south": {"uv": [15, 15], "uv_size": [1, 1]},
+								"up": {"uv": [2, 0], "uv_size": [-2, 16]}
+							}
+						},
+						{
+							"origin": [2.5, 0.20711, -2.995],
+							"size": [1, 1, 5.99],
+							"pivot": [3, 0.70711, 0],
+							"rotation": [0, 0, 45],
+							"uv": {
+								"north": {"uv": [16, 15], "uv_size": [-1, 1]},
+								"south": {"uv": [16, 15], "uv_size": [-1, 1]},
+								"west": {"uv": [16, 14], "uv_size": [-16, 2]},
+								"up": {"uv": [0, 0], "uv_size": [2, 16]}
+							}
+						},
+						{
+							"origin": [-3.5, 1.60711, -2.995],
+							"size": [1, 1, 5.99],
+							"pivot": [-3, 2.10711, 0],
+							"rotation": [0, 0, -45],
+							"uv": {
+								"north": {"uv": [15, 14], "uv_size": [1, 1]},
+								"east": {"uv": [0, 14], "uv_size": [16, 2]},
+								"south": {"uv": [15, 14], "uv_size": [1, 1]},
+								"up": {"uv": [2, 0], "uv_size": [-2, 16]}
+							}
+						},
+						{
+							"origin": [2.5, 1.60711, -2.995],
+							"size": [1, 1, 5.99],
+							"pivot": [3, 2.10711, 0],
+							"rotation": [0, 0, 45],
+							"uv": {
+								"north": {"uv": [16, 14], "uv_size": [-1, 1]},
+								"south": {"uv": [16, 14], "uv_size": [-1, 1]},
+								"west": {"uv": [16, 14], "uv_size": [-16, 2]},
+								"up": {"uv": [0, 0], "uv_size": [2, 16]}
+							}
+						},
+						{
+							"origin": [-1, 1.425, 3.4],
+							"size": [1, 3, 0],
+							"pivot": [-0.5, 3.425, 3.4],
+							"rotation": [26.33424, -3.21154, 39.89247],
+							"uv": {
+								"south": {"uv": [17, 32], "uv_size": [3, 9]}
+							}
+						},
+						{
+							"origin": [0, 2.125, 3.4],
+							"size": [1, 2.3, 0],
+							"pivot": [0.5, 3.425, 3.4],
+							"rotation": [26.33424, 3.21154, -39.89247],
+							"uv": {
+								"south": {"uv": [17, 32], "uv_size": [-3, 7]}
+							}
+						}
+					]
+				},
+				{
+					"name": "hat",
+					"parent": "fruit",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{
+							"origin": [-3.5, 4.2, -3.5],
+							"size": [7, 3.8, 7],
+							"uv": {
+								"north": {"uv": [48, 56], "uv_size": [-16, 8]},
+								"east": {"uv": [16, 56], "uv_size": [-16, 8]},
+								"south": {"uv": [32, 56], "uv_size": [-16, 8]},
+								"west": {"uv": [64, 56], "uv_size": [-16, 8]},
+								"down": {"uv": [48, 40], "uv_size": [-16, 16]}
+							}
+						},
+						{
+							"origin": [-3.5, 4.2, -3.5],
+							"size": [7, 3.8, 7],
+							"uv": {
+								"north": {"uv": [48, 56], "uv_size": [-16, 8]},
+								"east": {"uv": [16, 56], "uv_size": [-16, 8]},
+								"south": {"uv": [32, 56], "uv_size": [-16, 8]},
+								"west": {"uv": [64, 56], "uv_size": [-16, 8]},
+								"down": {"uv": [48, 40], "uv_size": [-16, 16]}
+							}
+						}
+					]
+				},
+				{
+					"name": "face",
+					"parent": "fruit",
+					"pivot": [0, 3, -3.005]
+				},
+				{
+					"name": "eyes",
+					"parent": "face",
+					"pivot": [0, 2.1, -3.005],
+					"cubes": [
+						{
+							"origin": [-2.6, 2.1, -3.005],
+							"size": [5.2, 1.6, 0],
+							"uv": {
+								"north": {"uv": [0, 32], "uv_size": [14, 4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "mouth",
+					"parent": "face",
+					"pivot": [0, 2, -3.005],
+					"cubes": [
+						{
+							"origin": [-0.9, 0.7, -3.005],
+							"size": [1.8, 1.3, 0],
+							"uv": {
+								"north": {"uv": [0, 36], "uv_size": [4, 3]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

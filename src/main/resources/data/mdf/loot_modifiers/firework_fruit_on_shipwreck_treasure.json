@@ -1,0 +1,10 @@
+{
+  "type": "mdf:firework_fruit_on_shipwreck_treasure",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_treasure"
+    }
+  ],
+  "item": "mdf:firework_fruit"
+}

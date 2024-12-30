@@ -1,0 +1,84 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 15,
+				"visible_bounds_height": 9.5,
+				"visible_bounds_offset": [0, 4.25, 0]
+			},
+			"bones": [
+				{
+					"name": "cactus",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-7, 0, -7], "size": [14, 47, 14], "uv": [0, 0]},
+						{"origin": [0, 0, -10.9], "size": [0, 47, 21.8], "pivot": [0, 1, 0], "rotation": [0, 45, 0], "uv": [0, 40]},
+						{"origin": [0, 0, -10.9], "size": [0, 47, 21.8], "pivot": [0, 1, 0], "rotation": [0, -45, 0], "uv": [0, 40]}
+					]
+				},
+				{
+					"name": "small_arm",
+					"parent": "cactus",
+					"pivot": [6.75, 30, 0],
+					"cubes": [
+						{"origin": [7.5, 27, -3.5], "size": [6, 6, 7], "pivot": [10.5, 30, 0], "rotation": [0, 90, 0], "uv": [56, 34]},
+						{"origin": [14, 27, -3], "size": [6, 12, 6], "pivot": [17, 33, 0], "rotation": [0, 90, 0], "uv": [56, 16]},
+						{"origin": [17, 27, -5.2], "size": [0, 12, 10.4], "pivot": [17, 33, 0], "rotation": [0, 135, 0], "uv": [42, 59]},
+						{"origin": [17, 27, -5], "size": [0, 12, 10], "pivot": [17, 33, 0], "rotation": [0, 45, 0], "uv": [42, 59]}
+					]
+				},
+				{
+					"name": "big_arm",
+					"parent": "cactus",
+					"pivot": [-6.5, 18, 0],
+					"cubes": [
+						{"origin": [-18, 14, -7], "size": [8, 8, 14], "pivot": [-14, 18, 0], "rotation": [0, 90, 0], "uv": [42, 47]},
+						{"origin": [-21, 22, -4], "size": [8, 8, 8], "pivot": [-17, 26, 0], "rotation": [0, 90, 0], "uv": [56, 0]},
+						{"origin": [-17, 14, -6.6], "size": [0, 16, 13.2], "pivot": [-17, 26, 0], "rotation": [0, 135, 0], "uv": [0, 95]},
+						{"origin": [-17, 14, -6.6], "size": [0, 16, 13.2], "pivot": [-17, 22, 0], "rotation": [0, 45, 0], "uv": [0, 95]}
+					]
+				},
+				{
+					"name": "flower",
+					"parent": "big_arm",
+					"pivot": [-17, 31.5, 0],
+					"cubes": [
+						{"origin": [-21.7, 30.76, 0.7], "size": [4, 0, 4], "pivot": [-19.7, 30.76, 2.7], "rotation": [157.5, 45, 180], "uv": [38, 7]},
+						{"origin": [-19, 30, -2], "size": [4, 3, 4], "pivot": [-17, 31.5, 0], "rotation": [0, 135, 0], "uv": [42, 0]}
+					]
+				},
+				{
+					"name": "leave1",
+					"parent": "flower",
+					"pivot": [-17, 31.5, 0],
+					"rotation": [0, 90, 0],
+					"cubes": [
+						{"origin": [-21.7, 30.76, 0.7], "size": [4, 0, 4], "pivot": [-19.7, 30.76, 2.7], "rotation": [157.5, 45, 180], "uv": [0, 8]}
+					]
+				},
+				{
+					"name": "leave2",
+					"parent": "flower",
+					"pivot": [-17, 31.5, 0],
+					"rotation": [0, -90, 0],
+					"cubes": [
+						{"origin": [-21.7, 30.76, 0.7], "size": [4, 0, 4], "pivot": [-19.7, 30.76, 2.7], "rotation": [157.5, 45, 180], "uv": [0, 4]}
+					]
+				},
+				{
+					"name": "leave3",
+					"parent": "flower",
+					"pivot": [-17, 31.5, 0],
+					"rotation": [0, 180, 0],
+					"cubes": [
+						{"origin": [-21.7, 30.76, 0.7], "size": [4, 0, 4], "pivot": [-19.7, 30.76, 2.7], "rotation": [157.5, 45, 180], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

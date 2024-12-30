@@ -1,0 +1,147 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "fruit",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{
+							"origin": [-3, 0, -3],
+							"size": [6, 6, 6],
+							"uv": {
+								"north": {"uv": [16, 16], "uv_size": [16, 16]},
+								"east": {"uv": [0, 16], "uv_size": [16, 16]},
+								"south": {"uv": [32, 16], "uv_size": [16, 16]},
+								"west": {"uv": [48, 16], "uv_size": [16, 16]},
+								"up": {"uv": [32, 16], "uv_size": [-16, -16]},
+								"down": {"uv": [48, 16], "uv_size": [-16, -16]}
+							}
+						},
+						{
+							"origin": [-3.75, 6, 0],
+							"size": [7.5, 3.75, 0],
+							"pivot": [0, 7.875, 0],
+							"rotation": [0, 45, 0],
+							"uv": {
+								"north": {"uv": [32, 32], "uv_size": [-15, 8]}
+							}
+						}
+					]
+				},
+				{
+					"name": "face",
+					"parent": "fruit",
+					"pivot": [0, 3, -3.005]
+				},
+				{
+					"name": "eyes",
+					"parent": "face",
+					"pivot": [0, 1.6, -3.005],
+					"cubes": [
+						{
+							"origin": [-2.4, 1.6, -3.005],
+							"size": [4.8, 1.6, 0],
+							"uv": {
+								"north": {"uv": [0, 32], "uv_size": [12, 4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "tentacles",
+					"parent": "fruit",
+					"pivot": [0, 3, 0],
+					"cubes": [
+						{
+							"origin": [-4, -0.4, -4],
+							"size": [2, 2, 2],
+							"uv": {
+								"north": {"uv": [37, 37], "uv_size": [5, 5]},
+								"east": {"uv": [32, 37], "uv_size": [5, 5]},
+								"south": {"uv": [42, 37], "uv_size": [5, 5]},
+								"west": {"uv": [47, 37], "uv_size": [5, 5]},
+								"up": {"uv": [37, 37], "uv_size": [5, -5]},
+								"down": {"uv": [47, 37], "uv_size": [-5, -5]}
+							}
+						},
+						{
+							"origin": [2, -0.4, -4],
+							"size": [2, 2, 2],
+							"uv": {
+								"north": {"uv": [37, 37], "uv_size": [5, 5]},
+								"east": {"uv": [32, 37], "uv_size": [5, 5]},
+								"south": {"uv": [42, 37], "uv_size": [5, 5]},
+								"west": {"uv": [47, 37], "uv_size": [5, 5]},
+								"up": {"uv": [42, 37], "uv_size": [-5, -5]},
+								"down": {"uv": [47, 37], "uv_size": [-5, -5]}
+							}
+						},
+						{
+							"origin": [2, -0.4, -1],
+							"size": [2, 2, 2],
+							"uv": {
+								"north": {"uv": [37, 37], "uv_size": [5, 5]},
+								"east": {"uv": [32, 37], "uv_size": [5, 5]},
+								"south": {"uv": [42, 37], "uv_size": [5, 5]},
+								"west": {"uv": [47, 37], "uv_size": [5, 5]},
+								"up": {"uv": [42, 32], "uv_size": [-5, 5]},
+								"down": {"uv": [47, 37], "uv_size": [-5, -5]}
+							}
+						},
+						{
+							"origin": [-4, -0.4, -1],
+							"size": [2, 2, 2],
+							"uv": {
+								"north": {"uv": [37, 37], "uv_size": [5, 5]},
+								"east": {"uv": [32, 37], "uv_size": [5, 5]},
+								"south": {"uv": [42, 37], "uv_size": [5, 5]},
+								"west": {"uv": [47, 37], "uv_size": [5, 5]},
+								"up": {"uv": [37, 32], "uv_size": [5, 5]},
+								"down": {"uv": [47, 37], "uv_size": [-5, -5]}
+							}
+						},
+						{
+							"origin": [2, -0.4, 2],
+							"size": [2, 2, 2],
+							"uv": {
+								"north": {"uv": [37, 37], "uv_size": [5, 5]},
+								"east": {"uv": [32, 37], "uv_size": [5, 5]},
+								"south": {"uv": [42, 37], "uv_size": [5, 5]},
+								"west": {"uv": [47, 37], "uv_size": [5, 5]},
+								"up": {"uv": [42, 32], "uv_size": [-5, 5]},
+								"down": {"uv": [47, 37], "uv_size": [-5, -5]}
+							}
+						},
+						{
+							"origin": [-4, -0.4, 2],
+							"size": [2, 2, 2],
+							"uv": {
+								"north": {"uv": [37, 37], "uv_size": [5, 5]},
+								"east": {"uv": [32, 37], "uv_size": [5, 5]},
+								"south": {"uv": [42, 37], "uv_size": [5, 5]},
+								"west": {"uv": [47, 37], "uv_size": [5, 5]},
+								"up": {"uv": [37, 32], "uv_size": [5, 5]},
+								"down": {"uv": [47, 37], "uv_size": [-5, -5]}
+							}
+						}
+					]
+				},
+				{
+					"name": "leaves",
+					"parent": "fruit",
+					"pivot": [0, 6.0075, 0.45]
+				}
+			]
+		}
+	]
+}

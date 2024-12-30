@@ -1,0 +1,181 @@
+{
+  "fruit.skeleton.gaster_blaster_prime": {
+    "subtitle": "subtitle.mdf.fruit.skeleton.gaster_blaster_prime",
+    "sounds": [
+      {
+        "name": "mdf:fruit/skeleton/gaster_blaster_prime"
+      }
+    ]
+  },
+  "fruit.skeleton.gaster_blaster_shoot": {
+    "subtitle": "subtitle.mdf.fruit.skeleton.gaster_blaster_shoot",
+    "sounds": [
+      {
+        "name": "mdf:fruit/skeleton/gaster_blaster_shoot"
+      }
+    ]
+  },
+  "fruit.skeleton.blink": {
+    "subtitle": "subtitle.mdf.fruit.skeleton.blink",
+    "sounds": [
+      {
+        "name": "mdf:fruit/skeleton/blink"
+      }
+    ]
+  },
+  "fruit.skeleton.bone_throw": {
+    "subtitle": "subtitle.mdf.fruit.skeleton.bone_throw",
+    "sounds": [
+      {
+        "name": "mdf:fruit/skeleton/bone_throw"
+      }
+    ]
+  },
+  "fruit.skeleton.bone_zone": {
+    "subtitle": "subtitle.mdf.fruit.skeleton.bone_zone",
+    "sounds": [
+      {
+        "name": "mdf:fruit/skeleton/bone_zone"
+      }
+    ]
+  },
+  "fruit.squid.splat": {
+    "subtitle": "subtitle.mdf.fruit.squid.splat",
+    "sounds": [
+      {
+        "name": "mdf:fruit/squid/splat1",
+        "stream": true
+      },
+      {
+        "name": "mdf:fruit/squid/splat2",
+        "stream": true
+      },
+      {
+        "name": "mdf:fruit/squid/splat3",
+        "stream": true
+      }
+    ]
+  },
+  "fruit.squid.explosion": {
+    "subtitle": "subtitle.mdf.fruit.squid.explosion",
+    "sounds": [
+      {
+        "name": "mdf:fruit/squid/explosion"
+      }
+    ]
+  },
+  "fruit.buster.piano": {
+    "subtitle": "subtitle.mdf.fruit.buster.piano",
+    "sounds": [
+      {
+        "name": "mdf:fruit/buster/piano1",
+        "stream": true
+      },
+      {
+        "name": "mdf:fruit/buster/piano2",
+        "stream": true
+      },
+      {
+        "name": "mdf:fruit/buster/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "fruit.buster.fire": {
+    "subtitle": "subtitle.mdf.fruit.buster.fire",
+    "sounds": [
+      {
+        "name": "mdf:fruit/buster/fire"
+      }
+    ]
+  },
+  "fruit.buster.lasso": {
+    "subtitle": "subtitle.mdf.fruit.buster.lasso",
+    "sounds": [
+      {
+        "name": "mdf:fruit/buster/lasso"
+      }
+    ]
+  },
+  "fruit.buster.cactus_grow": {
+    "subtitle": "subtitle.mdf.fruit.buster.cactus_grow",
+    "sounds": [
+      {
+       "name": "mdf:fruit/buster/cactus_grow"
+      }
+    ]
+  },
+  "fruit.flower.whip": {
+    "subtitle": "subtitle.mdf.fruit.flower.whip",
+    "sounds": [
+      {
+        "name": "mdf:fruit/flower/whip"
+      }
+    ]
+  },
+  "fruit.flower.rustle": {
+    "subtitle": "subtitle.mdf.fruit.flower.rustle",
+    "sounds": [
+      {
+        "name": "mdf:fruit/flower/rustle2",
+        "stream": true
+      },
+      {
+        "name": "mdf:fruit/flower/rustle2",
+        "stream": true
+      },
+      {
+        "name": "mdf:fruit/flower/rustle3",
+        "stream": true
+      }
+    ]
+  },
+  "fruit.flower.bite": {
+    "subtitle": "subtitle.mdf.fruit.flower.bite",
+    "sounds": [
+      {
+        "name": "mdf:fruit/flower/bite"
+      }
+    ]
+  },
+  "fruit.rubber.blast": {
+    "subtitle": "subtitle.mdf.fruit.rubber.blast",
+    "sounds": [
+      {
+        "name": "mdf:fruit/rubber/blast"
+      }
+    ]
+  },
+  "fruit.rubber.slingshot_prime": {
+    "subtitle": "subtitle.mdf.fruit.rubber.slingshot_prime",
+    "sounds": [
+      {
+        "name": "mdf:fruit/rubber/slingshot_prime"
+      }
+    ]
+  },
+  "fruit.rubber.throw": {
+    "subtitle": "subtitle.mdf.fruit.rubber.throw",
+    "sounds": [
+      {
+        "name": "mdf:fruit/rubber/throw"
+      }
+    ]
+  },
+  "fruit.spider.cup_breaking": {
+    "subtitle": "subtitle.mdf.fruit.spider.cup_breaking",
+    "sounds": [
+      {
+        "name": "mdf:fruit/spider/cup_breaking"
+      }
+    ]
+  },
+  "fruit.spider.kettle_breaking": {
+    "subtitle": "subtitle.mdf.fruit.spider.kettle_breaking",
+    "sounds": [
+      {
+        "name": "mdf:fruit/spider/kettle_breaking"
+      }
+    ]
+  }
+}

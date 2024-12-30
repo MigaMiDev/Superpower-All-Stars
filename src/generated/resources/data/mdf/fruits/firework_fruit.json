@@ -1,0 +1,33 @@
+{
+  "CMove": {
+    "attackAmount": 8,
+    "attackInterval": 5,
+    "canBeHeld": true,
+    "cooldown": 250,
+    "damage": 5.0
+  },
+  "FMove": {
+    "attackAmount": 1,
+    "cooldown": 150,
+    "damage": 5.0
+  },
+  "VMove": {
+    "attackAmount": 24,
+    "attackInterval": 4,
+    "canBeHeld": true,
+    "cooldown": 300,
+    "damage": 5.0
+  },
+  "XMove": {
+    "attackAmount": 1,
+    "canBeHeld": true,
+    "cooldown": 200,
+    "damage": 5.0
+  },
+  "ZMove": {
+    "attackAmount": 1,
+    "canBeHeld": true,
+    "cooldown": 160,
+    "damage": 5.0
+  }
+}

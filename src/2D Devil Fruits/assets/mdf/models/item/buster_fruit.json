@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "mdf:item/buster_fruit",
+		"particle": "mdf:item/buster_fruit"
+	}
+}

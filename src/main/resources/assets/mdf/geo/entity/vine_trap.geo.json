@@ -1,0 +1,80 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 8.5,
+				"visible_bounds_offset": [0, 3.75, 0]
+			},
+			"bones": [
+				{
+					"name": "vine",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, 0, -8], "size": [16, 20, 16], "uv": [112, 28]}
+					]
+				},
+				{
+					"name": "bone",
+					"parent": "vine",
+					"pivot": [0, 20, 0],
+					"cubes": [
+						{"origin": [-7, 18, -7], "size": [14, 20, 14], "uv": [114, 74]}
+					]
+				},
+				{
+					"name": "bone2",
+					"parent": "bone",
+					"pivot": [0, 38, 0],
+					"cubes": [
+						{"origin": [-6, 36, -6], "size": [12, 20, 12], "uv": [116, 120]}
+					]
+				},
+				{
+					"name": "bone3",
+					"parent": "bone2",
+					"pivot": [0, 56, 0],
+					"cubes": [
+						{"origin": [-5, 54, -5], "size": [10, 20, 10], "uv": [0, 132]}
+					]
+				},
+				{
+					"name": "trap",
+					"parent": "bone3",
+					"pivot": [0, 92, 0]
+				},
+				{
+					"name": "trap3",
+					"parent": "trap",
+					"pivot": [0, 104, 0],
+					"cubes": [
+						{"origin": [-16, 98, -16], "size": [32, 12, 32], "pivot": [0, 104, 0], "rotation": [0, 90, 0], "uv": [0, 0]},
+						{"origin": [-16, 104, -16], "size": [32, 0, 32], "pivot": [0, 104, 0], "rotation": [0, 135, 0], "uv": [-32, 162]}
+					]
+				},
+				{
+					"name": "trap2",
+					"parent": "trap",
+					"pivot": [0, 92, 0],
+					"cubes": [
+						{"origin": [-16, 86, -16], "size": [32, 12, 32], "pivot": [0, 92, 0], "rotation": [0, 45, 0], "uv": [0, 44]},
+						{"origin": [-16, 92, -16], "size": [32, 0, 32], "uv": [-32, 162]}
+					]
+				},
+				{
+					"name": "trap1",
+					"parent": "trap",
+					"pivot": [0, 80, 0],
+					"cubes": [
+						{"origin": [-16, 74, -16], "size": [32, 12, 32], "uv": [0, 88]},
+						{"origin": [-16, 80, -16], "size": [32, 0, 32], "pivot": [0, 80, 0], "rotation": [0, -45, 0], "uv": [-32, 162]}
+					]
+				}
+			]
+		}
+	]
+}
