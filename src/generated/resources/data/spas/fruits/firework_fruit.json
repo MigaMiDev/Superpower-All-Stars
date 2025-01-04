@@ -1,0 +1,42 @@
+{
+  "cAction": {
+    "actionMode": "spas:hold",
+    "attackAmount": 1,
+    "cooldown": 250,
+    "damage": 5.0,
+    "name": "info.spas.firework_fruit.c_action",
+    "rate": 5
+  },
+  "rAction": {
+    "actionMode": "spas:single",
+    "attackAmount": 1,
+    "cooldown": 150,
+    "damage": 5.0,
+    "name": "info.spas.firework_fruit.r_action"
+  },
+  "vAction": {
+    "actionMode": "spas:hold",
+    "attackAmount": 24,
+    "cooldown": 300,
+    "damage": 5.0,
+    "name": "info.spas.firework_fruit.v_action",
+    "rate": 4
+  },
+  "xAction": {
+    "actionMode": "spas:single",
+    "attackAmount": 1,
+    "cooldown": 200,
+    "damage": 5.0,
+    "name": "info.spas.firework_fruit.x_action",
+    "rate": 1
+  },
+  "zAction": {
+    "actionMode": "spas:single",
+    "attackAmount": 1,
+    "cooldown": 160,
+    "damage": 5.0,
+    "name": "info.spas.firework_fruit.z_action",
+    "rate": 1,
+    "recoilKick": 5.0
+  }
+}

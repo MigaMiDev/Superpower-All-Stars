@@ -14,15 +14,15 @@ plugins {
 
 version = "0.4.0-1.20.1"
 group = "ttv.migami"
-archivesBaseName = "NotEnoughPowers"
+archivesBaseName = "SuperheroAll-Stars"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 mixin {
-    add sourceSets.main, "nep.refmap.json"
-    config 'nep.mixins.json'
+    add sourceSets.main, "spas.refmap.json"
+    config 'spas.mixins.json'
 }
 
 minecraft {
@@ -38,7 +38,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
-                nep {
+                spas {
                     source sourceSets.main
                 }
             }
@@ -50,9 +50,9 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            arg '-mixin.config=nep.mixins.json'
+            arg '-mixin.config=spas.mixins.json'
             mods {
-                nep {
+                spas {
                     source sourceSets.main
                 }
             }
@@ -64,10 +64,10 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'nep', '--all', '--output', file('src/generated/resources/')
-            arg '-mixin.config=nep.mixins.json'
+            args '--mod', 'spas', '--all', '--output', file('src/generated/resources/')
+            arg '-mixin.config=spas.mixins.json'
             mods {
-                nep {
+                spas {
                     source sourceSets.main
                 }
             }
@@ -107,14 +107,14 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "Not Enough Powers",
+                "Specification-Title"     : "Superhero All-Stars",
                 "Specification-Vendor"    : "MigaMi",
                 "Specification-Version"   : "1",
-                "Implementation-Title"    : "Not Enough Powers",
+                "Implementation-Title"    : "Superhero All-Stars",
                 "Implementation-Version"  : project.version,
                 "Implementation-Vendor"   : "MigaMi",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs"            : "nep.mixins.json"
+                "MixinConfigs"            : "spas.mixins.json"
         ])
     }
 }

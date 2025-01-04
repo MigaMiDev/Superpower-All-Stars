@@ -3,32 +3,32 @@ loaderVersion="[40,)"
 license="GNU GPLv3"
 
 [[mods]]
-modId="nep"
+modId="spas"
 version="0.4.0"
-displayName="Not Enough Powers"
+displayName="Superhero All-Stars"
 authors="MigaMi"
 credits=""
 description="Superpowers from your favorite Anime and Videogames!"
 
-[[dependencies.nep]]
+[[dependencies.spas]]
     modId="forge"
     mandatory=true
     versionRange="[46, 48)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.nep]]
+[[dependencies.spas]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.20, 1.20.2)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.nep]]
+[[dependencies.spas]]
     modId="framework"
     mandatory=true
     versionRange="[0.7.0,)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.nep]]
+[[dependencies.spas]]
     modId="geckolib"
     mandatory=true
     versionRange="[4.4.4,)"

@@ -1,0 +1,181 @@
+{
+  "fruit.skeleton.gaster_blaster_prime": {
+    "subtitle": "subtitle.spas.fruit.skeleton.gaster_blaster_prime",
+    "sounds": [
+      {
+        "name": "spas:fruit/skeleton/gaster_blaster_prime"
+      }
+    ]
+  },
+  "fruit.skeleton.gaster_blaster_shoot": {
+    "subtitle": "subtitle.spas.fruit.skeleton.gaster_blaster_shoot",
+    "sounds": [
+      {
+        "name": "spas:fruit/skeleton/gaster_blaster_shoot"
+      }
+    ]
+  },
+  "fruit.skeleton.blink": {
+    "subtitle": "subtitle.spas.fruit.skeleton.blink",
+    "sounds": [
+      {
+        "name": "spas:fruit/skeleton/blink"
+      }
+    ]
+  },
+  "fruit.skeleton.bone_throw": {
+    "subtitle": "subtitle.spas.fruit.skeleton.bone_throw",
+    "sounds": [
+      {
+        "name": "spas:fruit/skeleton/bone_throw"
+      }
+    ]
+  },
+  "fruit.skeleton.bone_zone": {
+    "subtitle": "subtitle.spas.fruit.skeleton.bone_zone",
+    "sounds": [
+      {
+        "name": "spas:fruit/skeleton/bone_zone"
+      }
+    ]
+  },
+  "fruit.squid.splat": {
+    "subtitle": "subtitle.spas.fruit.squid.splat",
+    "sounds": [
+      {
+        "name": "spas:fruit/squid/splat1",
+        "stream": true
+      },
+      {
+        "name": "spas:fruit/squid/splat2",
+        "stream": true
+      },
+      {
+        "name": "spas:fruit/squid/splat3",
+        "stream": true
+      }
+    ]
+  },
+  "fruit.squid.explosion": {
+    "subtitle": "subtitle.spas.fruit.squid.explosion",
+    "sounds": [
+      {
+        "name": "spas:fruit/squid/explosion"
+      }
+    ]
+  },
+  "fruit.buster.piano": {
+    "subtitle": "subtitle.spas.fruit.buster.piano",
+    "sounds": [
+      {
+        "name": "spas:fruit/buster/piano1",
+        "stream": true
+      },
+      {
+        "name": "spas:fruit/buster/piano2",
+        "stream": true
+      },
+      {
+        "name": "spas:fruit/buster/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "fruit.buster.fire": {
+    "subtitle": "subtitle.spas.fruit.buster.fire",
+    "sounds": [
+      {
+        "name": "spas:fruit/buster/fire"
+      }
+    ]
+  },
+  "fruit.buster.lasso": {
+    "subtitle": "subtitle.spas.fruit.buster.lasso",
+    "sounds": [
+      {
+        "name": "spas:fruit/buster/lasso"
+      }
+    ]
+  },
+  "fruit.buster.cactus_grow": {
+    "subtitle": "subtitle.spas.fruit.buster.cactus_grow",
+    "sounds": [
+      {
+       "name": "spas:fruit/buster/cactus_grow"
+      }
+    ]
+  },
+  "fruit.flower.whip": {
+    "subtitle": "subtitle.spas.fruit.flower.whip",
+    "sounds": [
+      {
+        "name": "spas:fruit/flower/whip"
+      }
+    ]
+  },
+  "fruit.flower.rustle": {
+    "subtitle": "subtitle.spas.fruit.flower.rustle",
+    "sounds": [
+      {
+        "name": "spas:fruit/flower/rustle2",
+        "stream": true
+      },
+      {
+        "name": "spas:fruit/flower/rustle2",
+        "stream": true
+      },
+      {
+        "name": "spas:fruit/flower/rustle3",
+        "stream": true
+      }
+    ]
+  },
+  "fruit.flower.bite": {
+    "subtitle": "subtitle.spas.fruit.flower.bite",
+    "sounds": [
+      {
+        "name": "spas:fruit/flower/bite"
+      }
+    ]
+  },
+  "fruit.rubber.blast": {
+    "subtitle": "subtitle.spas.fruit.rubber.blast",
+    "sounds": [
+      {
+        "name": "spas:fruit/rubber/blast"
+      }
+    ]
+  },
+  "fruit.rubber.slingshot_prime": {
+    "subtitle": "subtitle.spas.fruit.rubber.slingshot_prime",
+    "sounds": [
+      {
+        "name": "spas:fruit/rubber/slingshot_prime"
+      }
+    ]
+  },
+  "fruit.rubber.throw": {
+    "subtitle": "subtitle.spas.fruit.rubber.throw",
+    "sounds": [
+      {
+        "name": "spas:fruit/rubber/throw"
+      }
+    ]
+  },
+  "fruit.spider.cup_breaking": {
+    "subtitle": "subtitle.spas.fruit.spider.cup_breaking",
+    "sounds": [
+      {
+        "name": "spas:fruit/spider/cup_breaking"
+      }
+    ]
+  },
+  "fruit.spider.kettle_breaking": {
+    "subtitle": "subtitle.spas.fruit.spider.kettle_breaking",
+    "sounds": [
+      {
+        "name": "spas:fruit/spider/kettle_breaking"
+      }
+    ]
+  }
+}

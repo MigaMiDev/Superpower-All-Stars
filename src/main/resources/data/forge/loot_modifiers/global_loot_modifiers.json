@@ -1,13 +1,13 @@
 {
   "replace": false,
   "entries": [
-    "nep:firework_fruit_on_shipwreck_treasure",
-    "nep:creeper_fruit_on_simple_dungeon",
-    "nep:squid_fruit_on_guardian",
-    "nep:buster_fruit_on_desert_pyramid",
-    "nep:flower_fruit_on_jungle_temple",
-    "nep:fire_fruit_on_bartering",
-    "nep:rubber_fruit_on_fishing_hut",
-    "nep:spider_fruit_on_abandoned_mineshaft"
+    "spas:firework_fruit_on_shipwreck_treasure",
+    "spas:creeper_fruit_on_simple_dungeon",
+    "spas:squid_fruit_on_guardian",
+    "spas:buster_fruit_on_desert_pyramid",
+    "spas:flower_fruit_on_jungle_temple",
+    "spas:fire_fruit_on_bartering",
+    "spas:rubber_fruit_on_fishing_hut",
+    "spas:spider_fruit_on_abandoned_mineshaft"
   ]
 }

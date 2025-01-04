@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FAF",
+    "ANA",
+    "FAF"
+  ],
+  "key": {
+    "F": {
+      "item": "spas:rubber_fruit"
+    },
+    "A": {
+      "item": "minecraft:golden_apple"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "spas:blessed_rubber_fruit"
+  }
+}

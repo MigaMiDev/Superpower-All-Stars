@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "package": "ttv.migami.spas.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "minVersion": "0.8",
+    "refmap": "spas.refmap.json",
+    "plugin": "ttv.migami.spas.mixin.MixinPlugin",
+    "mixins": [
+    ],
+    "client": [
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

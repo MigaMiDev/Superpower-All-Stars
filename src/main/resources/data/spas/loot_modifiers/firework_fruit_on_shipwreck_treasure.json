@@ -1,0 +1,10 @@
+{
+  "type": "spas:firework_fruit_on_shipwreck_treasure",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_treasure"
+    }
+  ],
+  "item": "spas:firework_fruit"
+}
