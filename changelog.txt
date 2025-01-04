@@ -264,7 +264,7 @@
  - 45.0.2  Fixed patch verifier for cases where patches lowered access levels. Closes #9383
  - 45.0.1  Fix crouching while sprinting stopping the player when step height is modified. Closes #9376
  - 45.0.0  Forge 1.19.4
-           Properly move `ServerStatusPing` to codec
+           Properly action `ServerStatusPing` to codec
            Reimplement custom display contexts
            Co-authored-by: Matyrobbrt <matyrobbrt@gmail.com>
            Co-authored-by: coehlrich <coehlrich@users.noreply.github.com>
@@ -590,7 +590,7 @@
             * remove forge:is_beach cause vanilla has it already
             * remove forge tags for new 1.19 vanilla tags (savanna, beach, overworld, end)
             Co-authored-by: Flemmli97 <Flemmli97@users.noreply.github.com>
- - 41.0.79  1.19 - Remove GlobalLootModifierSerializer and move to Codecs (#8721)
+ - 41.0.79  1.19 - Remove GlobalLootModifierSerializer and action to Codecs (#8721)
             * convert GLM serializer class to codec
             * cleanup
             * GLM list needs to be sorted
@@ -751,7 +751,7 @@
             * Replace sets of chunk render types with a faster BitSet-backed collection
             This largely addresses potential performance concerns that using a plain HashSet might involve by making lookups and iteration as linear as they can likely be (aside from using a plain byte/int/long for bit storage). Further performance concerns related to the implementation may be addressed separately, as all the implementation details are hidden from the end user
             * Requested changes
-            - Remove MinecraftForgeClient and move members to Minecraft, IForgeMinecraft and StencilManager
+            - Remove MinecraftForgeClient and action members to Minecraft, IForgeMinecraft and StencilManager
             - Allow non-default elements to be passed into VertexConsumer and add support to derived classes
             - Move array instantiation out of quad processing in lighting pipeline
             - Fix flipped fluid container model
@@ -916,7 +916,7 @@
             configured to combine the generation from the four FML subprojects
             (fmlloader, fmlcore, javafmllanguage, mclanguage) and the Forge project
             into the javadoc output.
-            * Update docs/md files, for 1.19 update and the move away from IRC to Discord.
+            * Update docs/md files, for 1.19 update and the action away from IRC to Discord.
             * Make "Potentially dangerous alternative prefix" a debug warning, not info.
             Co-authored-by: Curle <curle@gemwire.uk>
             Co-authored-by: sciwhiz12 <arnoldnunag12@gmail.com>

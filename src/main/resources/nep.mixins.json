@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "package": "ttv.migami.nep.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "minVersion": "0.8",
+    "refmap": "nep.refmap.json",
+    "plugin": "ttv.migami.nep.mixin.MixinPlugin",
+    "mixins": [
+    ],
+    "client": [
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

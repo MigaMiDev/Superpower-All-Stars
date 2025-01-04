@@ -1,0 +1,10 @@
+{
+  "type": "nep:spider_fruit_on_abandoned_mineshaft",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/abandoned_mineshaft"
+    }
+  ],
+  "item": "nep:spider_fruit"
+}

@@ -3,32 +3,32 @@ loaderVersion="[40,)"
 license="GNU GPLv3"
 
 [[mods]]
-modId="mdf"
-version="0.3.0"
-displayName="MigaMi's Devil Fruits"
+modId="nep"
+version="0.4.0"
+displayName="Not Enough Powers"
 authors="MigaMi"
-credits="MrCrayfish"
-description="Devil Fruits have arrived!"
+credits=""
+description="Superpowers from your favorite Anime and Videogames!"
 
-[[dependencies.mdf]]
+[[dependencies.nep]]
     modId="forge"
     mandatory=true
     versionRange="[46, 48)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.mdf]]
+[[dependencies.nep]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.20, 1.20.2)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.mdf]]
+[[dependencies.nep]]
     modId="framework"
     mandatory=true
     versionRange="[0.7.0,)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.mdf]]
+[[dependencies.nep]]
     modId="geckolib"
     mandatory=true
     versionRange="[4.4.4,)"

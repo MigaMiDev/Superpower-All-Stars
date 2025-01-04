@@ -1,8 +1,0 @@
-{
-	"credit": "Made with Blockbench",
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "mdf:item/blessed_squid_fruit",
-		"particle": "mdf:item/blessed_squid_fruit"
-	}
-}

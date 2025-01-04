@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "T  ",
+    " EI",
+    " II"
+  ],
+  "key": {
+    "T": {
+      "item": "minecraft:tinted_glass"
+    },
+    "E": {
+      "item": "minecraft:ender_chest"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "nep:debri_vacuum"
+  }
+}

@@ -1,13 +1,13 @@
 {
   "replace": false,
   "entries": [
-    "mdf:firework_fruit_on_shipwreck_treasure",
-    "mdf:creeper_fruit_on_simple_dungeon",
-    "mdf:squid_fruit_on_guardian",
-    "mdf:buster_fruit_on_desert_pyramid",
-    "mdf:flower_fruit_on_jungle_temple",
-    "mdf:fire_fruit_on_bartering",
-    "mdf:rubber_fruit_on_fishing_hut",
-    "mdf:spider_fruit_on_abandoned_mineshaft"
+    "nep:firework_fruit_on_shipwreck_treasure",
+    "nep:creeper_fruit_on_simple_dungeon",
+    "nep:squid_fruit_on_guardian",
+    "nep:buster_fruit_on_desert_pyramid",
+    "nep:flower_fruit_on_jungle_temple",
+    "nep:fire_fruit_on_bartering",
+    "nep:rubber_fruit_on_fishing_hut",
+    "nep:spider_fruit_on_abandoned_mineshaft"
   ]
 }

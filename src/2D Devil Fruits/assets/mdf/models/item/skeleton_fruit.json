@@ -1,8 +1,0 @@
-{
-	"credit": "Made with Blockbench",
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "mdf:item/skeleton_fruit",
-		"particle": "mdf:item/skeleton_fruit"
-	}
-}

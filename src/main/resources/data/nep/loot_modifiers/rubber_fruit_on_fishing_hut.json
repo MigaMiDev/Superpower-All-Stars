@@ -1,0 +1,10 @@
+{
+  "type": "nep:rubber_fruit_on_fishing_hut",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/village/village_fisher"
+    }
+  ],
+  "item": "nep:rubber_fruit"
+}
