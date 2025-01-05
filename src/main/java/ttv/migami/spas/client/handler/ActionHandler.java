@@ -10,20 +10,23 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
 import ttv.migami.jeg.compat.PlayerReviveHelper;
-import ttv.migami.jeg.item.GunItem;
+import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.client.KeyBinds;
-import ttv.migami.spas.common.ActionMode;
-import ttv.migami.spas.common.Fruit;
-import ttv.migami.spas.common.FruitDataHandler;
+import ttv.migami.spas.common.ActionType;
+import ttv.migami.spas.common.*;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.event.FruitFireEvent;
+import ttv.migami.spas.init.ModEffects;
 import ttv.migami.spas.network.PacketHandler;
 import ttv.migami.spas.network.message.C2SMessageAction;
 import ttv.migami.spas.network.message.C2SMessageShooting;
 
+import java.util.List;
+
 public class ActionHandler
 {
     private static ActionHandler instance;
+    private final MoveManager moveManager = new MoveManager();
     private KeyMapping activeKey = KeyBinds.KEY_Z_ACTION;
     private Fruit fruit;
     private Fruit.Action action;
@@ -63,6 +66,8 @@ public class ActionHandler
     public void onKeyPressed(InputEvent.Key event) {
         Player player = Minecraft.getInstance().player;
         if (player == null) return;
+
+        if (this.fruit == null) return;
 
         if (event.getAction() == GLFW.GLFW_PRESS || event.getAction() == GLFW.GLFW_REPEAT) {
             int keyCode = event.getKey();
@@ -146,6 +151,12 @@ public class ActionHandler
         if(FruitDataHandler.getCurrentEffect(player) != null && FruitDataHandler.getCurrentEffect(player) instanceof FruitEffect fruitEffect && !PlayerReviveHelper.isBleeding(player))
         {
             this.fruit = fruitEffect.getFruit();
+            if (FruitDataHandler.getCurrentEffect(player) != null) {
+                if (!player.hasEffect(FruitDataHandler.getCurrentEffect(player))) {
+                    FruitDataHandler.clearCurrentEffect(player);
+                    this.fruit = null;
+                }
+            }
 
             boolean shooting = activeKey.isDown();
 
@@ -186,24 +197,54 @@ public class ActionHandler
             if(PlayerReviveHelper.isBleeding(player))
                 return;
 
+            if (fruit != null) {
+                for (ActionType action : ActionType.values()) {
+                    if (moveManager.getCooldown(action) > 0) {
+                        moveManager.decrementCooldown(action);
+                    }
+                    if (moveManager.getInterval(action) > 0) {
+                        moveManager.decrementInterval(action);
+                    }
+                    if (moveManager.getCooldown(action) == 0 && moveManager.getAmount(action) == 0) {
+                        if (getFruitAction(action) != null) {
+                            moveManager.setAmount(action, getFruitAction(action).getAttackAmount());
+                        }
+                    }
+                }
+            }
+
             if(FruitDataHandler.getCurrentEffect(player) != null && FruitDataHandler.getCurrentEffect(player) instanceof FruitEffect fruitEffect)
             {
                 //if(this.activeKey.isDown())
-                if(mc.options.keyAttack.isDown() && this.action != null && !(player.getMainHandItem().getItem() instanceof GunItem))
-                {
-                    if (this.action.getActionMode() != ActionMode.SINGLE)
-                    {
-                        this.fire(player, fruitEffect, move, amount);
-                        boolean doAutoFire = this.action.getActionMode() == ActionMode.HOLD || this.action.getActionMode() == ActionMode.BURST;
-                        if(!doAutoFire)
+                if(this.action != null) {
+
+                    SuperpowerAllStars.LOGGER.atInfo().log("CurrentMove: " + action.getActionType() + " ZCooldown: " + moveManager.getCooldown(ActionType.Z) + " XCooldown: " + moveManager.getCooldown(ActionType.X) + " CCooldown: " + moveManager.getCooldown(ActionType.C) + " CAmounts: " + moveManager.getAmount(ActionType.C));
+
+                    if(moveManager.getCooldown(action.getActionType()) == 0) {
+                        if(KeyBinds.getShootMapping().isDown())
                         {
-                            mc.options.keyAttack.setDown(false);
-                            resetAllKeys();
+                            if (this.action.getActionMode() != ActionMode.SINGLE)
+                            {
+                                this.fire(player, fruitEffect, move, amount);
+                                boolean doAutoFire = this.action.getActionMode() == ActionMode.HOLD || this.action.getActionMode() == ActionMode.BURST;
+                                if(!doAutoFire)
+                                {
+                                    KeyBinds.getShootMapping().setDown(false);
+                                    resetAllKeys();
+                                }
+                            } else {
+                                this.fire(player, fruitEffect, move, amount);
+                                KeyBinds.getShootMapping().setDown(false);
+                                resetAllKeys();
+                            }
                         }
-                    } else {
-                        this.fire(player, fruitEffect, move, amount);
-                        mc.options.keyAttack.setDown(false);
-                        resetAllKeys();
+                        else
+                        {
+                            if (this.action.getActionMode() != ActionMode.SINGLE && moveManager.getAmount(action.getActionType()) < action.getAttackAmount()) {
+                                moveManager.setCooldown(action.getActionType(), action.getCooldown());
+                                moveManager.setAmount(action.getActionType(), 0);
+                            }
+                        }
                     }
                 }
             }
@@ -214,10 +255,51 @@ public class ActionHandler
     {
         if(player.isSpectator())
             return;
-        if(MinecraftForge.EVENT_BUS.post(new FruitFireEvent.Pre(player, effect, move)))
+        if (player.hasEffect(ModEffects.STUNNED.get()))
             return;
 
-        PacketHandler.getPlayChannel().sendToServer(new C2SMessageAction(player, MobEffect.getId(effect), move, amount));
-        MinecraftForge.EVENT_BUS.post(new FruitFireEvent.Post(player, effect, move));
+        if (moveManager.getInterval(action.getActionType()) == 0 && moveManager.getAmount(action.getActionType()) > 0) {
+            if(MinecraftForge.EVENT_BUS.post(new FruitFireEvent.Pre(player, effect, move)))
+                return;
+
+            moveManager.setRate(action.getActionType(), action.getRate());
+            moveManager.setAmount(action.getActionType(), moveManager.getAmount(action.getActionType()) - 1);
+
+            PacketHandler.getPlayChannel().sendToServer(new C2SMessageAction(player, MobEffect.getId(effect), move, amount));
+            MinecraftForge.EVENT_BUS.post(new FruitFireEvent.Post(player, effect, move));
+        }
+
+        if (moveManager.getAmount(action.getActionType()) == 0) {
+            moveManager.setCooldown(action.getActionType(), action.getCooldown());
+        }
+    }
+
+    public Fruit.Action getFruitAction(ActionType action) {
+        List<Fruit.Action> actions = List.of(
+                fruit.getZAction(),
+                fruit.getXAction(),
+                fruit.getCAction(),
+                fruit.getVAction(),
+                fruit.getRAction()
+        );
+
+        for (Fruit.Action currentAction : actions) {
+            if (currentAction.getActionType().equals(action)) {
+                return currentAction;
+            }
+        }
+        return this.action == null ? null : this.action;
+    }
+
+    public MoveManager getCooldownManager() {
+        return moveManager;
+    }
+
+    public Fruit getFruit() {
+        return this.fruit;
+    }
+
+    public Fruit.Action getAction() {
+        return this.action;
     }
 }

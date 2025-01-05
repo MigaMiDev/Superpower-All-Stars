@@ -26,7 +26,7 @@ public class FireworkFruitEffect extends FruitEffect {
         actions.put(ActionType.X, new Action(5.0F, true, 200, 0, 1, Component.translatable("info.spas.firework_fruit.x_action"), false, false, 0.0F));
         actions.put(ActionType.C, new Action(5.0F, true, 250, 5, 8, Component.translatable("info.spas.firework_fruit.c_action"), false, false, 0.0F));
         actions.put(ActionType.V, new Action(5.0F, true, 300, 4, 24, Component.translatable("info.spas.firework_fruit.v_action"), false, false, 0.0F));
-        actions.put(ActionType.F, new Action(5.0F, false, 150, 0, 1, Component.translatable("info.spas.firework_fruit.r_action"), false, false, 0.0F));
+        actions.put(ActionType.R, new Action(5.0F, false, 150, 0, 1, Component.translatable("info.spas.firework_fruit.r_action"), false, false, 0.0F));
     }
 
     @Override

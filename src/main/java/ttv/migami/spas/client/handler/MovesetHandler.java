@@ -21,7 +21,7 @@ import ttv.migami.spas.init.ModEffects;
 
 import java.util.Locale;
 
-import static ttv.migami.spas.SuperheroAllStars.jegLoaded;
+import static ttv.migami.spas.SuperpowerAllStars.jegLoaded;
 
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public class MovesetHandler {
@@ -65,7 +65,7 @@ public class MovesetHandler {
     private void resetCooldownsAndAmounts() {
         for (ActionType action : ActionType.values()) {
             moveManager.setCooldown(action, 100);
-            moveManager.setInterval(action, 0);
+            moveManager.setRate(action, 0);
             moveManager.setAmount(action, 0);
         }
     }
@@ -81,7 +81,7 @@ public class MovesetHandler {
             case X -> KeyBinds.KEY_X_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
             case C -> KeyBinds.KEY_C_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
             case V -> KeyBinds.KEY_V_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
-            case F -> KeyBinds.KEY_R_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
+            case R -> KeyBinds.KEY_R_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
         };
     }
 
@@ -117,7 +117,7 @@ public class MovesetHandler {
             case X -> KeyBinds.KEY_X_ACTION.isDown() && moveManager.getCooldown(action) == 0;
             case C -> KeyBinds.KEY_C_ACTION.isDown() && moveManager.getCooldown(action) == 0;
             case V -> KeyBinds.KEY_V_ACTION.isDown() && moveManager.getCooldown(action) == 0;
-            case F -> KeyBinds.KEY_R_ACTION.isDown() && moveManager.getCooldown(action) == 0;
+            case R -> KeyBinds.KEY_R_ACTION.isDown() && moveManager.getCooldown(action) == 0;
         } && (actionCanBeHeld(action) || event.getAction() == GLFW.GLFW_PRESS);
     }
 
@@ -131,7 +131,7 @@ public class MovesetHandler {
                     moveManager.getCooldown(action) == 0;
             case V -> !KeyBinds.KEY_V_ACTION.isDown() && moveManager.getAmount(action) != getActionAmount(action) &&
                     moveManager.getCooldown(action) == 0;
-            case F -> !KeyBinds.KEY_R_ACTION.isDown() && moveManager.getAmount(action) != getActionAmount(action) &&
+            case R -> !KeyBinds.KEY_R_ACTION.isDown() && moveManager.getAmount(action) != getActionAmount(action) &&
                     moveManager.getCooldown(action) == 0;
         } && (actionCanBeHeld(action));
     }
@@ -150,7 +150,7 @@ public class MovesetHandler {
             PacketHandler.getPlayChannel().sendToServer(new C2SMessageAction(player, player.getPersistentData().getInt(CURRENT_EFFECT_KEY), action.ordinal()));
             MinecraftForge.EVENT_BUS.post(new FruitFireEvent.Post(player, SuperpowersDataHandler.getCurrentEffect(player), action.ordinal()));
 */
-            moveManager.setInterval(action, getActionInterval(action));
+            moveManager.setRate(action, getActionInterval(action));
             moveManager.setAmount(action, moveManager.getAmount(action) - 1);
         }
         if (moveManager.getAmount(action) == 0) {

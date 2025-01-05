@@ -32,7 +32,7 @@ public class MoveManager {
         return intervals.get(action);
     }
 
-    public void setInterval(ActionType action, int value) {
+    public void setRate(ActionType action, int value) {
         intervals.put(action, value);
     }
 

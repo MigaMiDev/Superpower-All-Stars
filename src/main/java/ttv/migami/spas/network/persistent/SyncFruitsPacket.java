@@ -10,6 +10,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 import ttv.migami.spas.common.FruitDataHandler;
+import ttv.migami.spas.effect.FruitEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,8 @@ public class SyncFruitsPacket {
                 persistentData.put(FruitDataHandler.PREVIOUS_EFFECTS_KEY, listTag);
 
                 MobEffect currentEffect = MobEffect.byId(currentEffectId);
-                if (currentEffect != null && !player.hasEffect(currentEffect)) {
+                if (currentEffect instanceof FruitEffect && !player.hasEffect(currentEffect) &&
+                        player.getEffect(currentEffect) != null && player.getEffect(currentEffect).getDuration() == -1) {
                     player.addEffect(new MobEffectInstance(currentEffect, -1, 0, false, false));
                 }
             }

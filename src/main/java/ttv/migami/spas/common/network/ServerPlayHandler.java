@@ -28,8 +28,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
 import ttv.migami.spas.Config;
-import ttv.migami.spas.SuperheroAllStars;
 import ttv.migami.spas.Reference;
+import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.common.FruitHandler;
 import ttv.migami.spas.common.container.BlessingMenu;
@@ -89,10 +89,10 @@ public class ServerPlayHandler
                 if (handler != null) {
                     handler.handle(player, move, amount);
                 } else {
-                    SuperheroAllStars.LOGGER.atWarn().log("No handler registered for effect: {}", effectId);
+                    SuperpowerAllStars.LOGGER.atWarn().log("No handler registered for effect: {}", effectId);
                 }
             } else {
-                SuperheroAllStars.LOGGER.atWarn().log("Effect ID could not be found for the effect: {}", effect.getDescriptionId());
+                SuperpowerAllStars.LOGGER.atWarn().log("Effect ID could not be found for the effect: {}", effect.getDescriptionId());
             }
 
             MinecraftForge.EVENT_BUS.post(new FruitFireEvent.Post(player, MobEffect.byId(effectID), move));

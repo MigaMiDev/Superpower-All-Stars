@@ -6,14 +6,15 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
+import ttv.migami.spas.effect.FruitEffect;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FruitDataHandler {
 
-    public static final String CURRENT_EFFECT_KEY = "currentPotionEffect";
-    public static final String PREVIOUS_EFFECTS_KEY = "previousPotionEffects";
+    public static final String CURRENT_EFFECT_KEY = "currentFruitPower";
+    public static final String PREVIOUS_EFFECTS_KEY = "previousFruitPowers";
 
     public static void setCurrentEffect(Player player, MobEffect effect) {
         CompoundTag persistentData = player.getPersistentData();
@@ -23,7 +24,10 @@ public class FruitDataHandler {
     public static MobEffect getCurrentEffect(Player player) {
         CompoundTag persistentData = player.getPersistentData();
         int effectId = persistentData.getInt(CURRENT_EFFECT_KEY);
-        return effectId == 0 ? null : MobEffect.byId(effectId);
+        if (MobEffect.byId(effectId) instanceof FruitEffect) {
+            return MobEffect.byId(effectId);
+        }
+        return null;
     }
 
     public static void clearCurrentEffect(Player player) {
@@ -31,6 +35,8 @@ public class FruitDataHandler {
         if (currentEffect != null) {
             player.removeEffect(currentEffect);
         }
+        CompoundTag persistentData = player.getPersistentData();
+        persistentData.putInt(CURRENT_EFFECT_KEY, -1);
     }
 
     public static void addPreviousEffect(Player player, MobEffect effect) {

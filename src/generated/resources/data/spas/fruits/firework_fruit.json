@@ -1,14 +1,19 @@
 {
   "cAction": {
     "actionMode": "spas:hold",
-    "attackAmount": 1,
+    "actionType": "C",
+    "attackAmount": 8,
     "cooldown": 250,
     "damage": 5.0,
     "name": "info.spas.firework_fruit.c_action",
     "rate": 5
   },
+  "general": {
+    "disableSwimming": false
+  },
   "rAction": {
     "actionMode": "spas:single",
+    "actionType": "R",
     "attackAmount": 1,
     "cooldown": 150,
     "damage": 5.0,
@@ -16,6 +21,7 @@
   },
   "vAction": {
     "actionMode": "spas:hold",
+    "actionType": "V",
     "attackAmount": 24,
     "cooldown": 300,
     "damage": 5.0,
@@ -24,6 +30,7 @@
   },
   "xAction": {
     "actionMode": "spas:single",
+    "actionType": "X",
     "attackAmount": 1,
     "cooldown": 200,
     "damage": 5.0,
@@ -32,6 +39,7 @@
   },
   "zAction": {
     "actionMode": "spas:single",
+    "actionType": "Z",
     "attackAmount": 1,
     "cooldown": 160,
     "damage": 5.0,

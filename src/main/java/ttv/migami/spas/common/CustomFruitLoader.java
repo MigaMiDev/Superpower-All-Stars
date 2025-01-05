@@ -13,7 +13,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import ttv.migami.spas.SuperheroAllStars;
+import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.annotation.Validator;
 
@@ -56,12 +56,12 @@ public class CustomFruitLoader extends SimpleJsonResourceReloadListener
                 }
                 else
                 {
-                    SuperheroAllStars.LOGGER.error("Couldn't load data file {} as it is missing or malformed", resourceLocation);
+                    SuperpowerAllStars.LOGGER.error("Couldn't load data file {} as it is missing or malformed", resourceLocation);
                 }
             }
             catch(InvalidObjectException e)
             {
-                SuperheroAllStars.LOGGER.error("Missing required properties for {}", resourceLocation);
+                SuperpowerAllStars.LOGGER.error("Missing required properties for {}", resourceLocation);
                 e.printStackTrace();
             }
             catch(IllegalAccessException e)

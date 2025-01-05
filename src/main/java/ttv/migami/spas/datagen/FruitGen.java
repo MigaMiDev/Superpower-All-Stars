@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.common.ActionMode;
+import ttv.migami.spas.common.ActionType;
 import ttv.migami.spas.common.Fruit;
 
 import java.util.concurrent.CompletableFuture;
@@ -26,23 +27,27 @@ public class FruitGen extends FruitProvider
 
         this.addFruit(new ResourceLocation(Reference.MOD_ID, "firework_fruit"), Fruit.Builder.create()
 
-                .setZAction(Component.translatable("info.spas.firework_fruit.z_action"),
+                // General
+                .setSwimDisabled(false)
+
+                // Moves
+                .setZAction(ActionType.Z, Component.translatable("info.spas.firework_fruit.z_action"),
                         5, ActionMode.SINGLE, 160, 1,1,
                         0.0F, 0.0F, 5.0F)
 
-                .setXAction(Component.translatable("info.spas.firework_fruit.x_action"),
+                .setXAction(ActionType.X, Component.translatable("info.spas.firework_fruit.x_action"),
                         5, ActionMode.SINGLE, 200, 1,1,
                         0.0F, 0.0F, 0.0F)
 
-                .setCAction(Component.translatable("info.spas.firework_fruit.c_action"),
-                        5, ActionMode.HOLD, 250, 5,1,
+                .setCAction(ActionType.C, Component.translatable("info.spas.firework_fruit.c_action"),
+                        5, ActionMode.HOLD, 250, 5,8,
                         0.0F, 0.0F, 0.0F)
 
-                .setVAction(Component.translatable("info.spas.firework_fruit.v_action"),
+                .setVAction(ActionType.V, Component.translatable("info.spas.firework_fruit.v_action"),
                         5, ActionMode.HOLD, 300, 4,24,
                         0.0F, 0.0F, 0.0F)
 
-                .setRAction(Component.translatable("info.spas.firework_fruit.r_action"),
+                .setRAction(ActionType.R, Component.translatable("info.spas.firework_fruit.r_action"),
                         5, ActionMode.SINGLE, 150, 0,1,
                         0.0F, 0.0F, 0.0F)
 

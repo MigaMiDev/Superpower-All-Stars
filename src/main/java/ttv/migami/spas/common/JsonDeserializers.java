@@ -8,6 +8,9 @@ public class JsonDeserializers {
     public static final JsonDeserializer<ResourceLocation> RESOURCE_LOCATION = (json, typeOfT, context) -> {
         return new ResourceLocation(json.getAsString());
     };
+    public static final JsonDeserializer<ActionType> ACTION_TYPE = (json, typeOfT, context) -> {
+        return ActionType.valueOf(json.getAsString());
+    };
     public static final JsonDeserializer<ActionMode> ACTION_MODE = (json, typeOfT, context) -> {
         return ActionMode.getType(ResourceLocation.tryParse(json.getAsString()));
     };

@@ -5,5 +5,5 @@ public enum ActionType {
     X,
     C,
     V,
-    F
+    R
 }

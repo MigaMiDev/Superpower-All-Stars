@@ -21,7 +21,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.Validate;
-import ttv.migami.spas.SuperheroAllStars;
+import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.annotation.Validator;
 import ttv.migami.spas.effect.FruitEffect;
@@ -90,18 +90,18 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
                             }
                             else
                             {
-                                SuperheroAllStars.LOGGER.error("Couldn't load data file {} as it is missing or malformed. Using default fruit data", resourceLocation);
+                                SuperpowerAllStars.LOGGER.error("Couldn't load data file {} as it is missing or malformed. Using default fruit data", resourceLocation);
                                 map.putIfAbsent((FruitEffect) item, new Fruit());
                             }
                         }
                         catch(InvalidObjectException e)
                         {
-                            SuperheroAllStars.LOGGER.error("Missing required properties for {}", resourceLocation);
+                            SuperpowerAllStars.LOGGER.error("Missing required properties for {}", resourceLocation);
                             e.printStackTrace();
                         }
                         catch(IOException e)
                         {
-                            SuperheroAllStars.LOGGER.error("Couldn't parse data file {}", resourceLocation);
+                            SuperpowerAllStars.LOGGER.error("Couldn't parse data file {}", resourceLocation);
                         }
                         catch(IllegalAccessException e)
                         {

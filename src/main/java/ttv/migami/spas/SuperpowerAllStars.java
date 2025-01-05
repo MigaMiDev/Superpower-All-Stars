@@ -55,12 +55,12 @@ import ttv.migami.spas.world.loot.ModLootModifiers;
 import java.util.concurrent.CompletableFuture;
 
 @Mod(Reference.MOD_ID)
-public class SuperheroAllStars {
+public class SuperpowerAllStars {
     public static boolean debugging = false;
     public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
     public static boolean jegLoaded = false;
 
-    public SuperheroAllStars() {
+    public SuperpowerAllStars() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
         //ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec);

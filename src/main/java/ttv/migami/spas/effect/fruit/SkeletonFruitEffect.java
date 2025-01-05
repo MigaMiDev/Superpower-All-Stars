@@ -27,7 +27,7 @@ public class SkeletonFruitEffect extends FruitEffect {
         actions.put(ActionType.X, new Action(5.0F, false, 200, 0, 2, Component.translatable("info.spas.skeleton_fruit.x_action"), false, false, 0.0F));
         actions.put(ActionType.C, new Action(5.0F, false, 400, 0, 1, Component.translatable("info.spas.skeleton_fruit.c_action"), false, false, 0.0F));
         actions.put(ActionType.V, new Action(5.0F, false, 600, 0, 1, Component.translatable("info.spas.skeleton_fruit.v_action"), false, false, 0.0F));
-        actions.put(ActionType.F, new Action(0.0F, false, 120, 0, 1, Component.translatable("info.spas.skeleton_fruit.r_action"), false, false, 0.0F));
+        actions.put(ActionType.R, new Action(0.0F, false, 120, 0, 1, Component.translatable("info.spas.skeleton_fruit.r_action"), false, false, 0.0F));
     }
 
     @Override

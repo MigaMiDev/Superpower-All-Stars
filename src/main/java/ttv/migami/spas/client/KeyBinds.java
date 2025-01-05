@@ -1,8 +1,10 @@
 package ttv.migami.spas.client;
 
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import org.lwjgl.glfw.GLFW;
+import ttv.migami.jeg.Config;
 
 /**
  * Author: MrCrayfish
@@ -24,5 +26,11 @@ public class KeyBinds
         event.register(KEY_V_ACTION);
         event.register(KEY_R_ACTION);
         event.register(BLESSING_MENU);
+    }
+
+    public static KeyMapping getShootMapping()
+    {
+        Minecraft mc = Minecraft.getInstance();
+        return Config.CLIENT.controls.flipControls.get() ? mc.options.keyAttack : mc.options.keyUse;
     }
 }

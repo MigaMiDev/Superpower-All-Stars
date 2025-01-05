@@ -24,8 +24,8 @@ import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.spas.Config;
-import ttv.migami.spas.SuperheroAllStars;
 import ttv.migami.spas.Reference;
+import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.effect.FruitEffect;
@@ -53,24 +53,30 @@ public class FruitPassivesEvent {
             ServerPlayHandler.syncToClient((ServerPlayer) player);
             MobEffect currentEffect = FruitDataHandler.getCurrentEffect(player);
 
-            if (currentEffect != null && player.getEffect(currentEffect) != null && player.getEffect(currentEffect).getDuration() == -1) {
-                player.addEffect(new MobEffectInstance(currentEffect, -1, 0, false, false));
-            }
+            if (currentEffect instanceof FruitEffect) {
+                if (player.getEffect(currentEffect) != null && player.getEffect(currentEffect).getDuration() == -1) {
+                    player.addEffect(new MobEffectInstance(currentEffect, -1, 0, false, false));
+                }
+                if (!player.hasEffect(currentEffect)) {
+                    FruitDataHandler.clearCurrentEffect(player);
+                }
 
-            for (MobEffectInstance effect : player.getActiveEffects()) {
-                if (effect.getEffect() instanceof FruitEffect) {
+                if (((FruitEffect) currentEffect).getFruit().getGeneral().isSwimDisabled()) {
                     if (!(player.hasEffect(ModEffects.SQUID_FRUIT.get())) &&
                             player.isInWater() && !Config.COMMON.gameplay.noSwimming.get() &&
                             (serverLevel.getBlockState(player.getOnPos().below()).is(Blocks.WATER) || player.isUnderWater())) {
                         if (player.getRandom().nextDouble() < 0.06) {
                             throwPlayerDownward(player, 0.2);
                             serverLevel.sendParticles(ParticleTypes.BUBBLE, player.getX(), player.getY(), player.getZ(), 10, player.getBbWidth(), player.getBbHeight(), player.getBbWidth(), 0.1);
-                            serverLevel.playSound(null, player.getOnPos(), SoundEvents.PLAYER_SWIM, SoundSource.PLAYERS, 1, 1);
+                            serverLevel.playSound(null, player.getOnPos(), SoundEvents.PLAYER_SWIM, SoundSource.PLAYERS, 0.5F, 1);
+                            serverLevel.playSound(null, player.getOnPos(), SoundEvents.BUBBLE_COLUMN_WHIRLPOOL_AMBIENT, SoundSource.PLAYERS, 1, 1);
+                            //serverLevel.playSound(null, player.getOnPos(), SoundEvents.BUBBLE_COLUMN_WHIRLPOOL_INSIDE, SoundSource.PLAYERS, 1, 1);
                             ServerPlayHandler.mediumFoodExhaustion(player);
                         }
                         player.displayClientMessage(Component.translatable("chat.spas.no_swimming").withStyle(ChatFormatting.RED), true);
                         ServerPlayHandler.applyHunger(player);
-                        player.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), 40, 0));
+                        player.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), 10, 0));
+                        player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 10, 0));
                     }
                 }
             }
@@ -182,7 +188,7 @@ public class FruitPassivesEvent {
     public static void onServerStartup(ServerStoppingEvent event) {
         MinecraftServer server = event.getServer();
 
-        SuperheroAllStars.LOGGER.atInfo().log("Cleaning debri!");
+        SuperpowerAllStars.LOGGER.atInfo().log("Cleaning debri!");
 
         for (ServerLevel level : server.getAllLevels()) {
             for (Entity entity : level.getAllEntities()) {
@@ -199,7 +205,7 @@ public class FruitPassivesEvent {
     public static void onServerStartup(ServerStoppedEvent event) {
         MinecraftServer server = event.getServer();
 
-        SuperheroAllStars.LOGGER.atInfo().log("Making sure debri is no more!");
+        SuperpowerAllStars.LOGGER.atInfo().log("Making sure debri is no more!");
 
         for (ServerLevel level : server.getAllLevels()) {
             for (Entity entity : level.getAllEntities()) {

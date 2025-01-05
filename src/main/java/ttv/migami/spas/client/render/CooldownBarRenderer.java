@@ -13,10 +13,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.spas.Config;
 import ttv.migami.spas.Reference;
-import ttv.migami.spas.client.handler.MovesetHandler;
+import ttv.migami.spas.client.handler.ActionHandler;
+import ttv.migami.spas.common.ActionMode;
 import ttv.migami.spas.common.ActionType;
+import ttv.migami.spas.common.Fruit;
 import ttv.migami.spas.common.MoveManager;
-import ttv.migami.spas.effect.Action;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -55,15 +56,15 @@ public class CooldownBarRenderer {
         Player player = minecraft.player;
         if (player == null) return;
 
-        MovesetHandler movesetHandler = MovesetHandler.get();
+        ActionHandler movesetHandler = ActionHandler.get();
         MoveManager moveManager = movesetHandler.getCooldownManager();
 
         int x = minecraft.getWindow().getGuiScaledWidth() - BAR_WIDTH - PADDING + Config.CLIENT.display.displayCooldownGUIXOffset.get();
         int y = minecraft.getWindow().getGuiScaledHeight() - (BAR_HEIGHT * 5) - (PADDING * 5);
 
-        if (movesetHandler.effect != null) {
+        if (movesetHandler.getFruit() != null) {
             for (ActionType action : ActionType.values()) {
-                Action effectAction = movesetHandler.effect.getAction(action);
+                Fruit.Action effectAction = movesetHandler.getFruitAction(action);
                 int cooldown = moveManager.getCooldown(action);
                 int interval = moveManager.getInterval(action);
                 int amount = moveManager.getAmount(action);
@@ -71,18 +72,16 @@ public class CooldownBarRenderer {
                 int attackAmount = moveManager.getAmount(action);
                 MutableComponent name = effectAction.getName();
 
-                if (!effectAction.isDisabled()) {
-                    if (cooldown > 0 || Config.CLIENT.display.vanishCooldownGUI.get()) {
-                        fadeTimers.put(action, FADE_OUT_TIME);
-                        drawCooldownBar(event.getGuiGraphics(), x, yPositions.get(action) + Config.CLIENT.display.displayCooldownGUIYOffset.get(), cooldown, maxCooldown, name, 255);
-                    } else if (fadeTimers.get(action) > 0) {
-                        int alpha = (int) (255 * (fadeTimers.get(action) / (float) FADE_OUT_TIME));
-                        drawCooldownBar(event.getGuiGraphics(), x, yPositions.get(action) + Config.CLIENT.display.displayCooldownGUIYOffset.get(), 0, maxCooldown, name, alpha);
-                    }
+                if (cooldown > 0 || Config.CLIENT.display.vanishCooldownGUI.get()) {
+                    fadeTimers.put(action, FADE_OUT_TIME);
+                    drawCooldownBar(event.getGuiGraphics(), x, yPositions.get(action) + Config.CLIENT.display.displayCooldownGUIYOffset.get(), cooldown, maxCooldown, name, 255);
+                } else if (fadeTimers.get(action) > 0) {
+                    int alpha = (int) (255 * (fadeTimers.get(action) / (float) FADE_OUT_TIME));
+                    drawCooldownBar(event.getGuiGraphics(), x, yPositions.get(action) + Config.CLIENT.display.displayCooldownGUIYOffset.get(), 0, maxCooldown, name, alpha);
+                }
 
-                    if (!effectAction.canBeHeld() && attackAmount > 0 && effectAction.getAttackAmount() > 1) {
-                        drawSegmentedBar(event.getGuiGraphics(), x, yPositions.get(action) + Config.CLIENT.display.displayCooldownGUIYOffset.get(), attackAmount, effectAction.getAttackAmount(), name, 255);
-                    }
+                if (!effectAction.getActionMode().equals(ActionMode.HOLD) && attackAmount > 0 && effectAction.getAttackAmount() > 1) {
+                    drawSegmentedBar(event.getGuiGraphics(), x, yPositions.get(action) + Config.CLIENT.display.displayCooldownGUIYOffset.get(), attackAmount, effectAction.getAttackAmount(), name, 255);
                 }
             }
         }

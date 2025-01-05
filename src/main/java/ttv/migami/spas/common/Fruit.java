@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 import ttv.migami.jeg.annotation.Optional;
@@ -12,19 +13,69 @@ import ttv.migami.spas.annotation.Ignored;
 
 public class Fruit implements INBTSerializable<CompoundTag>
 {
+    protected General general = new General();
     protected ZAction zAction = new ZAction();
     protected XAction xAction = new XAction();
     protected CAction cAction = new CAction();
     protected VAction vAction = new VAction();
     protected RAction rAction = new RAction();
 
+    public General getGeneral() { return this.general; }
     public ZAction getZAction() { return this.zAction; }
     public XAction getXAction() { return this.xAction; }
     public CAction getCAction() { return this.cAction; }
     public VAction getVAction() { return this.vAction; }
     public RAction getRAction() { return this.rAction; }
 
+    public static class General implements INBTSerializable<CompoundTag>
+    {
+        private boolean disableSwimming = false;
+
+        @Override
+        public CompoundTag serializeNBT()
+        {
+            CompoundTag tag = new CompoundTag();
+            tag.putBoolean("DisableSwimming", this.disableSwimming);
+            return tag;
+        }
+
+        @Override
+        public void deserializeNBT(CompoundTag tag)
+        {
+            if(tag.contains("DisableSwimming", Tag.TAG_ANY_NUMERIC))
+            {
+                this.disableSwimming = tag.getBoolean("DisableSwimming");
+            }
+        }
+
+        public JsonObject toJsonObject()
+        {
+            JsonObject object = new JsonObject();
+            object.addProperty("disableSwimming", this.disableSwimming);
+            return object;
+        }
+
+        /**
+         * @return A copy of the general get
+         */
+        public General copy()
+        {
+            General general = new General();
+            general.disableSwimming = this.disableSwimming;
+            return general;
+        }
+
+        /**
+         * @return If true, the user will not be able to swim with this Fruit
+         */
+        public boolean isSwimDisabled()
+        {
+            return this.disableSwimming;
+        }
+    }
+    
     public static class Action implements INBTSerializable<CompoundTag> {
+        protected ActionType actionType = ActionType.Z;
         protected Component name = Component.literal("");
         protected float damage;
         @Ignored
@@ -39,7 +90,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
         @Optional
         protected float recoilKick = 0.0F;
 
-        public Action(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+        public Action(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.actionType = actionType;
             this.name = name;
             this.damage = damage;
             this.actionMode = actionMode;
@@ -57,6 +109,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
         @Override
         public CompoundTag serializeNBT() {
             CompoundTag tag = new CompoundTag();
+            tag.putString("ActionType", this.actionType.toString());
             tag.putString("Name", this.name.getString());
             tag.putFloat("Damage", this.damage);
             tag.putString("ActionMode", this.actionMode.getId().toString());
@@ -71,6 +124,10 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
         @Override
         public void deserializeNBT(CompoundTag tag) {
+            if(tag.contains("ActionType", Tag.TAG_STRING))
+            {
+                this.actionType = ActionType.valueOf(tag.getString("ActionMode"));
+            }
             if(tag.contains("Name", Tag.TAG_STRING))
             {
                 this.name = Component.translatable(tag.getString("Name"));
@@ -112,6 +169,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
         public JsonObject toJsonObject() {
             Preconditions.checkArgument(this.damage > 0, "Damage must be more than zero");
             JsonObject object = new JsonObject();
+            object.addProperty("actionType", this.actionType.toString());
             object.addProperty("name", this.name.getString());
             object.addProperty("damage", this.damage);
             object.addProperty("actionMode", this.actionMode.getId().toString());
@@ -126,6 +184,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
         public Action copy() {
             Action action = new Action();
+            action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
             action.actionMode = this.actionMode;
@@ -138,8 +197,12 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return action;
         }
 
-        public Component getName() {
-            return this.name;
+        public ActionType getActionType() {
+            return this.actionType;
+        }
+
+        public MutableComponent getName() {
+            return (MutableComponent) this.name;
         }
 
         public float getDamage() {
@@ -188,8 +251,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
     }
 
     public static class ZAction extends Action {
-        public ZAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            super(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public ZAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            super(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
         }
 
         public ZAction() {
@@ -197,6 +260,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
         public ZAction copy() {
             ZAction action = new ZAction();
+            action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
             action.actionMode = this.actionMode;
@@ -209,7 +273,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return action;
         }
 
-        public void setValues(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+        public void setValues(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.actionType = actionType;
             this.name = name;
             this.damage = damage;
             this.actionMode = actionMode;
@@ -223,8 +288,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
     }
 
     public static class XAction extends Action {
-        public XAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            super(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public XAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            super(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
         }
 
         public XAction() {
@@ -232,6 +297,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
         public XAction copy() {
             XAction action = new XAction();
+            action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
             action.actionMode = this.actionMode;
@@ -244,7 +310,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return action;
         }
 
-        public void setValues(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+        public void setValues(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.actionType = actionType;
             this.name = name;
             this.damage = damage;
             this.actionMode = actionMode;
@@ -258,8 +325,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
     }
 
     public static class CAction extends Action {
-        public CAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            super(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public CAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            super(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
         }
 
         public CAction() {
@@ -267,6 +334,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
         public CAction copy() {
             CAction action = new CAction();
+            action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
             action.actionMode = this.actionMode;
@@ -279,7 +347,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return action;
         }
 
-        public void setValues(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+        public void setValues(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.actionType = actionType;
             this.name = name;
             this.damage = damage;
             this.actionMode = actionMode;
@@ -293,8 +362,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
     }
 
     public static class VAction extends Action {
-        public VAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            super(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public VAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            super(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
         }
 
         public VAction() {
@@ -302,6 +371,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
         public VAction copy() {
             VAction action = new VAction();
+            action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
             action.actionMode = this.actionMode;
@@ -314,7 +384,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return action;
         }
 
-        public void setValues(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+        public void setValues(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.actionType = actionType;
             this.name = name;
             this.damage = damage;
             this.actionMode = actionMode;
@@ -328,8 +399,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
     }
 
     public static class RAction extends Action {
-        public RAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            super(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public RAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            super(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
         }
 
         public RAction() {
@@ -337,6 +408,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
         public RAction copy() {
             RAction action = new RAction();
+            action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
             action.actionMode = this.actionMode;
@@ -349,7 +421,8 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return action;
         }
 
-        public void setValues(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+        public void setValues(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.actionType = actionType;
             this.name = name;
             this.damage = damage;
             this.actionMode = actionMode;
@@ -365,6 +438,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
+        tag.put("General", this.general.serializeNBT());
         tag.put("ZAction", this.zAction.serializeNBT());
         tag.put("XAction", this.xAction.serializeNBT());
         tag.put("CAction", this.cAction.serializeNBT());
@@ -375,6 +449,10 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
     @Override
     public void deserializeNBT(CompoundTag tag) {
+        if(tag.contains("General", Tag.TAG_COMPOUND))
+        {
+            this.general.deserializeNBT(tag.getCompound("General"));
+        }
         if (tag.contains("ZAction", Tag.TAG_COMPOUND)) {
             this.zAction.deserializeNBT(tag.getCompound("ZAction"));
         }
@@ -394,6 +472,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
     public JsonObject toJsonObject() {
         JsonObject object = new JsonObject();
+        object.add("general", this.general.toJsonObject());
         object.add("zAction", this.zAction.toJsonObject());
         object.add("xAction", this.xAction.toJsonObject());
         object.add("cAction", this.cAction.toJsonObject());
@@ -410,6 +489,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
 
     public Fruit copy() {
         Fruit fruit = new Fruit();
+        fruit.general = this.general.copy();
         fruit.zAction = this.zAction.copy();
         fruit.xAction = this.xAction.copy();
         fruit.cAction = this.cAction.copy();
@@ -433,28 +513,34 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return this.fruit.copy(); // Copy since the builder could be used again
         }
 
-        public Builder setZAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            this.fruit.zAction.setValues(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public Builder setSwimDisabled(boolean swimDisabled)
+        {
+            this.fruit.general.disableSwimming = swimDisabled;
             return this;
         }
 
-        public Builder setXAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            this.fruit.xAction.setValues(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public Builder setZAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.fruit.zAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
             return this;
         }
 
-        public Builder setCAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            this.fruit.cAction.setValues(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public Builder setXAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.fruit.xAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
             return this;
         }
 
-        public Builder setVAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            this.fruit.vAction.setValues(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public Builder setCAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.fruit.cAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
             return this;
         }
 
-        public Builder setRAction(Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
-            this.fruit.rAction.setValues(name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+        public Builder setVAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.fruit.vAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
+            return this;
+        }
+
+        public Builder setRAction(ActionType actionType, Component name, float damage, ActionMode actionMode, int cooldown, int rate, int attackAmount, float shooterPushback, float recoilAngle, float recoilKick) {
+            this.fruit.rAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, shooterPushback, recoilAngle, recoilKick);
             return this;
         }
     }

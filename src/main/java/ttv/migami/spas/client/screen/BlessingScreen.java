@@ -119,7 +119,7 @@ public class BlessingScreen extends AbstractContainerScreen<BlessingMenu> {
             String modId = ForgeRegistries.ITEMS.getKey(this.displayStack.getItem()).getNamespace();
             String modName = ModList.get().getModContainerById(modId)
                     .map(container -> container.getModInfo().getDisplayName())
-                    .orElse("spas: Add-on");
+                    .orElse("SPAS: Add-on");
 
             //int effectDisplayY = (int) (0.1 * this.height);
             int effectDisplayY = (int) (0.15 * this.height);
