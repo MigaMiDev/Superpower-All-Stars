@@ -3,6 +3,7 @@ package ttv.migami.spas.client.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -21,30 +22,32 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.client.util.RenderUtil;
-import ttv.migami.spas.common.container.BlessingMenu;
+import ttv.migami.spas.common.container.PermanentFruitsMenu;
 import ttv.migami.spas.item.FruitItem;
 import ttv.migami.spas.network.PacketHandler;
-import ttv.migami.spas.network.message.C2SSwapBlessing;
+import ttv.migami.spas.network.message.C2SMessageFruitScreen;
+import ttv.migami.spas.network.message.C2SSwapPermanentFruit;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class BlessingScreen extends AbstractContainerScreen<BlessingMenu> {
+public class PermanentFruitsScreen extends AbstractContainerScreen<PermanentFruitsMenu> {
+    private static final ResourceLocation GUI_TEXTURES = new ResourceLocation(Reference.MOD_ID, "textures/gui/fruit_menu.png");
+
     private int currentEffectIndex = 0;
     private List<MobEffect> fruitEffects;
     private ItemStack displayStack;
     private int previousEffectIndex = -1;
-    private BlessingMenu blessingMenu;
+    private PermanentFruitsMenu permanentFruitsMenu;
 
     private float displayedIndex = 0f;
     private int targetEffectIndex = 0;
     private final float transitionSpeed = 0.1f;
 
-    public BlessingScreen(BlessingMenu blessingMenu, Inventory playerInventory, Component title) {
-        super(blessingMenu, playerInventory, title);
-        this.blessingMenu = blessingMenu;
-        this.fruitEffects = this.blessingMenu.getFruitEffects();
-
-        //DevilFruits.LOGGER.info("BlessingScreen - fruitEffects received from BlessingMenu: {}", fruitEffects);
+    public PermanentFruitsScreen(PermanentFruitsMenu permanentFruitsMenu, Inventory playerInventory, Component title) {
+        super(permanentFruitsMenu, playerInventory, title);
+        this.permanentFruitsMenu = permanentFruitsMenu;
+        this.fruitEffects = this.permanentFruitsMenu.getFruitEffects();
     }
 
     @Override
@@ -54,37 +57,52 @@ public class BlessingScreen extends AbstractContainerScreen<BlessingMenu> {
 
     @Override
     protected void init() {
-
         int buttonWidth = 20;
         int buttonHeight = 20;
         int swapButtonWidth = 80;
         int swapButtonHeight = 20;
+        int permButtonWidth = 100;
+        int permButtonHeight = 20;
 
         int buttonOffsetX = (int) (0.2 * this.width);
         int centerY = this.height / 2;
-        int effectDisplayOffsetY = (int) (0.1 * this.height);
+        int effectDisplayOffsetY = (int) (0.15 * this.height);
+
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.spas.current_fruit"), button -> {
+            this.currentFruitScreen();
+        }).pos(buttonOffsetX - (permButtonWidth / 2), effectDisplayOffsetY + 3).size(permButtonWidth, permButtonHeight).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("<"), button -> {
-            currentEffectIndex = (currentEffectIndex - 1 + fruitEffects.size()) % fruitEffects.size();
-            updateFruit();
+            if (!fruitEffects.isEmpty()) {
+                currentEffectIndex = (currentEffectIndex - 1 + fruitEffects.size()) % fruitEffects.size();
+                updateFruit();
+            }
         }).pos(buttonOffsetX, centerY).size(buttonWidth, buttonHeight).build());
 
         this.addRenderableWidget(Button.builder(Component.literal(">"), button -> {
-            currentEffectIndex = (currentEffectIndex + 1) % fruitEffects.size();
-            updateFruit();
+            if (!fruitEffects.isEmpty()) {
+                currentEffectIndex = (currentEffectIndex + 1) % fruitEffects.size();
+                updateFruit();
+            }
         }).pos(this.width - buttonOffsetX - buttonWidth, centerY).size(buttonWidth, buttonHeight).build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.spas.choose_blessing"), button -> {
-            MobEffect selectedEffect = fruitEffects.get(currentEffectIndex);
-            this.swapToEffect(selectedEffect);
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.spas.choose_fruit"), button -> {
+            if (!fruitEffects.isEmpty()) {
+                MobEffect selectedEffect = fruitEffects.get(currentEffectIndex);
+                this.swapToEffect(selectedEffect);
+            }
         }).pos((this.width - swapButtonWidth) / 2, (int) ((centerY * 1.5) + (int) (buttonHeight * 1.5))).size(swapButtonWidth, swapButtonHeight).build());
 
         updateFruit();
     }
 
+    private void currentFruitScreen() {
+        PacketHandler.getPlayChannel().sendToServer(new C2SMessageFruitScreen());
+    }
+
     private void swapToEffect(MobEffect effect) {
         if (effect != null) {
-            PacketHandler.getPlayChannel().sendToServer(new C2SSwapBlessing(MobEffect.getId(effect)));
+            PacketHandler.getPlayChannel().sendToServer(new C2SSwapPermanentFruit(MobEffect.getId(effect)));
         } else {
             LogUtils.getLogger().error("No matching FruitType found for effect: {}", effect.getDescriptionId());
         }
@@ -111,20 +129,26 @@ public class BlessingScreen extends AbstractContainerScreen<BlessingMenu> {
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int mouseX, int mouseY) {
-        MobEffect effect = fruitEffects.get(currentEffectIndex);
+        if (!fruitEffects.isEmpty()) {
+            MobEffect effect = fruitEffects.get(currentEffectIndex);
 
-        if (this.displayStack.getItem() instanceof FruitItem) {
+            if (this.displayStack.getItem() instanceof FruitItem) {
+                int centerX = this.width / 2;
+
+                String modId = ForgeRegistries.ITEMS.getKey(this.displayStack.getItem()).getNamespace();
+                String modName = ModList.get().getModContainerById(modId)
+                        .map(container -> container.getModInfo().getDisplayName())
+                        .orElse("SPAS: Add-on");
+
+                //int effectDisplayY = (int) (0.1 * this.height);
+                int effectDisplayY = (int) (0.15 * this.height);
+                pGuiGraphics.drawCenteredString(this.font, effect.getDisplayName(), centerX, effectDisplayY + 3, this.displayStack.getRarity().color.getColor());
+                pGuiGraphics.drawCenteredString(this.font, modName, centerX, effectDisplayY + 15, 6843377);
+            }
+        } else {
             int centerX = this.width / 2;
-
-            String modId = ForgeRegistries.ITEMS.getKey(this.displayStack.getItem()).getNamespace();
-            String modName = ModList.get().getModContainerById(modId)
-                    .map(container -> container.getModInfo().getDisplayName())
-                    .orElse("SPAS: Add-on");
-
-            //int effectDisplayY = (int) (0.1 * this.height);
-            int effectDisplayY = (int) (0.15 * this.height);
-            pGuiGraphics.drawCenteredString(this.font, effect.getDisplayName(), centerX, effectDisplayY + 3, this.displayStack.getRarity().color.getColor());
-            pGuiGraphics.drawCenteredString(this.font, modName, centerX, effectDisplayY + 15, 6843377);
+            int centerY = this.height / 2;
+            pGuiGraphics.drawCenteredString(this.font, Component.translatable("gui.spas.empty_permanent_fruits"), centerX, centerY, 16777215);
         }
     }
 
@@ -134,7 +158,8 @@ public class BlessingScreen extends AbstractContainerScreen<BlessingMenu> {
 
         int centerX = this.width / 2;
         int centerY = this.height / 2;
-
+        int effectDisplayOffsetY = (int) (0.15 * this.height);
+        int offSet = (int) (0.2 * this.width);
 
         float itemSize = this.width / 20.0f;
         int separation = (int) (0.1 * this.width);
@@ -155,6 +180,21 @@ public class BlessingScreen extends AbstractContainerScreen<BlessingMenu> {
             ItemStack nextItemStack = getItemStackForEffect(fruitEffects.get(nextEffectIndex));
             renderItem(graphics, (int) (centerX + separation * 1.75), centerY, nextItemStack, 30, itemSize * 2, true);
         }
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+        if(RenderUtil.isMouseWithin(mouseX, mouseY, this.width - 30 - offSet, effectDisplayOffsetY, 39, 22)) {
+            graphics.renderComponentTooltip(this.font, Arrays.asList(Component.translatable("cutesy.spas.thanks"), Component.literal("- MigaMi ♡").withStyle(ChatFormatting.BLUE)), mouseX, mouseY);
+        }
+    }
+
+    @Override
+    protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
+        renderBackground(guiGraphics);
+
+        int effectDisplayOffsetY = (int) (0.15 * this.height);
+        int offSet = (int) (0.2 * this.width);
+
+        guiGraphics.blit(GUI_TEXTURES, this.width - 30 - offSet, effectDisplayOffsetY + 3, 0, 0, 39, 22);
     }
 
     private ItemStack getItemStackForEffect(MobEffect effectInstance) {
@@ -188,11 +228,6 @@ public class BlessingScreen extends AbstractContainerScreen<BlessingMenu> {
         }
         modelViewStack.popPose();
         RenderSystem.applyModelViewMatrix();
-    }
-
-    @Override
-    protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
-        renderBackground(guiGraphics);
     }
 
     @Override

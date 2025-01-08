@@ -17,8 +17,9 @@ public class PacketHandler
                 .registerPlayMessage(C2SMessageAction.class, MessageDirection.PLAY_SERVER_BOUND)
                 .registerPlayMessage(C2SMessageShooting.class, MessageDirection.PLAY_SERVER_BOUND)
                 .registerPlayMessage(C2SFruitMessage.class, MessageDirection.PLAY_SERVER_BOUND)
-                .registerPlayMessage(C2SSwapBlessing.class, MessageDirection.PLAY_SERVER_BOUND)
-                .registerPlayMessage(C2SMessageBlessings.class, MessageDirection.PLAY_SERVER_BOUND)
+                .registerPlayMessage(C2SSwapPermanentFruit.class, MessageDirection.PLAY_SERVER_BOUND)
+                .registerPlayMessage(C2SMessageFruitScreen.class, MessageDirection.PLAY_SERVER_BOUND)
+                .registerPlayMessage(C2SMessagePermanentFruitsScreen.class, MessageDirection.PLAY_SERVER_BOUND)
                 .registerPlayMessage(S2CMessageUpdateFruits.class, MessageDirection.PLAY_CLIENT_BOUND)
                 .build();
     }

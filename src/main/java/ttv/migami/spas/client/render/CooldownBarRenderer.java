@@ -3,6 +3,7 @@ package ttv.migami.spas.client.render;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -14,10 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 import ttv.migami.spas.Config;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.client.handler.ActionHandler;
-import ttv.migami.spas.common.ActionMode;
-import ttv.migami.spas.common.ActionType;
-import ttv.migami.spas.common.Fruit;
-import ttv.migami.spas.common.MoveManager;
+import ttv.migami.spas.common.*;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -62,7 +60,7 @@ public class CooldownBarRenderer {
         int x = minecraft.getWindow().getGuiScaledWidth() - BAR_WIDTH - PADDING + Config.CLIENT.display.displayCooldownGUIXOffset.get();
         int y = minecraft.getWindow().getGuiScaledHeight() - (BAR_HEIGHT * 5) - (PADDING * 5);
 
-        if (movesetHandler.getFruit() != null) {
+        if (movesetHandler.getFruit() != null && FruitDataHandler.getCurrentEffect(player) != null) {
             for (ActionType action : ActionType.values()) {
                 Fruit.Action effectAction = movesetHandler.getFruitAction(action);
                 int cooldown = moveManager.getCooldown(action);
@@ -70,7 +68,8 @@ public class CooldownBarRenderer {
                 int amount = moveManager.getAmount(action);
                 int maxCooldown = effectAction.getCooldown();
                 int attackAmount = moveManager.getAmount(action);
-                MutableComponent name = effectAction.getName();
+                String actionName = effectAction.getName();
+                MutableComponent name = Component.translatable(actionName);
 
                 if (cooldown > 0 || Config.CLIENT.display.vanishCooldownGUI.get()) {
                     fadeTimers.put(action, FADE_OUT_TIME);

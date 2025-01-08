@@ -20,12 +20,13 @@ import ttv.migami.spas.Reference;
 import ttv.migami.spas.client.handler.ActionHandler;
 import ttv.migami.spas.client.handler.FruitRecoilHandler;
 import ttv.migami.spas.client.handler.MovesetHandler;
-import ttv.migami.spas.client.screen.BlessingScreen;
+import ttv.migami.spas.client.screen.FruitScreen;
+import ttv.migami.spas.client.screen.PermanentFruitsScreen;
 import ttv.migami.spas.init.ModContainers;
 import ttv.migami.spas.init.ModItems;
 import ttv.migami.spas.item.FruitItem;
 import ttv.migami.spas.network.PacketHandler;
-import ttv.migami.spas.network.message.C2SMessageBlessings;
+import ttv.migami.spas.network.message.C2SMessageFruitScreen;
 
 import java.lang.reflect.Field;
 
@@ -44,7 +45,8 @@ public class ClientHandler {
     }
 
     private static void registerScreenFactories() {
-        MenuScreens.register(ModContainers.BLESSINGS.get(), BlessingScreen::new);
+        MenuScreens.register(ModContainers.PERMANENT_FRUITS.get(), PermanentFruitsScreen::new);
+        MenuScreens.register(ModContainers.FRUIT_MENU.get(), FruitScreen::new);
     }
 
     @SubscribeEvent
@@ -91,8 +93,9 @@ public class ClientHandler {
 
     @SubscribeEvent
     public static void onKeyPressed(InputEvent.Key event) {
-        if (KeyBinds.BLESSING_MENU.isDown()) {
-            PacketHandler.getPlayChannel().sendToServer(new C2SMessageBlessings());
+        if (KeyBinds.FRUIT_MENU.isDown()) {
+            //PacketHandler.getPlayChannel().sendToServer(new C2SMessagePermanentFruitsScreen());
+            PacketHandler.getPlayChannel().sendToServer(new C2SMessageFruitScreen());
         }
     }
 

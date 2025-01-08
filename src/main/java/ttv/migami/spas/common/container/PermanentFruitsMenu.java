@@ -10,15 +10,15 @@ import ttv.migami.spas.init.ModContainers;
 
 import java.util.List;
 
-public class BlessingMenu extends AbstractContainerMenu {
+public class PermanentFruitsMenu extends AbstractContainerMenu {
     private final List<MobEffect> fruitEffects;
+    private final MobEffect currentFruit;
 
-    public BlessingMenu(int windowId, Inventory playerInventory) {
-        super(ModContainers.BLESSINGS.get(), windowId);
+    public PermanentFruitsMenu(int windowId, Inventory playerInventory) {
+        super(ModContainers.PERMANENT_FRUITS.get(), windowId);
 
         this.fruitEffects = FruitDataHandler.getPreviousEffects(playerInventory.player);
-
-        //DevilFruits.LOGGER.info("BlessingMenu - fruitEffects initialized: {}", this.fruitEffects);
+        this.currentFruit = FruitDataHandler.getCurrentEffect(playerInventory.player);
     }
 
     public void updateFruitEffects(List<MobEffect> effects) {
@@ -28,6 +28,10 @@ public class BlessingMenu extends AbstractContainerMenu {
 
     public List<MobEffect> getFruitEffects() {
         return this.fruitEffects;
+    }
+
+    public MobEffect getCurrentFruit() {
+        return this.currentFruit;
     }
 
     @Override

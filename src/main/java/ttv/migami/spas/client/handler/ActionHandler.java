@@ -4,12 +4,14 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
 import ttv.migami.jeg.compat.PlayerReviveHelper;
+import ttv.migami.jeg.item.GunItem;
 import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.client.KeyBinds;
 import ttv.migami.spas.common.ActionType;
@@ -148,7 +150,14 @@ public class ActionHandler
             return;
         }
 
-        if(FruitDataHandler.getCurrentEffect(player) != null && FruitDataHandler.getCurrentEffect(player) instanceof FruitEffect fruitEffect && !PlayerReviveHelper.isBleeding(player))
+        boolean disabled = false;
+        if (SuperpowerAllStars.jegLoaded) {
+            if (player.getMainHandItem().getItem() instanceof GunItem) {
+                disabled = true;
+            }
+        }
+
+        if(!disabled && FruitDataHandler.getCurrentEffect(player) != null && FruitDataHandler.getCurrentEffect(player) instanceof FruitEffect fruitEffect && !PlayerReviveHelper.isBleeding(player))
         {
             this.fruit = fruitEffect.getFruit();
             if (FruitDataHandler.getCurrentEffect(player) != null) {
@@ -215,13 +224,20 @@ public class ActionHandler
 
             if(FruitDataHandler.getCurrentEffect(player) != null && FruitDataHandler.getCurrentEffect(player) instanceof FruitEffect fruitEffect)
             {
-                //if(this.activeKey.isDown())
-                if(this.action != null) {
+                boolean disabled = false;
+                if (SuperpowerAllStars.jegLoaded) {
+                    if (player.getMainHandItem().getItem() instanceof GunItem) {
+                        disabled = true;
+                    }
+                }
 
-                    SuperpowerAllStars.LOGGER.atInfo().log("CurrentMove: " + action.getActionType() + " ZCooldown: " + moveManager.getCooldown(ActionType.Z) + " XCooldown: " + moveManager.getCooldown(ActionType.X) + " CCooldown: " + moveManager.getCooldown(ActionType.C) + " CAmounts: " + moveManager.getAmount(ActionType.C));
+                //if(this.activeKey.isDown())
+                if(this.action != null && !disabled) {
+
+                    //SuperpowerAllStars.LOGGER.atInfo().log("CurrentMove: " + action.getActionType() + " ZCooldown: " + moveManager.getCooldown(ActionType.Z) + " XCooldown: " + moveManager.getCooldown(ActionType.X) + " CCooldown: " + moveManager.getCooldown(ActionType.C) + " CAmounts: " + moveManager.getAmount(ActionType.C));
 
                     if(moveManager.getCooldown(action.getActionType()) == 0) {
-                        if(KeyBinds.getShootMapping().isDown())
+                        if(KeyBinds.getShootMapping().isDown() || KeyBinds.KEY_R_ACTION.isDown())
                         {
                             if (this.action.getActionMode() != ActionMode.SINGLE)
                             {
@@ -272,6 +288,12 @@ public class ActionHandler
         if (moveManager.getAmount(action.getActionType()) == 0) {
             moveManager.setCooldown(action.getActionType(), action.getCooldown());
         }
+
+        float pushBack = action.getShooterPushback();
+        if (player.isCrouching()) {
+            pushBack = pushBack / 2;
+        }
+        recoil(player, pushBack);
     }
 
     public Fruit.Action getFruitAction(ActionType action) {
@@ -301,5 +323,11 @@ public class ActionHandler
 
     public Fruit.Action getAction() {
         return this.action;
+    }
+
+    public static void recoil(Player player, double force) {
+        Vec3 lookVec = player.getLookAngle();
+        double opposite = force;
+        player.push(lookVec.x * opposite, lookVec.y * opposite, lookVec.z * opposite);
     }
 }

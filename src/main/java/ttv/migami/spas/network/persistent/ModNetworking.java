@@ -18,5 +18,6 @@ public class ModNetworking {
         int id = 0;
         CHANNEL.registerMessage(id++, SyncFruitsPacket.class, SyncFruitsPacket::toBytes,
             SyncFruitsPacket::new, SyncFruitsPacket::handle);
+        CHANNEL.registerMessage(id++, MasterySyncPacket.class, MasterySyncPacket::toBytes, MasterySyncPacket::new, MasterySyncPacket::handle);
     }
 }

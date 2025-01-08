@@ -27,13 +27,16 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 import ttv.migami.spas.Config;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.common.FruitHandler;
-import ttv.migami.spas.common.container.BlessingMenu;
+import ttv.migami.spas.common.container.PermanentFruitsMenu;
+import ttv.migami.spas.common.container.FruitMenu;
 import ttv.migami.spas.common.network.fruit.*;
+import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.event.FruitFireEvent;
 import ttv.migami.spas.init.ModPowers;
 import ttv.migami.spas.network.message.C2SMessageAction;
@@ -99,7 +102,7 @@ public class ServerPlayHandler
         }
     }
 
-    public static void swapBlessing(Player player, int effect) {
+    public static void swapPermanentFruit(Player player, int effect) {
         removeOtherFruitEffects(player);
         if (MobEffect.byId(effect) != null) {
             player.addEffect(new MobEffectInstance(MobEffect.byId(effect), -1, 0, false, false));
@@ -204,24 +207,23 @@ public class ServerPlayHandler
         pPlayer.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 10, 4, false, false));
     }
 
-    // Damage that scales with XP level, caps at 3 times the Base Damage or experience level 30
     public static float calculateCustomDamage(Player player, float baseDamage) {
-        double maxScaling = Config.COMMON.gameplay.maxScaling.get();
-        double maxDamage = baseDamage * maxScaling;
-        int maxLevel = Config.COMMON.gameplay.maxLevel.get();
-        // XP divisor to control scaling
-        int xpDivisor = Config.COMMON.gameplay.xpDivisor.get();
+        if (FruitDataHandler.getCurrentEffect(player) instanceof FruitEffect fruitEffect) {
+            double maxScaling = Config.COMMON.gameplay.maxScaling.get();
+            double maxDamage = baseDamage * maxScaling;
 
-        float damage;
-        if (player.experienceLevel < maxLevel && !player.isCreative()) {
-            damage = (float) (baseDamage + ((float) player.experienceLevel / xpDivisor) * (maxDamage - baseDamage) / (maxLevel / xpDivisor));
-        } else {
-            damage = (float) maxDamage;
+            ResourceLocation effectLocation = ForgeRegistries.MOB_EFFECTS.getKey(fruitEffect);
+
+            int masteryLevel = player.getPersistentData().getInt(effectLocation + "_MasteryLevel");
+            float bonusDamage = masteryLevel * 0.1F;
+            float damage = baseDamage + bonusDamage;
+
+            damage = (float) Math.max(baseDamage, Math.min(damage, maxDamage));
+
+            return damage * Config.COMMON.gameplay.damageMultiplier.get();
         }
 
-        damage = (float) Math.max(baseDamage, Math.min(damage, maxDamage));
-
-        return damage * Config.COMMON.gameplay.damageMultiplier.get();
+        return baseDamage;
     }
 
     /*
@@ -262,17 +264,18 @@ public class ServerPlayHandler
         }
     }
 
-    /**
-     * @param player
-     */
-    public static void handleBlessings(ServerPlayer player) {
-        NetworkHooks.openScreen(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new BlessingMenu(windowId, playerInventory), Component.translatable("container.spas.blessings")));
+    public static void handlePermanentFruitsScreen(ServerPlayer player) {
+        NetworkHooks.openScreen(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new PermanentFruitsMenu(windowId, playerInventory), Component.translatable("container.spas.permanent_fruits")));
 
         /*boolean hasFruitEffect = player.getActiveEffects().stream().anyMatch(effect -> effect.getEffect() instanceof FruitEffect);
 
         if (hasFruitEffect) {
-            NetworkHooks.openScreen(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new BlessingMenu(windowId, playerInventory), Component.translatable("container.spas.blessings")));
+            NetworkHooks.openScreen(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new BlessingMenu(windowId, playerInventory), Component.translatable("container.spas.permanent_fruits")));
         }*/
+    }
+
+    public static void handleFruitScreen(ServerPlayer player) {
+        NetworkHooks.openScreen(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new FruitMenu(windowId, playerInventory), Component.translatable("container.spas.fruit_menu")));
     }
 }
 

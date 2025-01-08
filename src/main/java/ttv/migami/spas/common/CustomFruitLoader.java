@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -28,7 +29,10 @@ public class CustomFruitLoader extends SimpleJsonResourceReloadListener
     private static final Gson GSON_INSTANCE = Util.make(() -> {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(ResourceLocation.class, JsonDeserializers.RESOURCE_LOCATION);
+        builder.registerTypeAdapter(ActionType.class, JsonDeserializers.ACTION_TYPE);
         builder.registerTypeAdapter(ActionMode.class, JsonDeserializers.ACTION_MODE);
+        builder.registerTypeAdapter(Component.class, JsonDeserializers.COMPONENT);
+        builder.registerTypeAdapter(FoodExhaustion.class, JsonDeserializers.FOOD_EXHAUSTION);
         return builder.create();
     });
 

@@ -17,6 +17,9 @@ public class JsonDeserializers {
     public static final JsonDeserializer<Component> COMPONENT = (json, typeOfT, context) -> {
         return Component.translatable(ResourceLocation.tryParse(json.getAsString()).toString());
     };
+    public static final JsonDeserializer<FoodExhaustion> FOOD_EXHAUSTION = (json, typeOfT, context) -> {
+        return FoodExhaustion.valueOf(json.getAsString());
+    };
 
     public JsonDeserializers() {
     }

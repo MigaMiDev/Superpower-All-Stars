@@ -16,7 +16,7 @@ public class KeyBinds
     public static final KeyMapping KEY_C_ACTION = new KeyMapping("key.spas.c_action", GLFW.GLFW_KEY_C, "key.categories.spas");
     public static final KeyMapping KEY_V_ACTION = new KeyMapping("key.spas.v_action", GLFW.GLFW_KEY_V, "key.categories.spas");
     public static final KeyMapping KEY_R_ACTION = new KeyMapping("key.spas.r_action", GLFW.GLFW_KEY_R, "key.categories.spas");
-    public static final KeyMapping BLESSING_MENU = new KeyMapping("key.spas.blessing_menu", GLFW.GLFW_KEY_B, "key.categories.spas");
+    public static final KeyMapping FRUIT_MENU = new KeyMapping("key.spas.fruit_menu", GLFW.GLFW_KEY_B, "key.categories.spas");
 
     public static void registerKeyMappings(RegisterKeyMappingsEvent event)
     {
@@ -25,7 +25,7 @@ public class KeyBinds
         event.register(KEY_C_ACTION);
         event.register(KEY_V_ACTION);
         event.register(KEY_R_ACTION);
-        event.register(BLESSING_MENU);
+        event.register(FRUIT_MENU);
     }
 
     public static KeyMapping getShootMapping()

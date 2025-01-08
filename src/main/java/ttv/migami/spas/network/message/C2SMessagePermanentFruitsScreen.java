@@ -6,28 +6,28 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import ttv.migami.spas.common.network.ServerPlayHandler;
 
-public class C2SMessageBlessings extends PlayMessage<C2SMessageBlessings>
+public class C2SMessagePermanentFruitsScreen extends PlayMessage<C2SMessagePermanentFruitsScreen>
 {
-    public C2SMessageBlessings() {}
+    public C2SMessagePermanentFruitsScreen() {}
 
     @Override
-    public void encode(C2SMessageBlessings message, FriendlyByteBuf buffer) {}
+    public void encode(C2SMessagePermanentFruitsScreen message, FriendlyByteBuf buffer) {}
 
     @Override
-    public C2SMessageBlessings decode(FriendlyByteBuf buffer)
+    public C2SMessagePermanentFruitsScreen decode(FriendlyByteBuf buffer)
     {
-        return new C2SMessageBlessings();
+        return new C2SMessagePermanentFruitsScreen();
     }
 
     @Override
-    public void handle(C2SMessageBlessings message, MessageContext context)
+    public void handle(C2SMessagePermanentFruitsScreen message, MessageContext context)
     {
         context.execute(() ->
         {
             ServerPlayer player = context.getPlayer();
             if(player != null)
             {
-                ServerPlayHandler.handleBlessings(player);
+                ServerPlayHandler.handlePermanentFruitsScreen(player);
             }
         });
         context.setHandled(true);

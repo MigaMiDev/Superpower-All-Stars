@@ -70,8 +70,6 @@ public class Config {
         public final Griefing griefing;
         public final ForgeConfigSpec.BooleanValue applyHunger;
         public final ForgeConfigSpec.DoubleValue maxScaling;
-        public final ForgeConfigSpec.IntValue maxLevel;
-        public final ForgeConfigSpec.IntValue xpDivisor;
         public final ForgeConfigSpec.IntValue damageMultiplier;
         public final ForgeConfigSpec.BooleanValue noSwimming;
 
@@ -81,10 +79,8 @@ public class Config {
             {
                 this.damageMultiplier = builder.comment("The damage will be multiplied by this number. It affects EVERY fruit.").defineInRange("damageMultiplier", 1, 1, 999);
                 this.griefing = new Griefing(builder);
-                this.maxScaling = builder.comment("The damage scaling will stop once the player reaches this level.").defineInRange("maxScaling", 3.0D, 1.0D, 999.0D);
+                this.maxScaling = builder.comment("The damage scaling will stop once the player reaches this Mastery level.").defineInRange("maxScaling", 3.0D, 1.0D, 999.0D);
                 this.applyHunger = builder.comment("If enabled, attacks will consume hunger.").define("applyHunger", true);
-                this.maxLevel = builder.comment("The damage scaling will stop once the player reaches this level.").defineInRange("maxLevel", 30, 1, 999);
-                this.xpDivisor = builder.comment("How many XP levels does it take before scaling.").defineInRange("xpDivisor", 5, 1, 999);
                 this.noSwimming = builder.comment("If enabled, users will not be able to swim if they have non-water type fruits active.").define("noSwimming", false);
             }
             builder.pop();

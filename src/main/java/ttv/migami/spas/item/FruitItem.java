@@ -58,7 +58,6 @@ public class FruitItem extends Item {
                     FruitDataHandler.clearCurrentEffect(player);
                     removeOtherFruitEffects(player);
                     FruitDataHandler.setCurrentEffect(player, effect.getEffect());
-                    FruitDataHandler.addPreviousEffect(player, effect.getEffect());
                 }
             }
         }
@@ -68,7 +67,6 @@ public class FruitItem extends Item {
                     FruitDataHandler.clearCurrentEffect(player);
                     removeOtherFruitEffects(player);
                     FruitDataHandler.setCurrentEffect(player, effect.getEffect());
-                    FruitDataHandler.addPreviousEffect(player, effect.getEffect());
                 }
             }
         }

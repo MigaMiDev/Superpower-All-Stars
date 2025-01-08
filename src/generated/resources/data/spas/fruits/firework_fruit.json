@@ -5,8 +5,12 @@
     "attackAmount": 8,
     "cooldown": 250,
     "damage": 5.0,
+    "enabledByDefault": false,
+    "foodExhaustion": "MEDIUM",
+    "masteryLevel": 15,
     "name": "info.spas.firework_fruit.c_action",
-    "rate": 5
+    "rate": 5,
+    "xpRequirement": 5
   },
   "general": {
     "disableSwimming": false
@@ -17,7 +21,11 @@
     "attackAmount": 1,
     "cooldown": 150,
     "damage": 5.0,
-    "name": "info.spas.firework_fruit.r_action"
+    "enabledByDefault": true,
+    "foodExhaustion": "MEDIUM",
+    "masteryLevel": 0,
+    "name": "info.spas.firework_fruit.r_action",
+    "xpRequirement": 0
   },
   "vAction": {
     "actionMode": "spas:hold",
@@ -25,8 +33,12 @@
     "attackAmount": 24,
     "cooldown": 300,
     "damage": 5.0,
+    "enabledByDefault": false,
+    "foodExhaustion": "SMALL",
+    "masteryLevel": 25,
     "name": "info.spas.firework_fruit.v_action",
-    "rate": 4
+    "rate": 4,
+    "xpRequirement": 10
   },
   "xAction": {
     "actionMode": "spas:single",
@@ -34,8 +46,13 @@
     "attackAmount": 1,
     "cooldown": 200,
     "damage": 5.0,
+    "enabledByDefault": false,
+    "foodExhaustion": "BIG",
+    "masteryLevel": 5,
     "name": "info.spas.firework_fruit.x_action",
-    "rate": 1
+    "rate": 1,
+    "shooterPushback": -0.5,
+    "xpRequirement": 3
   },
   "zAction": {
     "actionMode": "spas:single",
@@ -43,8 +60,13 @@
     "attackAmount": 1,
     "cooldown": 160,
     "damage": 5.0,
+    "enabledByDefault": true,
+    "foodExhaustion": "BIG",
+    "masteryLevel": 0,
     "name": "info.spas.firework_fruit.z_action",
     "rate": 1,
-    "recoilKick": 5.0
+    "recoilKick": 5.0,
+    "shooterPushback": -0.5,
+    "xpRequirement": 0
   }
 }

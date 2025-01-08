@@ -41,8 +41,10 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
     private static final Gson GSON_INSTANCE = Util.make(() -> {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(ResourceLocation.class, JsonDeserializers.RESOURCE_LOCATION);
+        builder.registerTypeAdapter(ActionType.class, JsonDeserializers.ACTION_TYPE);
         builder.registerTypeAdapter(ActionMode.class, JsonDeserializers.ACTION_MODE);
         builder.registerTypeAdapter(Component.class, JsonDeserializers.COMPONENT);
+        builder.registerTypeAdapter(FoodExhaustion.class, JsonDeserializers.FOOD_EXHAUSTION);
         builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
         return builder.create();
     });

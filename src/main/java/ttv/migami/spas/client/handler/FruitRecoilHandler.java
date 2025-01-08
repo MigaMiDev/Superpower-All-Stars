@@ -49,7 +49,7 @@ public class FruitRecoilHandler
         if(!event.isClient())
             return;
 
-        //this.cameraRecoil = event.getRecoilKick();
+        this.cameraRecoil = ActionHandler.get().getAction().getRecoilKick();
         this.progressCameraRecoil = 0F;
     }
 

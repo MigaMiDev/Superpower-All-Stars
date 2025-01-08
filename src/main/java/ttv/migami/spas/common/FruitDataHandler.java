@@ -81,4 +81,18 @@ public class FruitDataHandler {
         CompoundTag persistentData = player.getPersistentData();
         persistentData.remove(PREVIOUS_EFFECTS_KEY);
     }
+
+    /**
+     * Calculates the required experience for the next mastery level.
+     * Formula: base * (growthFactor ^ currentLevel)
+     *
+     * @param currentLevel The current mastery level.
+     * @return The experience required for the next level.
+     */
+    public static int getExperienceForNextLevel(int currentLevel) {
+        int base = 10;
+        //double growthFactor = 1.2;
+        //return (int) (base * Math.pow(growthFactor, currentLevel));
+        return base + (currentLevel) + 1;
+    }
 }
