@@ -169,8 +169,8 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
 
                 pGuiGraphics.drawCenteredString(this.font, Component.translatable("gui.spas.mastery"), centerX, progressBarY - 12, 16777215);
 
-                pGuiGraphics.blit(GUI_TEXTURES, progressBarX, progressBarY, 0 ,22, progressBarWidth, progressBarHeight);
-                pGuiGraphics.blit(GUI_TEXTURES, progressBarX, progressBarY, 0 ,27, (int) (progress * progressBarWidth), progressBarHeight);
+                pGuiGraphics.blit(GUI_TEXTURES, progressBarX, progressBarY, 0,22, progressBarWidth, progressBarHeight);
+                pGuiGraphics.blit(GUI_TEXTURES, progressBarX, progressBarY, 0,27, (int) (progress * progressBarWidth), progressBarHeight);
 
                 int separator = 10;
                 if (currentLevel >= 100) {

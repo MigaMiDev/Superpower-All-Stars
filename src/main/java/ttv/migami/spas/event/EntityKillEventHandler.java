@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import ttv.migami.spas.Reference;
-import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.network.persistent.MasterySyncPacket;
@@ -43,8 +42,6 @@ public class EntityKillEventHandler {
                 int currentExperience = player.getPersistentData().getInt(experienceKey);
                 int currentLevel = player.getPersistentData().getInt(levelKey);
                 int experienceReward = entity.getExperienceReward();
-
-                SuperpowerAllStars.LOGGER.atInfo().log(currentExperience);
 
                 currentExperience += experienceReward;
 

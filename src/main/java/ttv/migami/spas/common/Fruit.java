@@ -6,8 +6,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
-import ttv.migami.jeg.annotation.Optional;
 import ttv.migami.spas.annotation.Ignored;
+import ttv.migami.spas.annotation.Optional;
 
 public class Fruit implements INBTSerializable<CompoundTag>
 {
@@ -197,7 +197,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
         }
 
         public JsonObject toJsonObject() {
-            Preconditions.checkArgument(this.damage > 0, "Damage must be more than zero");
+            Preconditions.checkArgument(this.damage >= 0, "Damage must be equal or greater than zero");
             JsonObject object = new JsonObject();
             object.addProperty("actionType", this.actionType.toString());
             object.addProperty("name", this.name);

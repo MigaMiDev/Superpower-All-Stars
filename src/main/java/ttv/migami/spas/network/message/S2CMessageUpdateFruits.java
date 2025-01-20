@@ -6,8 +6,6 @@ import com.mrcrayfish.framework.api.network.message.PlayMessage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.Validate;
-import ttv.migami.jeg.common.CustomGunLoader;
-import ttv.migami.jeg.common.NetworkGunManager;
 import ttv.migami.spas.client.network.ClientPlayHandler;
 import ttv.migami.spas.common.CustomFruit;
 import ttv.migami.spas.common.CustomFruitLoader;
@@ -19,16 +17,16 @@ import ttv.migami.spas.common.NetworkFruitManager;
  */
 public class S2CMessageUpdateFruits extends PlayMessage<S2CMessageUpdateFruits>
 {
-    private ImmutableMap<ResourceLocation, Fruit> registeredGuns;
-    private ImmutableMap<ResourceLocation, CustomFruit> customGuns;
+    private ImmutableMap<ResourceLocation, Fruit> registeredFruits;
+    private ImmutableMap<ResourceLocation, CustomFruit> customFruits;
 
     public S2CMessageUpdateFruits() {}
 
     @Override
     public void encode(S2CMessageUpdateFruits message, FriendlyByteBuf buffer)
     {
-        Validate.notNull(NetworkGunManager.get());
-        Validate.notNull(CustomGunLoader.get());
+        Validate.notNull(NetworkFruitManager.get());
+        Validate.notNull(CustomFruitLoader.get());
         NetworkFruitManager.get().writeRegisteredFruits(buffer);
         CustomFruitLoader.get().writeCustomFruits(buffer);
     }
@@ -37,8 +35,8 @@ public class S2CMessageUpdateFruits extends PlayMessage<S2CMessageUpdateFruits>
     public S2CMessageUpdateFruits decode(FriendlyByteBuf buffer)
     {
         S2CMessageUpdateFruits message = new S2CMessageUpdateFruits();
-        message.registeredGuns = NetworkFruitManager.readRegisteredFruits(buffer);
-        message.customGuns = CustomFruitLoader.readCustomFruits(buffer);
+        message.registeredFruits = NetworkFruitManager.readRegisteredFruits(buffer);
+        message.customFruits = CustomFruitLoader.readCustomFruits(buffer);
         return message;
     }
 
@@ -51,11 +49,11 @@ public class S2CMessageUpdateFruits extends PlayMessage<S2CMessageUpdateFruits>
 
     public ImmutableMap<ResourceLocation, Fruit> getRegisteredFruits()
     {
-        return this.registeredGuns;
+        return this.registeredFruits;
     }
 
     public ImmutableMap<ResourceLocation, CustomFruit> getCustomFruits()
     {
-        return this.customGuns;
+        return this.customFruits;
     }
 }

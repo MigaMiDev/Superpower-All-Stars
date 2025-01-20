@@ -36,17 +36,17 @@ import java.util.function.Predicate;
 public class CustomProjectileEntity extends Entity implements IEntityAdditionalSpawnData {
     private static final Predicate<Entity> PROJECTILE_TARGETS = input -> input != null && input.isPickable() && !input.isSpectator();
 
-    public UUID playerUUID;
-    public int ownerID;
-    public LivingEntity owner;
-    public boolean collateral = false;
-    public boolean affectedByGravity = false;
-    public double modifiedGravity = -0.04;
-    public int life = 100;
-    public float damage = 5.0F;
-    public float customDamage = damage;
-    public boolean checkForCollisions = false;
-    public double speed = 3.5D;
+    protected UUID playerUUID;
+    protected int ownerID;
+    protected LivingEntity owner;
+    protected boolean collateral = false;
+    protected boolean affectedByGravity = false;
+    protected double modifiedGravity = -0.04;
+    protected int life = 100;
+    protected float damage = 5.0F;
+    protected float customDamage = damage;
+    protected boolean checkForCollisions = false;
+    protected double speed = 3.5D;
 
     public CustomProjectileEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);

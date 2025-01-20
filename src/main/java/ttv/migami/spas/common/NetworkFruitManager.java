@@ -58,10 +58,10 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
     protected Map<FruitEffect, Fruit> prepare(ResourceManager manager, ProfilerFiller profiler)
     {
         Map<FruitEffect, Fruit> map = new HashMap<>();
-        ForgeRegistries.MOB_EFFECTS.getValues().stream().filter(item -> item instanceof FruitEffect).forEach(item ->
+        ForgeRegistries.MOB_EFFECTS.getValues().stream().filter(effect -> effect instanceof FruitEffect).forEach(effect ->
         {
-            ResourceLocation id = ForgeRegistries.MOB_EFFECTS.getKey(item);
-            if(id != null)
+            ResourceLocation id = ForgeRegistries.MOB_EFFECTS.getKey(effect);
+            if (id != null)
             {
                 List<ResourceLocation> resources = new ArrayList<>(manager.listResources("fruits", (fileName) -> fileName.getPath().endsWith(id.getPath() + ".json")).keySet());
                 resources.sort((r1, r2) -> {
@@ -83,29 +83,29 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
 
                     manager.getResource(resourceLocation).ifPresent(resource ->
                     {
-                        try(Reader reader = new BufferedReader(new InputStreamReader(resource.open(), StandardCharsets.UTF_8)))
+                        try (Reader reader = new BufferedReader(new InputStreamReader(resource.open(), StandardCharsets.UTF_8)))
                         {
                             Fruit fruit = GsonHelper.fromJson(GSON_INSTANCE, reader, Fruit.class);
-                            if(fruit != null && Validator.isValidObject(fruit))
+                            if (fruit != null && Validator.isValidObject(fruit))
                             {
-                                map.put((FruitEffect) item, fruit);
+                                map.put((FruitEffect) effect, fruit);
                             }
                             else
                             {
                                 SuperpowerAllStars.LOGGER.error("Couldn't load data file {} as it is missing or malformed. Using default fruit data", resourceLocation);
-                                map.putIfAbsent((FruitEffect) item, new Fruit());
+                                map.putIfAbsent((FruitEffect) effect, new Fruit());
                             }
                         }
-                        catch(InvalidObjectException e)
+                        catch (InvalidObjectException e)
                         {
                             SuperpowerAllStars.LOGGER.error("Missing required properties for {}", resourceLocation);
                             e.printStackTrace();
                         }
-                        catch(IOException e)
+                        catch (IOException e)
                         {
                             SuperpowerAllStars.LOGGER.error("Couldn't parse data file {}", resourceLocation);
                         }
-                        catch(IllegalAccessException e)
+                        catch (IllegalAccessException e)
                         {
                             e.printStackTrace();
                         }
@@ -120,9 +120,9 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
     protected void apply(Map<FruitEffect, Fruit> objects, ResourceManager resourceManager, ProfilerFiller profiler)
     {
         ImmutableMap.Builder<ResourceLocation, Fruit> builder = ImmutableMap.builder();
-        objects.forEach((item, fruit) -> {
-            builder.put(Objects.requireNonNull(ForgeRegistries.MOB_EFFECTS.getKey(item)), fruit);
-            item.setFruit(new Supplier(fruit));
+        objects.forEach((effect, fruit) -> {
+            builder.put(Objects.requireNonNull(ForgeRegistries.MOB_EFFECTS.getKey(effect)), fruit);
+            effect.setFruit(new Supplier(fruit));
         });
         this.registeredFruits = builder.build();
     }
@@ -181,13 +181,13 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
         {
             for(Map.Entry<ResourceLocation, Fruit> entry : registeredFruits.entrySet())
             {
-                MobEffect item = ForgeRegistries.MOB_EFFECTS.getValue(entry.getKey());
-                if(!(item instanceof FruitEffect))
+                MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(entry.getKey());
+                if(!(effect instanceof FruitEffect))
                 {
                     return false;
                 }
-                ((FruitEffect) item).setFruit(new Supplier(entry.getValue()));
-                clientRegisteredFruits.add((FruitEffect) item);
+                ((FruitEffect) effect).setFruit(new Supplier(entry.getValue()));
+                clientRegisteredFruits.add((FruitEffect) effect);
             }
             return true;
         }

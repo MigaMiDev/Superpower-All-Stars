@@ -15,7 +15,7 @@ public class CustomFruit implements INBTSerializable<CompoundTag> {
 
     public CompoundTag serializeNBT() {
         CompoundTag compound = new CompoundTag();
-        compound.put("Gun", this.fruit.serializeNBT());
+        compound.put("Fruit", this.fruit.serializeNBT());
         return compound;
     }
 
