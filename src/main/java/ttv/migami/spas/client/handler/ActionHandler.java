@@ -10,7 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
-import ttv.migami.jeg.compat.PlayerReviveHelper;
+import ttv.migami.spas.compat.PlayerReviveHelper;
 import ttv.migami.jeg.item.GunItem;
 import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.client.KeyBinds;
@@ -150,6 +150,9 @@ public class ActionHandler
             return;
         }
 
+        if(player.isDeadOrDying())
+            return;
+
         boolean disabled = false;
         if (SuperpowerAllStars.jegLoaded) {
             if (player.getMainHandItem().getItem() instanceof GunItem) {
@@ -206,6 +209,9 @@ public class ActionHandler
             if(PlayerReviveHelper.isBleeding(player))
                 return;
 
+            if(player.isDeadOrDying())
+                return;
+
             if (fruit != null) {
                 for (ActionType action : ActionType.values()) {
                     if (moveManager.getCooldown(action) > 0) {
@@ -239,6 +245,7 @@ public class ActionHandler
                     if(moveManager.getCooldown(action.getActionType()) == 0) {
                         if(KeyBinds.getShootMapping().isDown() || KeyBinds.KEY_R_ACTION.isDown())
                         {
+                            amount = moveManager.getAmount(action.getActionType());
                             if (this.action.getActionMode() != ActionMode.SINGLE)
                             {
                                 this.fire(player, fruitEffect, move, amount);

@@ -4,7 +4,7 @@
     "actionType": "C",
     "attackAmount": 8,
     "cooldown": 250,
-    "damage": 5.0,
+    "damage": 2.0,
     "enabledByDefault": false,
     "foodExhaustion": "MEDIUM",
     "masteryLevel": 15,
@@ -13,18 +13,19 @@
     "xpRequirement": 5
   },
   "general": {
-    "disableSwimming": false
+    "disableSwimming": true
   },
   "rAction": {
     "actionMode": "spas:single",
     "actionType": "R",
     "attackAmount": 1,
     "cooldown": 150,
-    "damage": 5.0,
+    "damage": 3.0,
     "enabledByDefault": true,
     "foodExhaustion": "MEDIUM",
     "masteryLevel": 0,
     "name": "info.spas.firework_fruit.r_action",
+    "rate": 1,
     "xpRequirement": 0
   },
   "vAction": {
@@ -32,7 +33,7 @@
     "actionType": "V",
     "attackAmount": 24,
     "cooldown": 300,
-    "damage": 5.0,
+    "damage": 2.5,
     "enabledByDefault": false,
     "foodExhaustion": "SMALL",
     "masteryLevel": 25,
@@ -45,7 +46,7 @@
     "actionType": "X",
     "attackAmount": 1,
     "cooldown": 200,
-    "damage": 5.0,
+    "damage": 3.0,
     "enabledByDefault": false,
     "foodExhaustion": "BIG",
     "masteryLevel": 5,

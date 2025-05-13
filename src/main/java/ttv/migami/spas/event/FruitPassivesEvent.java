@@ -62,8 +62,7 @@ public class FruitPassivesEvent {
                 }
 
                 if (((FruitEffect) currentEffect).getFruit().getGeneral().isSwimDisabled()) {
-                    if (!(player.hasEffect(ModEffects.SQUID_FRUIT.get())) &&
-                            player.isInWater() && !Config.COMMON.gameplay.noSwimming.get() &&
+                    if (player.isInWater() && !Config.COMMON.gameplay.noSwimming.get() &&
                             (serverLevel.getBlockState(player.getOnPos().below()).is(Blocks.WATER) || player.isUnderWater())) {
                         if (player.getRandom().nextDouble() < 0.06) {
                             throwPlayerDownward(player, 0.2);

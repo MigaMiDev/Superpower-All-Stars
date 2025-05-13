@@ -190,23 +190,30 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
 
         int centerX = this.width / 2;
         int centerY = (int) ((this.height / 1.2) / 2);
-        int spacing = (int) (this.width / 6.5f);
 
-        float itemSize = this.width / 20.0f;
+        float itemSize = (this.width / 20.0f) * 3;
+        float guiSize = this.width / 400.0f;
 
         if (currentFruit != null) {
             String modId = ForgeRegistries.MOB_EFFECTS.getKey(this.currentFruit).getNamespace();
             String fruitID = ForgeRegistries.MOB_EFFECTS.getKey(this.currentFruit).getPath();
             ResourceLocation resourceLocation = new ResourceLocation(modId, "textures/gui/fruit/" + fruitID + ".png");
 
-            for (int i = 0; i < 5; i++) {
-                int x = centerX - (2 * spacing) + (i * spacing) - 30;
-                int y = (int) (this.height * 0.65);
+            int x = (int) (centerX - (13 * guiSize));
+            int y = (int) (this.height * 0.65);
 
-                graphics.blit(resourceLocation, x, y, 30, 0, 60, 60);
-            }
+            graphics.pose().pushPose();
+            graphics.pose().scale(guiSize, guiSize, guiSize);
 
-            renderItem(graphics, centerX, centerY, this.displayStack, 100, itemSize * 3, false);
+            graphics.blit(resourceLocation, (int) (-128 + (x / guiSize)), (int) (y / guiSize), 0, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (-64 + (x / guiSize)), (int) (y / guiSize), 30, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (x / guiSize), (int) (y / guiSize), 60, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (64 + (x / guiSize)), (int) (y / guiSize), 90, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (128 + (x / guiSize)), (int) (y / guiSize), 120, 0, 30, 30);
+
+            graphics.pose().popPose();
+
+            renderItem(graphics, centerX, centerY, this.displayStack, 100, itemSize, false);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
@@ -218,17 +225,25 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
         int effectDisplayOffsetY = (int) (0.15 * this.height);
         int offSet = (int) (0.2 * this.width);
 
-        guiGraphics.blit(GUI_TEXTURES, this.width - 30 - offSet, effectDisplayOffsetY + 3, 0, 0, 39, 22);
+        guiGraphics.blit(GUI_TEXTURES, this.width - 30 - offSet, effectDisplayOffsetY + 3, 0, 0, 38, 22);
 
         int centerX = this.width / 2;
-        int spacing = (int) (this.width / 6.5f);
 
-        for (int j = 0; j < 5; j++) {
-            int x = centerX - (2 * spacing) + (j * spacing) - 36;
-            int y = (int) (this.height * 0.65) - 6;
+        float guiSize = this.width / 400.0f;
 
-            guiGraphics.blit(GUI_TEXTURES, x, y, 22, 32, 72, 72);
-        }
+        int x =  (int) (centerX - (16 * guiSize));
+        int y = (int) (this.height * 0.65) - 6;
+
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().scale(guiSize, guiSize, guiSize);
+
+        guiGraphics.blit(GUI_TEXTURES, (int) (-128 + (x / guiSize)), (int) (y / guiSize), 0, 32, 36, 36);
+        guiGraphics.blit(GUI_TEXTURES, (int) (-64 + (x / guiSize)), (int) (y / guiSize), 0, 32, 36, 36);
+        guiGraphics.blit(GUI_TEXTURES, (int) (x / guiSize), (int) (y / guiSize), 0, 32, 36, 36);
+        guiGraphics.blit(GUI_TEXTURES, (int) (64 + (x / guiSize)), (int) (y / guiSize), 0, 32, 36, 36);
+        guiGraphics.blit(GUI_TEXTURES, (int) (128 + (x / guiSize)), (int) (y / guiSize), 0, 32, 36, 36);
+
+        guiGraphics.pose().popPose();
     }
 
     private void renderItem(GuiGraphics graphics, int x, int y, ItemStack itemStack, int offset, float size, boolean darken) {

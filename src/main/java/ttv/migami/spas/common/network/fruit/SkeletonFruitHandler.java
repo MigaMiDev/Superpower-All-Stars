@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import ttv.migami.spas.common.Fruit;
 import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.entity.SummonEntity;
 import ttv.migami.spas.entity.fruit.skeleton.Bone;
@@ -30,8 +31,7 @@ import static ttv.migami.spas.common.network.ServerPlayHandler.rayTrace;
  */
 public class SkeletonFruitHandler
 {
-
-    public static void moveHandler(Player pPlayer, int move, int amount) {
+    public static void moveHandler(Player pPlayer, Fruit fruit, int move, int amount) {
         Level pLevel = pPlayer.level();
 
         if (!pLevel.isClientSide()) {
@@ -77,10 +77,10 @@ public class SkeletonFruitHandler
                     actionSlowdown(pPlayer);
                     Bone bone;
                     if (entityHitResult != null) {
-                        bone = new Bone(pLevel, pPlayer, playerPos.add(0, 1 ,0), entityHitResult.getEntity().getEyePosition().add(0, 1, 0));
+                        bone = new Bone(pLevel, pPlayer, playerPos.add(0, 1 ,0), entityHitResult.getEntity().getEyePosition().add(0, 1, 0), fruit.getZAction().getDamage());
                     }
                     else {
-                        bone = new Bone(pLevel, pPlayer, playerPos, blockPos.getCenter());
+                        bone = new Bone(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getZAction().getDamage());
                     }
                     pLevel.addFreshEntity(bone);
                     ServerPlayHandler.smallFoodExhaustion(pPlayer);
@@ -104,10 +104,10 @@ public class SkeletonFruitHandler
 
                     actionSlowdown(pPlayer);
                     if (entityHitResult != null && !pPlayer.isCrouching() && !(entityHitResult.getEntity() instanceof SummonEntity)) {
-                        gasterBlaster = new GasterBlaster(pLevel, pPlayer, playerPos, entityHitResult.getEntity());
+                        gasterBlaster = new GasterBlaster(pLevel, pPlayer, playerPos, entityHitResult.getEntity(), fruit.getXAction().getDamage());
                     }
                     else {
-                        gasterBlaster = new GasterBlaster(pLevel, pPlayer, playerPos, blockPos.getCenter());
+                        gasterBlaster = new GasterBlaster(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getXAction().getDamage());
                     }
                     pLevel.addFreshEntity(gasterBlaster);
 
@@ -201,7 +201,7 @@ public class SkeletonFruitHandler
                         Vec3 pGasterPos = pTarget.getPosition(1F);
 
                         if (pTarget.onGround()) {
-                            pLevel.addFreshEntity(new BoneZone(pLevel, pPlayer, BlockPos.containing(entityHitResult.getLocation()), (float) look.x));
+                            pLevel.addFreshEntity(new BoneZone(pLevel, pPlayer, BlockPos.containing(entityHitResult.getLocation()), (float) look.x, fruit.getVAction().getDamage()));
                         }
                         else {
                             // Spawn Gaster Blasters in a triangle formation
@@ -213,13 +213,13 @@ public class SkeletonFruitHandler
                                 offsetZ = Math.sin(angle) * radius;
                                 Vec3 blasterPos = pGasterPos.add(offsetX, 3, offsetZ);
 
-                                gasterBlaster = new GasterBlaster(pLevel, pPlayer, blasterPos, entityHitResult.getEntity());
+                                gasterBlaster = new GasterBlaster(pLevel, pPlayer, blasterPos, entityHitResult.getEntity(), fruit.getVAction().getDamage());
                                 pLevel.addFreshEntity(gasterBlaster);
                             }
                         }
                     }
                     else {
-                        pLevel.addFreshEntity(new BoneZone(pLevel, pPlayer, blockPos, (float) look.x));
+                        pLevel.addFreshEntity(new BoneZone(pLevel, pPlayer, blockPos, (float) look.x, fruit.getVAction().getDamage()));
                     }
 
                     ServerPlayHandler.largeFoodExhaustion(pPlayer);

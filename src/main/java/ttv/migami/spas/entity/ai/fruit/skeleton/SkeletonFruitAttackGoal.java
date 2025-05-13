@@ -190,7 +190,7 @@ public class SkeletonFruitAttackGoal extends FruitAttackGoal<PathfinderMob> {
                         double offsetZ = Math.sin(angle) * radius;
                         Vec3 blasterPos = pGasterPos.add(offsetX, 3, offsetZ);
 
-                        GasterBlaster gasterBlaster = new GasterBlaster(this.mob.level(), target, blasterPos, target);
+                        GasterBlaster gasterBlaster = new GasterBlaster(this.mob.level(), target, blasterPos, target, 2F);
                         this.mob.level().addFreshEntity(gasterBlaster);
                     }
                     // Drops the Entity to BoneZone
@@ -201,7 +201,7 @@ public class SkeletonFruitAttackGoal extends FruitAttackGoal<PathfinderMob> {
                     target.addEffect(new MobEffectInstance(ModEffects.FEATHER_FALLING.get(), 40, 0, false, false));
                     this.mob.level().playSound(null, target.blockPosition(), ModSounds.GASTER_BLASTER_PRIME.get(), SoundSource.PLAYERS, 1F, 1F);
                     target.push(normal.x() * 0, -2, normal.z() * 0);
-                    this.mob.level().addFreshEntity(new BoneZone(this.mob.level(), this.mob, BlockPos.containing(target.getPosition(1F)), 0));
+                    this.mob.level().addFreshEntity(new BoneZone(this.mob.level(), this.mob, BlockPos.containing(target.getPosition(1F)), 0, 3F));
                     // Pushes Entity back
                 } else {
                     target.hurt(this.mob.damageSources().mobAttack(this.mob), 2);
@@ -256,7 +256,7 @@ public class SkeletonFruitAttackGoal extends FruitAttackGoal<PathfinderMob> {
             applyControlEffects(target);
             this.controlTimer = MAX_CONTROL_TIME;
         } else {
-            this.mob.level().addFreshEntity(new BoneZone(this.mob.level(), this.mob, BlockPos.containing(target.getPosition(1F)), 0));
+            this.mob.level().addFreshEntity(new BoneZone(this.mob.level(), this.mob, BlockPos.containing(target.getPosition(1F)), 0, 3F));
         }
     }
 
@@ -376,10 +376,10 @@ public class SkeletonFruitAttackGoal extends FruitAttackGoal<PathfinderMob> {
         actionSlowdown(this.mob);
         Bone bone;
         if (entityHitResult != null) {
-            bone = new Bone(this.mob.level(), this.mob, skeletonPos.add(0, 1, 0), target.getEyePosition().add(0, 1, 0));
+            bone = new Bone(this.mob.level(), this.mob, skeletonPos.add(0, 1, 0), target.getEyePosition().add(0, 1, 0), 2.25F);
         }
         else {
-            bone = new Bone(this.mob.level(), this.mob, skeletonPos, blockPos.getCenter());
+            bone = new Bone(this.mob.level(), this.mob, skeletonPos, blockPos.getCenter(), 2.25F);
         }
         this.mob.level().addFreshEntity(bone);
     }
@@ -414,12 +414,12 @@ public class SkeletonFruitAttackGoal extends FruitAttackGoal<PathfinderMob> {
             actionSlowdown(skeleton);
             GasterBlaster gasterBlaster;
             if (!(this.mob.getTarget() instanceof Player)) {
-                gasterBlaster = new GasterBlaster(pLevel, skeleton, skeletonPos, this.mob.getTarget());
+                gasterBlaster = new GasterBlaster(pLevel, skeleton, skeletonPos, this.mob.getTarget(), 2F);
             }
             else if (entityHitResult != null && !(entityHitResult.getEntity() instanceof SummonEntity)) {
-                gasterBlaster = new GasterBlaster(pLevel, skeleton, skeletonPos, entityHitResult.getEntity().getPosition(1F));
+                gasterBlaster = new GasterBlaster(pLevel, skeleton, skeletonPos, entityHitResult.getEntity().getPosition(1F), 2F);
             }else {
-                gasterBlaster = new GasterBlaster(pLevel, skeleton, skeletonPos, blockPos.getCenter());
+                gasterBlaster = new GasterBlaster(pLevel, skeleton, skeletonPos, blockPos.getCenter(), 2F);
             }
             pLevel.addFreshEntity(gasterBlaster);
         }

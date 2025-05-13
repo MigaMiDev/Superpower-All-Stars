@@ -3,11 +3,13 @@ package ttv.migami.spas.common.network.fruit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import ttv.migami.spas.common.Fruit;
 import ttv.migami.spas.common.network.ServerPlayHandler;
-import ttv.migami.spas.entity.CustomLightningBolt;
 import ttv.migami.spas.init.ModEffects;
 
 import static ttv.migami.spas.common.network.ServerPlayHandler.*;
@@ -19,8 +21,7 @@ import static ttv.migami.spas.world.CraterCreator.createCrater;
  */
 public class CreeperFruitHandler
 {
-
-    public static void moveHandler(Player pPlayer, int move, int amount) {
+    public static void moveHandler(Player pPlayer, Fruit fruit, int move, int amount) {
         Level pLevel = pPlayer.level();
 
         if (!pLevel.isClientSide()) {
@@ -56,7 +57,10 @@ public class CreeperFruitHandler
 
                     break;
                 case 4:
-                    pLevel.addFreshEntity(new CustomLightningBolt(pLevel, (int) pPlayer.getX(), (int) pPlayer.getY(), (int) pPlayer.getZ()));
+                    LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, pLevel);
+                    lightningBolt.setPos((int) pPlayer.getX(), (int) pPlayer.getY(), (int) pPlayer.getZ());
+                    lightningBolt.setVisualOnly(true);
+                    pLevel.addFreshEntity(lightningBolt);
                     summonScorchMark(pPlayer.level(), pPlayer.getOnPos().above(), 200, 6);
                     powerUser(pPlayer);
 

@@ -95,10 +95,15 @@
   "info.spas.firework_fruit.r_action_description": "Fire and ride a Firework at the direction you are looking!",
 
   "info.spas.creeper_fruit.z_action": "Self-Explode",
+  "info.spas.creeper_fruit.z_action_description": "Explode like a Creeper!",
   "info.spas.creeper_fruit.x_action": "Remote Explosion",
+  "info.spas.creeper_fruit.x_action_description": "Detonate an Explosion at a distance!",
   "info.spas.creeper_fruit.c_action": "Camouflage",
+  "info.spas.creeper_fruit.c_action_description": "Leap towards your enemies and give them a surprise!",
   "info.spas.creeper_fruit.v_action": "Super-Charge",
+  "info.spas.creeper_fruit.v_action_description": "Summon a Lightning Bolt to supercharge you!",
   "info.spas.creeper_fruit.r_action": "Disabled",
+  "info.spas.creeper_fruit.r_action_description": "Disabled",
 
   "info.spas.skeleton_fruit.z_action": "Bone Throw",
   "info.spas.skeleton_fruit.x_action": "Gaster Blasters",

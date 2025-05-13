@@ -86,6 +86,7 @@ public class ClientHandler {
                 }
                 output.accept(registryObject.get());
             });
+            //CustomFruitManager.fill(output);
         });
         register.register("creative_tab", builder::build);
         register.register(bus);

@@ -31,11 +31,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import ttv.migami.spas.Config;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.SuperpowerAllStars;
+import ttv.migami.spas.common.Fruit;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.common.FruitHandler;
-import ttv.migami.spas.common.container.PermanentFruitsMenu;
 import ttv.migami.spas.common.container.FruitMenu;
-import ttv.migami.spas.common.network.fruit.*;
+import ttv.migami.spas.common.container.PermanentFruitsMenu;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.event.FruitFireEvent;
 import ttv.migami.spas.init.ModPowers;
@@ -87,15 +87,19 @@ public class ServerPlayHandler
             MobEffect effect = FruitDataHandler.getCurrentEffect(player);
             ResourceLocation effectId = BuiltInRegistries.MOB_EFFECT.getKey(effect);
 
-            if (effectId != null) {
-                FruitHandler handler = ModPowers.getHandler(effectId);
-                if (handler != null) {
-                    handler.handle(player, move, amount);
+            if (effect instanceof FruitEffect fruitEffect) {
+                if (effectId != null) {
+                    FruitHandler handler = ModPowers.getHandler(effectId);
+                    Fruit fruit = fruitEffect.getFruit();
+
+                    if (handler != null) {
+                        handler.handle(player, fruit, move, amount);
+                    } else {
+                        SuperpowerAllStars.LOGGER.atWarn().log("No handler registered for effect: {}", effectId);
+                    }
                 } else {
-                    SuperpowerAllStars.LOGGER.atWarn().log("No handler registered for effect: {}", effectId);
+                    SuperpowerAllStars.LOGGER.atWarn().log("Effect ID could not be found for the effect: {}", effect.getDescriptionId());
                 }
-            } else {
-                SuperpowerAllStars.LOGGER.atWarn().log("Effect ID could not be found for the effect: {}", effect.getDescriptionId());
             }
 
             MinecraftForge.EVENT_BUS.post(new FruitFireEvent.Post(player, MobEffect.byId(effectID), move));
@@ -121,7 +125,7 @@ public class ServerPlayHandler
     }
 
     public static void messageToFruit(Player player, int effect, int move, int amount) {
-        switch (effect) {
+        /*switch (effect) {
             case 1:
                 FireworkFruitHandler.moveHandler(player, move, amount);
                 break;
@@ -151,7 +155,7 @@ public class ServerPlayHandler
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
     public static boolean canDamage(Entity entity) {

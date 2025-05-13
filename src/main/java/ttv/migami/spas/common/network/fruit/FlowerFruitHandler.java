@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import ttv.migami.spas.common.Fruit;
 import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.entity.SummonEntity;
 import ttv.migami.spas.entity.fruit.flower.FlowerSpear;
@@ -26,8 +27,7 @@ import static ttv.migami.spas.common.network.ServerPlayHandler.*;
  */
 public class FlowerFruitHandler
 {
-
-    public static void moveHandler(Player pPlayer, int move, int amount) {
+    public static void moveHandler(Player pPlayer, Fruit fruit, int move, int amount) {
         Level pLevel = pPlayer.level();
 
         FlowerSpear flowerSpear;

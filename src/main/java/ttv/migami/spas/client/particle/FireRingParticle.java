@@ -122,10 +122,10 @@ public class FireRingParticle extends TextureSheetParticle {
       }
 
       public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-         FireRingParticle FireRingParticle = new FireRingParticle(pLevel, pX, pY, pZ);
-         FireRingParticle.pickSprite(this.sprite);
-         FireRingParticle.setAlpha(1.0F);
-         return FireRingParticle;
+         FireRingParticle fireRingParticle = new FireRingParticle(pLevel, pX, pY, pZ);
+         fireRingParticle.pickSprite(this.sprite);
+         fireRingParticle.setAlpha(1.0F);
+         return fireRingParticle;
       }
    }
 }

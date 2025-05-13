@@ -69,7 +69,7 @@ public class PlayerCloneHandler {
         }
 
         playerEffects.put(playerId, effects);
-        fruitEffects.put(playerId, fruitEffectInstances);
+        //fruitEffects.put(playerId, fruitEffectInstances);
         event.getOriginal().invalidateCaps();
     }
 
@@ -106,7 +106,7 @@ public class PlayerCloneHandler {
     }
 
     @SubscribeEvent
-    public static void onPlayerChangedDimension(PlayerEvent.PlayerRespawnEvent event) {
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             UUID playerId = player.getUUID();
             CompoundTag data = player.getPersistentData();

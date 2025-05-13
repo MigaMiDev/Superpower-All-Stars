@@ -6,10 +6,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.entity.client.ModModelLayers;
-import ttv.migami.spas.entity.client.buster.LassoModel;
-import ttv.migami.spas.entity.client.buster.PianoModel;
-import ttv.migami.spas.entity.client.flower.PetalModel;
-import ttv.migami.spas.entity.client.skeleton.SmallBoneModel;
+import ttv.migami.spas.entity.client.fruit.buster.LassoModel;
+import ttv.migami.spas.entity.client.fruit.buster.PianoModel;
+import ttv.migami.spas.entity.client.fruit.flower.PetalModel;
+import ttv.migami.spas.entity.client.fruit.skeleton.SmallBoneModel;
 
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModClientEventsBus {

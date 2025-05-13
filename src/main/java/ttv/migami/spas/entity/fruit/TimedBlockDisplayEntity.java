@@ -27,19 +27,19 @@ public class TimedBlockDisplayEntity extends Display.BlockDisplay {
             this.setBlockState(this.getBlockStateOn());
         }
 
-        if (lifeTime >= 159) {
+        if (this.lifeTime >= 159) {
             setPos(this.getX(), this.getY() + 0.6, this.getZ());
         }
-        if (lifeTime <= 20) {
+        if (this.lifeTime <= 20) {
             setPos(this.getX(), this.getY() - 0.2, this.getZ());
         } else {
             this.teleportToGroundOrAir();
         }
-        if (lifeTime <= 0) {
+        if (this.lifeTime <= 0) {
             this.discard();
             this.kill();
         }
-        lifeTime--;
+        this.lifeTime--;
     }
 
     private void teleportToGroundOrAir() {

@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.HorseRenderer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -23,30 +24,31 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib.GeckoLib;
-import ttv.migami.jeg.init.ModBlocks;
 import ttv.migami.spas.client.ClientHandler;
+import ttv.migami.spas.client.CustomFruitManager;
 import ttv.migami.spas.client.KeyBinds;
 import ttv.migami.spas.client.MetaLoader;
+import ttv.migami.spas.common.NetworkFruitManager;
 import ttv.migami.spas.datagen.FruitGen;
 import ttv.migami.spas.entity.ai.FruitAI;
 import ttv.migami.spas.entity.ai.fruit.skeleton.SkeletonFruitAI;
 import ttv.migami.spas.entity.client.StunEntityRenderer;
-import ttv.migami.spas.entity.client.buster.CactusGeoRenderer;
-import ttv.migami.spas.entity.client.buster.CustomLassoRenderer;
-import ttv.migami.spas.entity.client.buster.DynamiteRenderer;
-import ttv.migami.spas.entity.client.buster.PianoRenderer;
 import ttv.migami.spas.entity.client.effect.CracksMarkRenderer;
 import ttv.migami.spas.entity.client.effect.InkMarkRenderer;
 import ttv.migami.spas.entity.client.effect.LargeInkMarkRenderer;
 import ttv.migami.spas.entity.client.effect.ScorchMarkRenderer;
-import ttv.migami.spas.entity.client.fire.FireballRenderer;
-import ttv.migami.spas.entity.client.fire.LargeFireballRenderer;
-import ttv.migami.spas.entity.client.flower.*;
-import ttv.migami.spas.entity.client.skeleton.BoneZoneGeoRenderer;
-import ttv.migami.spas.entity.client.skeleton.GasterBlasterGeoRenderer;
-import ttv.migami.spas.entity.client.skeleton.SmallBoneRenderer;
-import ttv.migami.spas.entity.client.spider.*;
-import ttv.migami.spas.entity.client.squid.InkSplatRenderer;
+import ttv.migami.spas.entity.client.fruit.buster.CactusGeoRenderer;
+import ttv.migami.spas.entity.client.fruit.buster.CustomLassoRenderer;
+import ttv.migami.spas.entity.client.fruit.buster.DynamiteRenderer;
+import ttv.migami.spas.entity.client.fruit.buster.PianoRenderer;
+import ttv.migami.spas.entity.client.fruit.fire.FireballRenderer;
+import ttv.migami.spas.entity.client.fruit.fire.LargeFireballRenderer;
+import ttv.migami.spas.entity.client.fruit.flower.*;
+import ttv.migami.spas.entity.client.fruit.skeleton.BoneZoneGeoRenderer;
+import ttv.migami.spas.entity.client.fruit.skeleton.GasterBlasterGeoRenderer;
+import ttv.migami.spas.entity.client.fruit.skeleton.SmallBoneRenderer;
+import ttv.migami.spas.entity.client.fruit.spider.*;
+import ttv.migami.spas.entity.client.fruit.squid.InkSplatRenderer;
 import ttv.migami.spas.init.*;
 import ttv.migami.spas.network.PacketHandler;
 import ttv.migami.spas.network.persistent.ModNetworking;
@@ -59,6 +61,7 @@ public class SuperpowerAllStars {
     public static boolean debugging = false;
     public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
     public static boolean jegLoaded = false;
+    public static boolean playerReviveLoaded = false;
 
     public SuperpowerAllStars() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
@@ -70,7 +73,6 @@ public class SuperpowerAllStars {
         ModEffects.REGISTER.register(bus);
         ModEnchantments.REGISTER.register(bus);
         ModItems.REGISTER.register(bus);
-        ModBlocks.REGISTER.register(bus);
         ModEntities.REGISTER.register(bus);
         ModContainers.REGISTER.register(bus);
         ModParticleTypes.REGISTER.register(bus);
@@ -91,6 +93,7 @@ public class SuperpowerAllStars {
         MinecraftForge.EVENT_BUS.register(new FruitAI());
         MinecraftForge.EVENT_BUS.register(new SkeletonFruitAI());
         jegLoaded = ModList.get().isLoaded("jeg");
+        playerReviveLoaded = ModList.get().isLoaded("playerrevive");
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {
@@ -133,6 +136,8 @@ public class SuperpowerAllStars {
             PacketHandler.init();
             ModNetworking.register();
             FrameworkAPI.registerSyncedDataKey(ModSyncedDataKeys.SHOOTING);
+            FrameworkAPI.registerLoginData(new ResourceLocation(Reference.MOD_ID, "network_fruit_manager"), NetworkFruitManager.LoginData::new);
+            FrameworkAPI.registerLoginData(new ResourceLocation(Reference.MOD_ID, "custom_fruit_manager"), CustomFruitManager.LoginData::new);
             ModPowers.registerPowerHandlers();
         });
     }

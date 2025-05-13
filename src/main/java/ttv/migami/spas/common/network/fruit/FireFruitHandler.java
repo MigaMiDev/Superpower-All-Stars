@@ -33,14 +33,7 @@ import static ttv.migami.spas.entity.fx.ScorchMarkEntity.summonScorchMark;
  */
 public class FireFruitHandler
 {
-    private static Fruit fruit;
-    private static Fruit.ZAction zMove;
-    private static Fruit.XAction xMove;
-    private static Fruit.CAction cMove;
-    private static Fruit.VAction vMove;
-    private static Fruit.RAction rMove;
-
-    public static void moveHandler(Player pPlayer, int move, int amount) {
+    public static void moveHandler(Player pPlayer, Fruit fruit, int move, int amount) {
         Level pLevel = pPlayer.level();
 
         if (!pLevel.isClientSide()) {

@@ -29,14 +29,14 @@ public class Bone extends CustomProjectileEntity {
         this.speed = 3.5D;
     }
 
-    public Bone(Level pLevel, LivingEntity owner, Vec3 pPos, Vec3 targetPos) {
+    public Bone(Level pLevel, LivingEntity owner, Vec3 pPos, Vec3 targetPos, float damage) {
         super(ModEntities.SMALL_BONE.get(), pLevel, owner);
         this.setPos(pPos.add(0, 1, 0));
 
         this.lookAt(EntityAnchorArgument.Anchor.EYES, targetPos);
         this.getLookAngle();
         this.affectedByGravity = false;
-        this.damage = 2F;
+        this.damage = damage;
         this.speed = 3.5D;
         this.setDeltaMovement(this.getLookAngle().x * speed, this.getLookAngle().y * speed, this.getLookAngle().z * speed);
         this.updateHeading();

@@ -4,7 +4,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import org.lwjgl.glfw.GLFW;
-import ttv.migami.jeg.Config;
+import ttv.migami.spas.Config;
 
 /**
  * Author: MrCrayfish

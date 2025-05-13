@@ -7,7 +7,6 @@ import com.google.gson.GsonBuilder;
 import com.mrcrayfish.framework.api.data.login.ILoginData;
 import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
@@ -21,8 +20,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.Validate;
-import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.Reference;
+import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.annotation.Validator;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.network.PacketHandler;
@@ -43,7 +42,6 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
         builder.registerTypeAdapter(ResourceLocation.class, JsonDeserializers.RESOURCE_LOCATION);
         builder.registerTypeAdapter(ActionType.class, JsonDeserializers.ACTION_TYPE);
         builder.registerTypeAdapter(ActionMode.class, JsonDeserializers.ACTION_MODE);
-        builder.registerTypeAdapter(Component.class, JsonDeserializers.COMPONENT);
         builder.registerTypeAdapter(FoodExhaustion.class, JsonDeserializers.FOOD_EXHAUSTION);
         builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
         return builder.create();
@@ -58,15 +56,15 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
     protected Map<FruitEffect, Fruit> prepare(ResourceManager manager, ProfilerFiller profiler)
     {
         Map<FruitEffect, Fruit> map = new HashMap<>();
-        ForgeRegistries.MOB_EFFECTS.getValues().stream().filter(effect -> effect instanceof FruitEffect).forEach(effect ->
+        ForgeRegistries.MOB_EFFECTS.getValues().stream().filter(item -> item instanceof FruitEffect).forEach(item ->
         {
-            ResourceLocation id = ForgeRegistries.MOB_EFFECTS.getKey(effect);
+            ResourceLocation id = ForgeRegistries.MOB_EFFECTS.getKey(item);
             if (id != null)
             {
                 List<ResourceLocation> resources = new ArrayList<>(manager.listResources("fruits", (fileName) -> fileName.getPath().endsWith(id.getPath() + ".json")).keySet());
                 resources.sort((r1, r2) -> {
                     if(r1.getNamespace().equals(r2.getNamespace())) return 0;
-                    return r2.getNamespace().equals(Reference.MOD_ID) ? 1 : -1;
+                    return r2.getNamespace().equals(ttv.migami.jeg.Reference.MOD_ID) ? 1 : -1;
                 });
                 resources.forEach(resourceLocation ->
                 {
@@ -88,12 +86,12 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
                             Fruit fruit = GsonHelper.fromJson(GSON_INSTANCE, reader, Fruit.class);
                             if (fruit != null && Validator.isValidObject(fruit))
                             {
-                                map.put((FruitEffect) effect, fruit);
+                                map.put((FruitEffect) item, fruit);
                             }
                             else
                             {
                                 SuperpowerAllStars.LOGGER.error("Couldn't load data file {} as it is missing or malformed. Using default fruit data", resourceLocation);
-                                map.putIfAbsent((FruitEffect) effect, new Fruit());
+                                map.putIfAbsent((FruitEffect) item, new Fruit());
                             }
                         }
                         catch (InvalidObjectException e)
@@ -120,9 +118,9 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
     protected void apply(Map<FruitEffect, Fruit> objects, ResourceManager resourceManager, ProfilerFiller profiler)
     {
         ImmutableMap.Builder<ResourceLocation, Fruit> builder = ImmutableMap.builder();
-        objects.forEach((effect, fruit) -> {
-            builder.put(Objects.requireNonNull(ForgeRegistries.MOB_EFFECTS.getKey(effect)), fruit);
-            effect.setFruit(new Supplier(fruit));
+        objects.forEach((item, fruit) -> {
+            builder.put(Objects.requireNonNull(ForgeRegistries.MOB_EFFECTS.getKey(item)), fruit);
+            item.setFruit(new NetworkFruitManager.Supplier(fruit));
         });
         this.registeredFruits = builder.build();
     }
@@ -181,13 +179,13 @@ public class NetworkFruitManager extends SimplePreparableReloadListener<Map<Frui
         {
             for(Map.Entry<ResourceLocation, Fruit> entry : registeredFruits.entrySet())
             {
-                MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(entry.getKey());
-                if(!(effect instanceof FruitEffect))
+                MobEffect item = ForgeRegistries.MOB_EFFECTS.getValue(entry.getKey());
+                if(!(item instanceof FruitEffect))
                 {
                     return false;
                 }
-                ((FruitEffect) effect).setFruit(new Supplier(entry.getValue()));
-                clientRegisteredFruits.add((FruitEffect) effect);
+                ((FruitEffect) item).setFruit(new NetworkFruitManager.Supplier(entry.getValue()));
+                clientRegisteredFruits.add((FruitEffect) item);
             }
             return true;
         }

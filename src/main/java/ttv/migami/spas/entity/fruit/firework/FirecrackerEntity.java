@@ -17,11 +17,10 @@ import java.util.Iterator;
 
 public class FirecrackerEntity extends CustomFireworkRocketEntity {
 
-    public float damage = 2.0F;
-
-    public FirecrackerEntity(Level pLevel, Entity pShooter, double pX, double pY, double pZ, ItemStack pStack) {
+    public FirecrackerEntity(Level pLevel, Entity pShooter, double pX, double pY, double pZ, ItemStack pStack, float damage) {
         super(pLevel, pX, pY, pZ, pStack);
         this.setOwner(pShooter);
+        this.damage = damage;
     }
 
     @Override

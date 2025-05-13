@@ -55,7 +55,7 @@ public class BoneZone extends SummonEntity implements GeoEntity {
         super(pEntityType, pLevel);
     }
 
-    public BoneZone(Level pLevel, LivingEntity entity, BlockPos pPos, float pXRot) {
+    public BoneZone(Level pLevel, LivingEntity entity, BlockPos pPos, float pXRot, float damage) {
         super(ModEntities.BONE_ZONE.get(), pLevel, entity);
         this.setPos(pPos.getCenter().add(0, -0.5, 0));
         this.teleportToGroundOrAir();
@@ -65,6 +65,7 @@ public class BoneZone extends SummonEntity implements GeoEntity {
         this.setNoAi(true);
         this.noPhysics = true;
 
+        this.damage = damage;
         this.customDamage = this.damage;
         if (this.owner instanceof Player owner) {
             this.customDamage = ServerPlayHandler.calculateCustomDamage(owner, this.damage) / 2;

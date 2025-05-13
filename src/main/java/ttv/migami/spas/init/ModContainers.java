@@ -6,7 +6,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import ttv.migami.jeg.Reference;
+import ttv.migami.spas.Reference;
 import ttv.migami.spas.common.container.PermanentFruitsMenu;
 import ttv.migami.spas.common.container.FruitMenu;
 

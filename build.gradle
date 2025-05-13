@@ -12,7 +12,7 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = "0.4.0-1.20.1"
+version = "0.3.0-1.20.1"
 group = "ttv.migami"
 archivesBaseName = "SuperpowerAll-Stars"
 
@@ -95,13 +95,13 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.3.0'
     implementation fg.deobf('curse.maven:framework-549225:5692398')
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.4')
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    compileOnly fg.deobf('curse.maven:just-enough-guns-820727:6038734')
-    runtimeOnly fg.deobf('curse.maven:just-enough-guns-820727:6038734')
+    compileOnly fg.deobf('curse.maven:just-enough-guns-820727:6405150')
+    runtimeOnly fg.deobf('curse.maven:just-enough-guns-820727:6405150')
 }
 
 jar {

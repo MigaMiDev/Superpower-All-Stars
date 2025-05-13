@@ -67,13 +67,12 @@ public class GasterBlaster extends SummonEntity implements GeoEntity {
 
         this.setNoAi(true);
         this.noPhysics = true;
-        this.damage = 2.0F;
         if (this.owner instanceof Player owner) {
             this.customDamage = ServerPlayHandler.calculateCustomDamage(owner, this.damage) / 2;
         }
     }
 
-    public GasterBlaster(Level pLevel, LivingEntity entity, Vec3 pPos, Vec3 pTarget) {
+    public GasterBlaster(Level pLevel, LivingEntity entity, Vec3 pPos, Vec3 pTarget, float damage) {
         super(ModEntities.GASTER_BLASTER.get(), pLevel, entity);
         this.setPos(pPos);
         this.target = pTarget;
@@ -82,13 +81,13 @@ public class GasterBlaster extends SummonEntity implements GeoEntity {
         this.setNoAi(true);
         this.lookAt(EntityAnchorArgument.Anchor.EYES, pTarget);
         this.noPhysics = true;
-        this.damage = 2.0F;
+        this.damage = damage;
         if (this.owner instanceof Player owner) {
             this.customDamage = ServerPlayHandler.calculateCustomDamage(owner, this.damage) / 2;
         }
     }
 
-    public GasterBlaster(Level pLevel, LivingEntity entity, Vec3 pPos, Entity pEntity) {
+    public GasterBlaster(Level pLevel, LivingEntity entity, Vec3 pPos, Entity pEntity, float damage) {
         super(ModEntities.GASTER_BLASTER.get(), pLevel, entity);
         this.setPos(pPos);
         this.targetEntity = pEntity;
@@ -97,7 +96,7 @@ public class GasterBlaster extends SummonEntity implements GeoEntity {
         this.setNoAi(true);
         this.lookAt(EntityAnchorArgument.Anchor.EYES, pEntity.getPosition(1F));
         this.noPhysics = true;
-        this.damage = 2.0F;
+        this.damage = damage;
         if (this.owner instanceof Player owner) {
             this.customDamage = ServerPlayHandler.calculateCustomDamage(owner, this.damage) / 2;
         }

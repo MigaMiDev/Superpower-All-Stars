@@ -2,17 +2,20 @@ package ttv.migami.spas.entity.fruit.firework;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.common.network.ServerPlayHandler;
 
 import javax.annotation.Nullable;
@@ -21,7 +24,7 @@ import java.util.OptionalInt;
 
 public class CustomFireworkRocketEntity extends FireworkRocketEntity {
 
-    public float damage = 5.0F;
+    protected float damage = 5.0F;
 
     public CustomFireworkRocketEntity(EntityType<? extends FireworkRocketEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -57,9 +60,10 @@ public class CustomFireworkRocketEntity extends FireworkRocketEntity {
         this.entityData.set(DATA_SHOT_AT_ANGLE, pShotAtAngle);
     }
 
-    public CustomFireworkRocketEntity(Level pLevel, ItemStack pStack, Entity pShooter, double pX, double pY, double pZ, boolean pShotAtAngle) {
+    public CustomFireworkRocketEntity(Level pLevel, ItemStack pStack, Entity pShooter, double pX, double pY, double pZ, boolean pShotAtAngle, float damage) {
         this(pLevel, pStack, pX, pY, pZ, pShotAtAngle);
         this.setOwner(pShooter);
+        this.damage = damage;
     }
 
     public CustomFireworkRocketEntity(Level pLevel, ItemStack pStack, Entity pShooter, float damage, double pX, double pY, double pZ, boolean pShotAtAngle) {
@@ -81,6 +85,7 @@ public class CustomFireworkRocketEntity extends FireworkRocketEntity {
         }
 
         this.dealExplosionDamage(customDamage);
+        SuperpowerAllStars.LOGGER.atInfo().log(customDamage);
         this.discard();
     }
 
@@ -132,6 +137,71 @@ public class CustomFireworkRocketEntity extends FireworkRocketEntity {
                 }
             }
         }
+    }
+
+    public static ItemStack getFireworkStack(Boolean pFlicker, Boolean pTrail, int pType, int pFlight) {
+        ItemStack fireworkStack = new ItemStack(Items.FIREWORK_ROCKET);
+        CompoundTag fireworkTag = new CompoundTag();
+
+        ListTag explosionList = new ListTag();
+        CompoundTag explosion = new CompoundTag();
+
+        explosion.putBoolean("Flicker", pFlicker);
+        explosion.putBoolean("Trail", pTrail);
+        /*
+         * Set the type of explosion (0-4 for different shapes)
+         * 0 - Small
+         * 1 - Large
+         * 2 - Star
+         * 3 - Creeper
+         * 4 - Burst
+         */
+        explosion.putByte("Type", (byte) pType);
+        explosion.putIntArray("Colors", new int[]{getRandomColor(), getRandomColor()});
+        explosionList.add(explosion);
+        fireworkTag.putByte("Flight", (byte) pFlight);
+        fireworkTag.put("Explosions", explosionList);
+
+        CompoundTag fireworkItemTag = new CompoundTag();
+        fireworkItemTag.put("Fireworks", fireworkTag);
+        fireworkStack.setTag(fireworkItemTag);
+
+        return fireworkStack;
+    }
+
+    public static ItemStack getColoredFireworkStack(Boolean pFlicker, Boolean pTrail, int pType, int pFlight, int pColor1, int pColor2) {
+        ItemStack fireworkStack = new ItemStack(Items.FIREWORK_ROCKET);
+        CompoundTag fireworkTag = new CompoundTag();
+
+        ListTag explosionList = new ListTag();
+        CompoundTag explosion = new CompoundTag();
+
+        explosion.putBoolean("Flicker", pFlicker);
+        explosion.putBoolean("Trail", pTrail);
+        /*
+         * Set the type of explosion (0-4 for different shapes)
+         * 0 - Small
+         * 1 - Large
+         * 2 - Star
+         * 3 - Creeper
+         * 4 - Burst
+         */
+        explosion.putByte("Type", (byte) pType);
+        explosion.putIntArray("Colors", new int[]{pColor1, pColor2});
+        explosionList.add(explosion);
+        fireworkTag.putByte("Flight", (byte) pFlight);
+        fireworkTag.put("Explosions", explosionList);
+
+        CompoundTag fireworkItemTag = new CompoundTag();
+        fireworkItemTag.put("Fireworks", fireworkTag);
+        fireworkStack.setTag(fireworkItemTag);
+
+        return fireworkStack;
+    }
+
+    private static int getRandomColor() {
+        RandomSource rand = RandomSource.create();
+        return rand.nextInt(0xFFFFFF);
     }
 
 }

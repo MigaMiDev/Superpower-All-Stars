@@ -19,20 +19,23 @@ public class DragFireworkRocketEntity extends CustomFireworkRocketEntity {
 
     public boolean dragsUser = true;
 
-    public DragFireworkRocketEntity(Level pLevel, ItemStack pStack, Entity pShooter, double pX, double pY, double pZ) {
+    public DragFireworkRocketEntity(Level pLevel, ItemStack pStack, Entity pShooter, double pX, double pY, double pZ, float damage) {
         super(pLevel, pX, pY, pZ, pStack);
         this.setOwner(pShooter);
+        this.damage = damage;
     }
 
-    public DragFireworkRocketEntity(Level pLevel, Boolean pDragsUser, ItemStack pStack, Entity pShooter, double pX, double pY, double pZ) {
+    public DragFireworkRocketEntity(Level pLevel, Boolean pDragsUser, ItemStack pStack, Entity pShooter, double pX, double pY, double pZ, float damage) {
         super(pLevel, pX, pY, pZ, pStack);
         this.setDragsUser(pDragsUser);
         this.setOwner(pShooter);
+        this.damage = damage;
     }
 
-    public DragFireworkRocketEntity(Level pLevel, ItemStack pStack, Entity pShooter, double pX, double pY, double pZ, Boolean pShotAtAngle) {
+    public DragFireworkRocketEntity(Level pLevel, ItemStack pStack, Entity pShooter, double pX, double pY, double pZ, Boolean pShotAtAngle, float damage) {
         super(pLevel, pStack, pX, pY, pZ, pShotAtAngle);
         this.setOwner(pShooter);
+        this.damage = damage;
     }
 
     @Override

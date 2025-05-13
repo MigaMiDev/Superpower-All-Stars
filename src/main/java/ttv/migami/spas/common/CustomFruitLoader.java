@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -14,8 +13,8 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.Reference;
+import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.annotation.Validator;
 
 import javax.annotation.Nullable;
@@ -31,7 +30,6 @@ public class CustomFruitLoader extends SimpleJsonResourceReloadListener
         builder.registerTypeAdapter(ResourceLocation.class, JsonDeserializers.RESOURCE_LOCATION);
         builder.registerTypeAdapter(ActionType.class, JsonDeserializers.ACTION_TYPE);
         builder.registerTypeAdapter(ActionMode.class, JsonDeserializers.ACTION_MODE);
-        builder.registerTypeAdapter(Component.class, JsonDeserializers.COMPONENT);
         builder.registerTypeAdapter(FoodExhaustion.class, JsonDeserializers.FOOD_EXHAUSTION);
         return builder.create();
     });
