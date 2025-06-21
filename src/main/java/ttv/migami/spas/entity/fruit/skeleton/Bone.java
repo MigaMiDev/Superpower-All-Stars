@@ -31,13 +31,15 @@ public class Bone extends CustomProjectileEntity {
 
     public Bone(Level pLevel, LivingEntity owner, Vec3 pPos, Vec3 targetPos, float damage) {
         super(ModEntities.SMALL_BONE.get(), pLevel, owner);
-        this.setPos(pPos.add(0, 1, 0));
+        this.setPos(pPos);
 
         this.lookAt(EntityAnchorArgument.Anchor.EYES, targetPos);
         this.getLookAngle();
         this.affectedByGravity = false;
+
         this.damage = damage;
         this.speed = 3.5D;
+
         this.setDeltaMovement(this.getLookAngle().x * speed, this.getLookAngle().y * speed, this.getLookAngle().z * speed);
         this.updateHeading();
         this.level().playSound(this, this.blockPosition(), ModSounds.BONE_THROW.get(), SoundSource.PLAYERS, 1F, 1F);
@@ -46,6 +48,8 @@ public class Bone extends CustomProjectileEntity {
     @Override
     protected void onHitBlock(BlockState state, BlockPos pos, Direction face, double x, double y, double z)
     {
+        super.onHitBlock(state, pos, face, x, y ,z);
+
         if (!this.level().isClientSide) {
             BlockPos entityPos = this.blockPosition();
             BlockPos belowPos = entityPos.below();

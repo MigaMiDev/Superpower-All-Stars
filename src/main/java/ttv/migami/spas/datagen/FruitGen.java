@@ -126,33 +126,33 @@ public class FruitGen extends FruitProvider
 
                 // Moves
                 .setZAction(ActionType.Z, "info.spas.squid_fruit.z_action",
-                        2F, ActionMode.SINGLE, 100, 20,2,
+                        3F, ActionMode.HOLD, 160, 2,8,
                         true, 0, 0, FoodExhaustion.SMALL,
                         -0.1F, 0.2F)
 
                 .setXAction(ActionType.X, "info.spas.squid_fruit.x_action",
-                        2F, ActionMode.SINGLE, 500, 1,1,
+                        3F, ActionMode.SINGLE, 200, 20,3,
                         false, 5, 3, FoodExhaustion.BIG,
                         0.3F, 0.0F)
 
                 .setCAction(ActionType.C, "info.spas.squid_fruit.c_action",
-                        0F, ActionMode.HOLD, 600, 20,3,
+                        10F, ActionMode.SINGLE, 250, 40,2,
                         false, 15, 5, FoodExhaustion.LARGE,
                         -1.0F, 1.0F)
 
                 .setVAction(ActionType.V, "info.spas.squid_fruit.v_action",
-                        6F, ActionMode.HOLD, 800, 3,82,
+                        0.4F, ActionMode.HOLD, 300, 2,24,
                         false, 25, 10, FoodExhaustion.NONE,
                         0.0F, 0.5F)
 
                 .setRAction(ActionType.R, "info.spas.squid_fruit.r_action",
-                        0F, ActionMode.SINGLE, 800, 1,1,
+                        0F, ActionMode.SINGLE, 150, 1,1,
                         false, 0, 0, FoodExhaustion.LARGE,
                         0.0F, 0.0F)
 
                 .build());
 
-        this.addFruit(new ResourceLocation(Reference.MOD_ID, "flower_fruit"), Fruit.Builder.create()
+        /*this.addFruit(new ResourceLocation(Reference.MOD_ID, "flower_fruit"), Fruit.Builder.create()
 
                 // General
                 .setSwimDisabled(true)
@@ -178,7 +178,7 @@ public class FruitGen extends FruitProvider
                         false, 25, 10, FoodExhaustion.SMALL,
                         0.0F, 0.0F)
 
-                .build());
+                .build());*/
 
     }
 }

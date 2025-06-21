@@ -290,17 +290,17 @@ public class ActionHandler
 
             PacketHandler.getPlayChannel().sendToServer(new C2SMessageAction(player, MobEffect.getId(effect), move, amount));
             MinecraftForge.EVENT_BUS.post(new FruitFireEvent.Post(player, effect, move));
+
+            float pushBack = action.getShooterPushback();
+            if (player.isCrouching()) {
+                pushBack = pushBack / 2;
+            }
+            recoil(player, pushBack);
         }
 
         if (moveManager.getAmount(action.getActionType()) == 0) {
             moveManager.setCooldown(action.getActionType(), action.getCooldown());
         }
-
-        float pushBack = action.getShooterPushback();
-        if (player.isCrouching()) {
-            pushBack = pushBack / 2;
-        }
-        recoil(player, pushBack);
     }
 
     public Fruit.Action getFruitAction(ActionType action) {

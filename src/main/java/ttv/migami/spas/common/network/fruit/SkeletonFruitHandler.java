@@ -77,7 +77,7 @@ public class SkeletonFruitHandler
                     actionSlowdown(pPlayer);
                     Bone bone;
                     if (entityHitResult != null) {
-                        bone = new Bone(pLevel, pPlayer, playerPos.add(0, 1 ,0), entityHitResult.getEntity().getEyePosition().add(0, 1, 0), fruit.getZAction().getDamage());
+                        bone = new Bone(pLevel, pPlayer, playerPos.add(0, 1,0), entityHitResult.getEntity().getEyePosition().add(0, 1, 0), fruit.getZAction().getDamage());
                     }
                     else {
                         bone = new Bone(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getZAction().getDamage());

@@ -19,14 +19,13 @@
   },
   "rAction": {
     "actionMode": "spas:single",
-    "actionType": "R",
-    "cooldown": 100,
+    "actionType": "Z",
     "damage": 0.0,
     "enabledByDefault": false,
-    "foodExhaustion": "NONE",
-    "masteryLevel": 0,
-    "name": "info.spas.creeper_fruit.r_action",
-    "xpRequirement": 0
+    "foodExhaustion": "SMALL",
+    "masteryLevel": 5,
+    "name": "",
+    "xpRequirement": 3
   },
   "vAction": {
     "actionMode": "spas:single",
