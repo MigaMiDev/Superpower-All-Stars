@@ -20,7 +20,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.client.handler.ActionHandler;
 import ttv.migami.spas.client.handler.FruitRecoilHandler;
-import ttv.migami.spas.client.handler.MovesetHandler;
 import ttv.migami.spas.client.screen.FruitScreen;
 import ttv.migami.spas.client.screen.MoveSelectionScreen;
 import ttv.migami.spas.client.screen.PermanentFruitsScreen;
@@ -42,7 +41,7 @@ public class ClientHandler {
 
     public static void setup() {
         MinecraftForge.EVENT_BUS.register(ActionHandler.get());
-        MinecraftForge.EVENT_BUS.register(MovesetHandler.get());
+        //MinecraftForge.EVENT_BUS.register(MovesetHandler.get());
         MinecraftForge.EVENT_BUS.register(FruitRecoilHandler.get());
         registerScreenFactories();
     }

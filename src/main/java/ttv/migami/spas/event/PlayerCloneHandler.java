@@ -76,6 +76,8 @@ public class PlayerCloneHandler {
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
+            ServerPlayHandler.syncToClient(player);
+
             CompoundTag data = player.getPersistentData();
             for (String key : data.getAllKeys()) {
                 if (key.endsWith("_MasteryExperience") || key.endsWith("_MasteryLevel")) {
@@ -92,6 +94,8 @@ public class PlayerCloneHandler {
     @SubscribeEvent
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
+            ServerPlayHandler.syncToClient(player);
+
             CompoundTag data = player.getPersistentData();
             for (String key : data.getAllKeys()) {
                 if (key.endsWith("_MasteryExperience") || key.endsWith("_MasteryLevel")) {
@@ -108,6 +112,8 @@ public class PlayerCloneHandler {
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
+            ServerPlayHandler.syncToClient(player);
+
             UUID playerId = player.getUUID();
             CompoundTag data = player.getPersistentData();
             for (String key : data.getAllKeys()) {

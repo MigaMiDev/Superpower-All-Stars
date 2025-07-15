@@ -124,10 +124,10 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
 
             // Labels for Attacks
             if (this.currentFruit instanceof FruitEffect fruitEffect) {
-                int spacing = 70;
+                int spacing = 65;
 
                 for (int j = 0; j < 5; j++) {
-                    int x = centerX - (2 * spacing) + (j * spacing) - 13;
+                    int x = centerX - (2 * spacing) + (j * spacing) - 17;
                     int y = (int) (this.height * 0.65) - 6;
 
                     Fruit.Action action = fruitEffect.getFruit().getMoveA();;

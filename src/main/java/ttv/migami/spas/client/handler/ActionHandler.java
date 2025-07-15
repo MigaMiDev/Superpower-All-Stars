@@ -183,6 +183,7 @@ public class ActionHandler
                 return;
 
             if (fruit != null) {
+                moveManager.setFruit(this.fruit);
                 for (ActionType action : ActionType.values()) {
                     if (moveManager.getCooldown(action) > 0) {
                         moveManager.decrementCooldown(action);
@@ -194,6 +195,9 @@ public class ActionHandler
                         if (getFruitAction(action) != null) {
                             moveManager.setAmount(action, getFruitAction(action).getAttackAmount());
                         }
+                    }
+                    if (moveManager.getCooldown(action) > moveManager.getActionCooldown(action)) {
+                        moveManager.setCooldown(action, moveManager.getActionCooldown(action));
                     }
                 }
             }

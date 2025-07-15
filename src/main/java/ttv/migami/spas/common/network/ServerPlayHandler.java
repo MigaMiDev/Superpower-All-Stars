@@ -32,7 +32,6 @@ import ttv.migami.spas.Config;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.client.handler.ActionHandler;
-import ttv.migami.spas.client.handler.MovesetHandler;
 import ttv.migami.spas.common.Fruit;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.common.FruitHandler;
@@ -113,9 +112,8 @@ public class ServerPlayHandler
         removeOtherFruitEffects(player);
         if (MobEffect.byId(effect) != null) {
             player.addEffect(new MobEffectInstance(MobEffect.byId(effect), -1, 0, false, false));
-            MovesetHandler.get().resetCooldownsAndAmounts();
-            ActionHandler.get().updateMove(0);
             FruitDataHandler.setCurrentEffect(player, MobEffect.byId(effect));
+            ActionHandler.get().getCooldownManager().resetAmountsAndCooldowns();
         }
     }
 

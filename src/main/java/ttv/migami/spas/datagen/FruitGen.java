@@ -340,7 +340,7 @@ public class FruitGen extends FruitProvider
                         0.0F, 2.5F)
 
                 .setMobility(ActionType.MOBILITY, "info.spas.spider_fruit.mobility",
-                        3F, ActionMode.PRESS, 40, 0,1,
+                        3F, ActionMode.PRESS, 35, 0,1,
                         true, 0, 0, FoodExhaustion.MEDIUM,
                         0.0F, 1.0F)
 

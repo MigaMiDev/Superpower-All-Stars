@@ -7,6 +7,7 @@ public class MoveManager {
     private final Map<ActionType, Integer> cooldowns = new EnumMap<>(ActionType.class);
     private final Map<ActionType, Integer> intervals = new EnumMap<>(ActionType.class);
     private final Map<ActionType, Integer> amounts = new EnumMap<>(ActionType.class);
+    private Fruit fruit;
 
     public MoveManager() {
         for (ActionType action : ActionType.values()) {
@@ -14,6 +15,10 @@ public class MoveManager {
             intervals.put(action, 0);
             amounts.put(action, 0);
         }
+    }
+
+    public void setFruit(Fruit fruit) {
+        this.fruit = fruit;
     }
 
     public int getCooldown(ActionType action) {
@@ -46,5 +51,28 @@ public class MoveManager {
 
     public void setAmount(ActionType action, int value) {
         amounts.put(action, value);
+    }
+
+    public void resetAmountsAndCooldowns() {
+        for (ActionType action : ActionType.values()) {
+            intervals.put(action, 0);
+            amounts.put(action, 0);
+            cooldowns.put(action, getActionCooldown(action));
+        }
+    }
+
+    public int getActionCooldown(ActionType action) {
+        if (action.equals(ActionType.MOVE_A)) {
+            return fruit.getMoveA().getCooldown();
+        } else if (action.equals(ActionType.MOVE_B)) {
+            return fruit.getMoveB().getCooldown();
+        } else if (action.equals(ActionType.SPECIAL)) {
+            return fruit.getSpecial().getCooldown();
+        } else if (action.equals(ActionType.ULTIMATE)) {
+            return fruit.getUltimate().getCooldown();
+        } else if (action.equals(ActionType.MOBILITY)) {
+            return fruit.getMobility().getCooldown();
+        }
+        return 100;
     }
 }
