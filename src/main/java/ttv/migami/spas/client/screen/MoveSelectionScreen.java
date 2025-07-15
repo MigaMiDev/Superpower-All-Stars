@@ -20,7 +20,6 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 import ttv.migami.spas.Reference;
-import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.client.handler.ActionHandler;
 import ttv.migami.spas.client.util.RenderUtil;
 import ttv.migami.spas.common.Fruit;
@@ -64,7 +63,7 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
 
         int centerX = this.width / 2;
         int centerY = this.height / 2;
-        float guiSize = this.width / 400.0f;
+        //float guiSize = this.width / 400.0f;
 
         if (this.displayStack.getItem() instanceof FruitItem) {
             String modId = ForgeRegistries.ITEMS.getKey(this.displayStack.getItem()).getNamespace();
@@ -81,13 +80,15 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
 
         if (this.currentFruit instanceof FruitEffect fruitEffect) {
             Fruit fruit = fruitEffect.getFruit();
-            SuperpowerAllStars.LOGGER.atInfo().log(fruit.getMoveA().getName());
-            graphics.drawCenteredString(this.font, Component.translatable(fruit.getMoveA().getName()), centerX, (int) (centerY - 55 * guiSize), getColor(0));
+
+            graphics.drawCenteredString(this.font, Component.translatable(fruit.getMoveA().getName()), centerX, (int) (centerY - 110), getColor(0));
+
             String powerB = Component.translatable(fruit.getMoveB().getName()).getString();
             int textWidth = this.font.width(powerB);
-            graphics.drawString(this.font, powerB, (int) ((centerX - 51 * guiSize) - textWidth), centerY, getColor(3));
-            graphics.drawString(this.font, Component.translatable(fruit.getSpecial().getName()), (int) (centerX + 51 * guiSize), centerY, getColor(1));
-            graphics.drawCenteredString(this.font, Component.translatable(fruit.getUltimate().getName()), centerX, (int) (centerY + 53 * guiSize), getColor(2));
+            graphics.drawString(this.font, powerB, (int) ((centerX - 102) - textWidth), centerY, getColor(3));
+
+            graphics.drawString(this.font, Component.translatable(fruit.getSpecial().getName()), (int) (centerX + 102), centerY, getColor(1));
+            graphics.drawCenteredString(this.font, Component.translatable(fruit.getUltimate().getName()), centerX, (int) (centerY + 102), getColor(2));
         }
     }
 
@@ -97,7 +98,7 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
 
         int centerX = this.width / 2;
         int centerY = this.height / 2;
-        float guiSize = this.width / 400.0f;
+        //float guiSize = this.width / 400.0f;
 
         // Calculate direction
         double dx = mouseX - centerX;
@@ -124,10 +125,10 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
             int x = (int) (centerX - (13 * 1));
             int y = (int) (this.height * 0.65);
 
-            graphics.blit(resourceLocation, centerX - 15, (int) (centerY - 50 * guiSize), 0, 0, 30, 30);
-            graphics.blit(resourceLocation, (int) (centerX - (43 * guiSize) - 15), centerY - 12, 30, 0, 30, 30);
-            graphics.blit(resourceLocation, (int) (centerX + (43 * guiSize) - 15), centerY - 12, 60, 0, 30, 30);
-            graphics.blit(resourceLocation, centerX - 15, (int) (centerY + 37 * guiSize), 90, 0, 30, 30);
+            graphics.blit(resourceLocation, centerX - 15, (int) (centerY - 90), 0, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (centerX - (75) - 15), centerY - 12, 30, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (centerX + (75) - 15), centerY - 12, 60, 0, 30, 30);
+            graphics.blit(resourceLocation, centerX - 15, (int) (centerY + 60), 90, 0, 30, 30);
             //graphics.blit(resourceLocation, centerX + 100 - 15, centerY + 100, 120, 0, 30, 30);
 
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -242,7 +243,7 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
         float b = selected ? 1.0f : 0.1f;
         float a = selected ? 1.0f : 0.6f;
 
-        float size = 80;
+        float size = 100;
         float inner = 50;
         float side = 50;
 

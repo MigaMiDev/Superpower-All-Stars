@@ -64,7 +64,7 @@ public class MovesetHandler {
         }
     }
 
-    private void resetCooldownsAndAmounts() {
+    public void resetCooldownsAndAmounts() {
         for (ActionType action : ActionType.values()) {
             moveManager.setCooldown(action, 100);
             moveManager.setRate(action, 0);

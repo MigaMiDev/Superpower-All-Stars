@@ -124,10 +124,10 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
 
             // Labels for Attacks
             if (this.currentFruit instanceof FruitEffect fruitEffect) {
-                int spacing = (int) (this.width / 6.5f);
+                int spacing = 70;
 
                 for (int j = 0; j < 5; j++) {
-                    int x = centerX - (2 * spacing) + (j * spacing) - 36;
+                    int x = centerX - (2 * spacing) + (j * spacing) - 13;
                     int y = (int) (this.height * 0.65) - 6;
 
                     Fruit.Action action = fruitEffect.getFruit().getMoveA();;
@@ -140,7 +140,7 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
                         default -> action;
                     };
 
-                    if(RenderUtil.isMouseWithin(mouseX, mouseY, x, y, 72, 72)) {
+                    if(RenderUtil.isMouseWithin(mouseX, mouseY, x, y, 40, 40)) {
                         pGuiGraphics.renderComponentTooltip(this.font, Arrays.asList(
                                 Component.translatable(action.getName()).withStyle(ChatFormatting.BLUE),
                                 (Component.translatable(action.getName() + "_description")),
@@ -192,24 +192,24 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
         int centerY = (int) ((this.height / 1.2) / 2);
 
         float itemSize = (this.width / 20.0f) * 3;
-        float guiSize = this.width / 400.0f;
+        //float guiSize = this.width / 400.0f;
 
         if (currentFruit != null) {
             String modId = ForgeRegistries.MOB_EFFECTS.getKey(this.currentFruit).getNamespace();
             String fruitID = ForgeRegistries.MOB_EFFECTS.getKey(this.currentFruit).getPath();
             ResourceLocation resourceLocation = new ResourceLocation(modId, "textures/gui/fruit/" + fruitID + ".png");
 
-            int x = (int) (centerX - (13 * guiSize));
+            int x = (int) (centerX - (13));
             int y = (int) (this.height * 0.65);
 
             graphics.pose().pushPose();
-            graphics.pose().scale(guiSize, guiSize, guiSize);
+            graphics.pose().scale(1F, 1F, 1F);
 
-            graphics.blit(resourceLocation, (int) (-128 + (x / guiSize)), (int) (y / guiSize), 0, 0, 30, 30);
-            graphics.blit(resourceLocation, (int) (-64 + (x / guiSize)), (int) (y / guiSize), 30, 0, 30, 30);
-            graphics.blit(resourceLocation, (int) (x / guiSize), (int) (y / guiSize), 60, 0, 30, 30);
-            graphics.blit(resourceLocation, (int) (64 + (x / guiSize)), (int) (y / guiSize), 90, 0, 30, 30);
-            graphics.blit(resourceLocation, (int) (128 + (x / guiSize)), (int) (y / guiSize), 120, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (-128 + (x)), (int) (y), 0, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (-64 + (x)), (int) (y), 30, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (x), (int) (y), 60, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (64 + (x)), (int) (y), 90, 0, 30, 30);
+            graphics.blit(resourceLocation, (int) (128 + (x)), (int) (y), 120, 0, 30, 30);
 
             graphics.pose().popPose();
 
@@ -229,19 +229,19 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
 
         int centerX = this.width / 2;
 
-        float guiSize = this.width / 400.0f;
+        //float guiSize = this.width / 400.0f;
 
-        int x =  (int) (centerX - (16 * guiSize));
-        int y = (int) (this.height * 0.65) - 6;
+        int x =  (int) (centerX - (16));
+        int y = (int) (this.height * 0.65) - 3;
 
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().scale(guiSize, guiSize, guiSize);
+        guiGraphics.pose().scale(1F, 1F, 1F);
 
-        guiGraphics.blit(GUI_TEXTURES, (int) (-128 + (x / guiSize)), (int) (y / guiSize), 0, 32, 36, 36);
-        guiGraphics.blit(GUI_TEXTURES, (int) (-64 + (x / guiSize)), (int) (y / guiSize), 0, 32, 36, 36);
-        guiGraphics.blit(GUI_TEXTURES, (int) (x / guiSize), (int) (y / guiSize), 0, 32, 36, 36);
-        guiGraphics.blit(GUI_TEXTURES, (int) (64 + (x / guiSize)), (int) (y / guiSize), 0, 32, 36, 36);
-        guiGraphics.blit(GUI_TEXTURES, (int) (128 + (x / guiSize)), (int) (y / guiSize), 0, 32, 36, 36);
+        guiGraphics.blit(GUI_TEXTURES, (int) (-128 + (x)), (int) (y), 0, 32, 36, 36);
+        guiGraphics.blit(GUI_TEXTURES, (int) (-64 + (x)), (int) (y), 0, 32, 36, 36);
+        guiGraphics.blit(GUI_TEXTURES, (int) (x), (int) (y), 0, 32, 36, 36);
+        guiGraphics.blit(GUI_TEXTURES, (int) (64 + (x)), (int) (y), 0, 32, 36, 36);
+        guiGraphics.blit(GUI_TEXTURES, (int) (128 + (x)), (int) (y), 0, 32, 36, 36);
 
         guiGraphics.pose().popPose();
     }
