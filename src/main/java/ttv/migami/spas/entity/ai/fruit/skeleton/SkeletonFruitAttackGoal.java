@@ -161,7 +161,6 @@ public class SkeletonFruitAttackGoal extends FruitAttackGoal<PathfinderMob> {
                         this.mob.stopUsingItem();
                         if (this.mob instanceof RangedAttackMob rangedAttackMob) {
                             rangedAttackMob.performRangedAttack(target, BowItem.getPowerForTime(i));
-
                         }
                         this.attackTime = this.attackIntervalMin;
                     }

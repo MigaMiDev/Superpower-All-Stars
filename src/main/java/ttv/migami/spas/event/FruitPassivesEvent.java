@@ -63,7 +63,7 @@ public class FruitPassivesEvent {
 
                 if (((FruitEffect) currentEffect).getFruit().getGeneral().isSwimDisabled()) {
                     if (player.isInWater() && !Config.COMMON.gameplay.noSwimming.get() &&
-                            (serverLevel.getBlockState(player.getOnPos().below()).is(Blocks.WATER) || player.isUnderWater())) {
+                            ((serverLevel.getBlockState(player.getOnPos().below()).is(Blocks.WATER) && player.isInWater()) || player.isUnderWater())) {
                         if (player.getRandom().nextDouble() < 0.06) {
                             throwPlayerDownward(player, 0.2);
                             serverLevel.sendParticles(ParticleTypes.BUBBLE, player.getX(), player.getY(), player.getZ(), 10, player.getBbWidth(), player.getBbHeight(), player.getBbWidth(), 0.1);

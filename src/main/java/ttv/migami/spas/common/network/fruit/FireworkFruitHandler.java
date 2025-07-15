@@ -46,7 +46,7 @@ public class FireworkFruitHandler
                 case 1:
                     actionSlowdown(pShooter);
 
-                    firework = new CustomFireworkRocketEntity(pLevel, getFireworkStack(false, false, type, 1), pShooter, pShooter.getX(), pShooter.getEyeY() - 0.15, pShooter.getZ(), true, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getZAction().getDamage()));
+                    firework = new CustomFireworkRocketEntity(pLevel, getFireworkStack(false, false, type, 1), pShooter, pShooter.getX(), pShooter.getEyeY() - 0.15, pShooter.getZ(), true, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getMoveA().getDamage()));
                     speed = 1.5;
                     firework.lerpMotion(look.x * speed, look.y * speed, look.z * speed);
                     pLevel.addFreshEntity(firework);
@@ -62,10 +62,10 @@ public class FireworkFruitHandler
 
                     actionSlowdown(pShooter);
                     if (entityHitResult != null) {
-                        firework = new DragFireworkRocketEntity(pLevel, getFireworkStack(false, false, type, 1), pShooter, entityHitResult.getLocation().x + 0.5, entityHitResult.getLocation().y + 1, entityHitResult.getLocation().z + 0.5, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getXAction().getDamage()));
+                        firework = new DragFireworkRocketEntity(pLevel, getFireworkStack(false, false, type, 1), pShooter, entityHitResult.getLocation().x + 0.5, entityHitResult.getLocation().y + 1, entityHitResult.getLocation().z + 0.5, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getMoveB().getDamage()));
                     }
                     else {
-                        firework = new DragFireworkRocketEntity(pLevel, getFireworkStack(false, false, type, 1), pShooter, blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getXAction().getDamage()));
+                        firework = new DragFireworkRocketEntity(pLevel, getFireworkStack(false, false, type, 1), pShooter, blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getMoveB().getDamage()));
                     }
                     pLevel.addFreshEntity(firework);
 
@@ -83,10 +83,10 @@ public class FireworkFruitHandler
 
                     actionSlowdown(pShooter);
                     if (entityHitResult != null) {
-                        firework = new FirecrackerEntity(pLevel, pShooter, (entityHitResult.getLocation().x + 0.5) + xOffset, entityHitResult.getLocation().y + 1, (entityHitResult.getLocation().z + 0.5) + zOffset, getColoredFireworkStack(true, true, 4, 1, 0xFFFF00, 0xFF9700), ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getCAction().getDamage()));
+                        firework = new FirecrackerEntity(pLevel, pShooter, (entityHitResult.getLocation().x + 0.5) + xOffset, entityHitResult.getLocation().y + 1, (entityHitResult.getLocation().z + 0.5) + zOffset, getColoredFireworkStack(true, true, 4, 1, 0xFFFF00, 0xFF9700), ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getSpecial().getDamage()));
                     }
                     else {
-                        firework = new FirecrackerEntity(pLevel, pShooter, (blockPos.getX() + 0.5) + xOffset, blockPos.getY() + 1, (blockPos.getZ() + 0.5) + zOffset, getColoredFireworkStack(true, true, 4, 1, 0xFFFF00, 0xFF9700), ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getCAction().getDamage()));
+                        firework = new FirecrackerEntity(pLevel, pShooter, (blockPos.getX() + 0.5) + xOffset, blockPos.getY() + 1, (blockPos.getZ() + 0.5) + zOffset, getColoredFireworkStack(true, true, 4, 1, 0xFFFF00, 0xFF9700), ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getSpecial().getDamage()));
                     }
                     pLevel.addFreshEntity(firework);
 
@@ -101,7 +101,7 @@ public class FireworkFruitHandler
 
                     actionHeavySlowdown(pShooter);
 
-                    firework = new DragFireworkRocketEntity(pLevel, false, getFireworkStack(false, false, 1, 1), pShooter, (pShooter.getX() + 0.5) + xOffset, pShooter.getY() + 1, (pShooter.getZ() + 0.5) + zOffset, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getVAction().getDamage()));
+                    firework = new DragFireworkRocketEntity(pLevel, false, getFireworkStack(false, false, 1, 1), pShooter, (pShooter.getX() + 0.5) + xOffset, pShooter.getY() + 1, (pShooter.getZ() + 0.5) + zOffset, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getUltimate().getDamage()));
                     pLevel.addFreshEntity(firework);
 
                     ServerPlayHandler.smallFoodExhaustion(pShooter);
@@ -113,7 +113,7 @@ public class FireworkFruitHandler
                 case 5:
                     actionSlowdown(pShooter);
 
-                    firework = new DragFireworkRocketEntity(pLevel, getFireworkStack(false, false, 0, 1), pShooter, pShooter.getX(), pShooter.getEyeY() - 0.15, pShooter.getZ(), true, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getRAction().getDamage()));
+                    firework = new DragFireworkRocketEntity(pLevel, getFireworkStack(false, false, 0, 1), pShooter, pShooter.getX(), pShooter.getEyeY() - 0.15, pShooter.getZ(), true, ServerPlayHandler.calculateCustomDamage(pShooter, fruit.getMobility().getDamage()));
                     speed = 1.5;
                     firework.lerpMotion(look.x * speed, look.y * speed, look.z * speed);
                     pLevel.addFreshEntity(firework);

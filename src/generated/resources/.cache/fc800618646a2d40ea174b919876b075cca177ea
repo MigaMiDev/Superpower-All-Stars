@@ -1,5 +1,10 @@
-// 1.20.1	2025-05-13T16:24:55.4768552	Fruits: spas
-9e355275de026883ff807b9467ad26051330267a data/spas/fruits/creeper_fruit.json
-06ed9bfeadc9d82c2e6bf921d49e2387af99860d data/spas/fruits/firework_fruit.json
-521d8148714530753c9150ee8af566893d912dea data/spas/fruits/skeleton_fruit.json
-fef8b25ff8eea88e8492b0d6015dbb481a07e3dc data/spas/fruits/squid_fruit.json
+// 1.20.1	2025-07-15T15:38:30.1957013	Fruits: spas
+5190ba0b39188c6eef4c6c6b0f9402e7ed102bf6 data/spas/fruits/buster_fruit.json
+71fa90c7fd08bde889710cb37fa0585debb8e7e2 data/spas/fruits/creeper_fruit.json
+73425aeb72f999634890d850a2aea93fcfe53498 data/spas/fruits/firework_fruit.json
+8acee526735fa539f8b22dc3f78f3ef00d7784f4 data/spas/fruits/fire_fruit.json
+b5a987a6796e62707b7b0c4437c4c017b7cd0e22 data/spas/fruits/flower_fruit.json
+c25aac33b5d66f06e4578c7b9573706f2c824cc5 data/spas/fruits/rubber_fruit.json
+6d1e0bd209634f6c8c39c7a96a37e315ecd701ad data/spas/fruits/skeleton_fruit.json
+61deeaa3a67b380b99bf8bee03f908cfeaec5570 data/spas/fruits/spider_fruit.json
+dbdfd131486bc32e49b805401724af262565beb5 data/spas/fruits/squid_fruit.json

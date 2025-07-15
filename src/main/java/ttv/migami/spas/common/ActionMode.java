@@ -11,7 +11,7 @@ public class ActionMode {
     /**
      * An action mode that shoots once per trigger press
      */
-    public static final ActionMode SINGLE = new ActionMode(new ResourceLocation(Reference.MOD_ID, "single"));
+    public static final ActionMode PRESS = new ActionMode(new ResourceLocation(Reference.MOD_ID, "press"));
 
     /**
      * An action mode that shoots as long as the trigger is held down
@@ -35,7 +35,7 @@ public class ActionMode {
     }
 
     public static ActionMode getType(ResourceLocation id) {
-        return (ActionMode) actionModeMap.getOrDefault(id, SINGLE);
+        return (ActionMode) actionModeMap.getOrDefault(id, PRESS);
     }
 
     public ActionMode(ResourceLocation id) {
@@ -47,7 +47,7 @@ public class ActionMode {
     }
 
     static {
-        registerType(SINGLE);
+        registerType(PRESS);
         registerType(HOLD);
         registerType(BURST);
     }

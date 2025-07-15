@@ -22,11 +22,11 @@ public class SquidFruitEffect extends FruitEffect {
 
     @Override
     public void initializeActions() {
-        actions.put(ActionType.Z, new Action(5.0F, true, 160, 0, 8, Component.translatable("info.spas.squid_fruit.z_action"), false, true, 2.0F));
-        actions.put(ActionType.X, new Action(5.0F, false, 200, 20, 3, Component.translatable("info.spas.squid_fruit.x_action"), false, false, 0.0F));
-        actions.put(ActionType.C, new Action(5.0F, false, 250, 40, 2, Component.translatable("info.spas.squid_fruit.c_action"), false, true, 5.0F));
-        actions.put(ActionType.V, new Action(5.0F, true, 300, 4, 24, Component.translatable("info.spas.squid_fruit.v_action"), false, false, 0.0F));
-        actions.put(ActionType.R, new Action(5.0F, false, 150, 0, 1, Component.translatable("info.spas.squid_fruit.r_action"), false, false, 0.0F));
+        actions.put(ActionType.MOVE_A, new Action(5.0F, true, 160, 0, 8, Component.translatable("info.spas.squid_fruit.move_a"), false, true, 2.0F));
+        actions.put(ActionType.MOVE_B, new Action(5.0F, false, 200, 20, 3, Component.translatable("info.spas.squid_fruit.move_b"), false, false, 0.0F));
+        actions.put(ActionType.SPECIAL, new Action(5.0F, false, 250, 40, 2, Component.translatable("info.spas.squid_fruit.special"), false, true, 5.0F));
+        actions.put(ActionType.ULTIMATE, new Action(5.0F, true, 300, 4, 24, Component.translatable("info.spas.squid_fruit.ultimate"), false, false, 0.0F));
+        actions.put(ActionType.MOBILITY, new Action(5.0F, false, 150, 0, 1, Component.translatable("info.spas.squid_fruit.mobility"), false, false, 0.0F));
     }
 
     @Override

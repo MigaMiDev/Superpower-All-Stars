@@ -130,13 +130,13 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
                     int x = centerX - (2 * spacing) + (j * spacing) - 36;
                     int y = (int) (this.height * 0.65) - 6;
 
-                    Fruit.Action action = fruitEffect.getFruit().getZAction();;
+                    Fruit.Action action = fruitEffect.getFruit().getMoveA();;
                     action = switch (j) {
-                        case 0 -> fruitEffect.getFruit().getZAction();
-                        case 1 -> fruitEffect.getFruit().getXAction();
-                        case 2 -> fruitEffect.getFruit().getCAction();
-                        case 3 -> fruitEffect.getFruit().getVAction();
-                        case 4 -> fruitEffect.getFruit().getRAction();
+                        case 0 -> fruitEffect.getFruit().getMoveA();
+                        case 1 -> fruitEffect.getFruit().getMoveB();
+                        case 2 -> fruitEffect.getFruit().getSpecial();
+                        case 3 -> fruitEffect.getFruit().getUltimate();
+                        case 4 -> fruitEffect.getFruit().getMobility();
                         default -> action;
                     };
 

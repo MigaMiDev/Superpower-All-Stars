@@ -1,5 +1,6 @@
 package ttv.migami.spas.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.MouseSettingsScreen;
@@ -21,12 +22,14 @@ import ttv.migami.spas.client.handler.ActionHandler;
 import ttv.migami.spas.client.handler.FruitRecoilHandler;
 import ttv.migami.spas.client.handler.MovesetHandler;
 import ttv.migami.spas.client.screen.FruitScreen;
+import ttv.migami.spas.client.screen.MoveSelectionScreen;
 import ttv.migami.spas.client.screen.PermanentFruitsScreen;
 import ttv.migami.spas.init.ModContainers;
 import ttv.migami.spas.init.ModItems;
 import ttv.migami.spas.item.FruitItem;
 import ttv.migami.spas.network.PacketHandler;
 import ttv.migami.spas.network.message.C2SMessageFruitScreen;
+import ttv.migami.spas.network.message.C2SMessageMoveSelectionScreen;
 
 import java.lang.reflect.Field;
 
@@ -45,6 +48,7 @@ public class ClientHandler {
     }
 
     private static void registerScreenFactories() {
+        MenuScreens.register(ModContainers.MOVE_SELECTION.get(), MoveSelectionScreen::new);
         MenuScreens.register(ModContainers.PERMANENT_FRUITS.get(), PermanentFruitsScreen::new);
         MenuScreens.register(ModContainers.FRUIT_MENU.get(), FruitScreen::new);
     }
@@ -94,9 +98,11 @@ public class ClientHandler {
 
     @SubscribeEvent
     public static void onKeyPressed(InputEvent.Key event) {
-        if (KeyBinds.FRUIT_MENU.isDown()) {
-            //PacketHandler.getPlayChannel().sendToServer(new C2SMessagePermanentFruitsScreen());
+        if (KeyBinds.FRUIT_MENU.isDown() && Minecraft.getInstance().screen == null) {
             PacketHandler.getPlayChannel().sendToServer(new C2SMessageFruitScreen());
+        }
+        if (KeyBinds.FRUIT_ACTION.isDown() && Minecraft.getInstance().screen == null) {
+            PacketHandler.getPlayChannel().sendToServer(new C2SMessageMoveSelectionScreen());
         }
     }
 

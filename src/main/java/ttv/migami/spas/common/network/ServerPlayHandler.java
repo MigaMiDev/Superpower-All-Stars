@@ -35,6 +35,7 @@ import ttv.migami.spas.common.Fruit;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.common.FruitHandler;
 import ttv.migami.spas.common.container.FruitMenu;
+import ttv.migami.spas.common.container.MoveSelectionMenu;
 import ttv.migami.spas.common.container.PermanentFruitsMenu;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.event.FruitFireEvent;
@@ -268,14 +269,12 @@ public class ServerPlayHandler
         }
     }
 
+    public static void handleMoveSelectionScreen(ServerPlayer player) {
+        NetworkHooks.openScreen(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new MoveSelectionMenu(windowId, playerInventory), Component.translatable("container.spas.move_selection")));
+    }
+
     public static void handlePermanentFruitsScreen(ServerPlayer player) {
         NetworkHooks.openScreen(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new PermanentFruitsMenu(windowId, playerInventory), Component.translatable("container.spas.permanent_fruits")));
-
-        /*boolean hasFruitEffect = player.getActiveEffects().stream().anyMatch(effect -> effect.getEffect() instanceof FruitEffect);
-
-        if (hasFruitEffect) {
-            NetworkHooks.openScreen(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new BlessingMenu(windowId, playerInventory), Component.translatable("container.spas.permanent_fruits")));
-        }*/
     }
 
     public static void handleFruitScreen(ServerPlayer player) {

@@ -1,9 +1,9 @@
 package ttv.migami.spas.common;
 
 public enum ActionType {
-    Z,
-    X,
-    C,
-    V,
-    R
+    MOVE_A,
+    MOVE_B,
+    SPECIAL,
+    ULTIMATE,
+    MOBILITY
 }

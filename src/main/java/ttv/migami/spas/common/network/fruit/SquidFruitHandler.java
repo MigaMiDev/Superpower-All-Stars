@@ -73,10 +73,10 @@ public class SquidFruitHandler
 
                     actionSlowdown(pPlayer);
                     if (entityHitResult != null) {
-                        inkSplat = new InkSplat(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 1, 0), fruit.getZAction().getDamage(), false);
+                        inkSplat = new InkSplat(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 1, 0), fruit.getMoveA().getDamage(), false);
                     }
                     else {
-                        inkSplat = new InkSplat(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getZAction().getDamage(), false);
+                        inkSplat = new InkSplat(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getMoveA().getDamage(), false);
                     }
                     pLevel.addFreshEntity(inkSplat);
                     pPlayer.removeEffect(MobEffects.BLINDNESS);
@@ -103,7 +103,7 @@ public class SquidFruitHandler
                         if (angle < sweepAngle / 2 && entity != pPlayer) {
                             float customDamage = 3.0F;
                             //entity.hurt(pPlayer.damageSources().playerAttack(pPlayer), ServerPlayHandler.calculateCustomDamage(pPlayer, customDamage) / 1.5F);
-                            entity.hurt(pPlayer.damageSources().playerAttack(pPlayer), fruit.getXAction().getDamage());
+                            entity.hurt(pPlayer.damageSources().playerAttack(pPlayer), fruit.getMoveB().getDamage());
                             entity.invulnerableTime = 0;
                             if (!entity.level().isClientSide) {
                                 ((ServerLevel) entity.level()).sendParticles(ParticleTypes.DAMAGE_INDICATOR, entity.getX(), entity.getY(), entity.getZ(), 4, 0.3, entity.getBbHeight(), 0.3, 0.2);
@@ -157,10 +157,10 @@ public class SquidFruitHandler
 
                     actionSlowdown(pPlayer);
                     if (entityHitResult != null) {
-                        inkSplat = new InkSplat(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition(), fruit.getCAction().getDamage(), true);
+                        inkSplat = new InkSplat(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition(), fruit.getSpecial().getDamage(), true);
                     }
                     else {
-                        inkSplat = new InkSplat(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getCAction().getDamage(), true);
+                        inkSplat = new InkSplat(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getSpecial().getDamage(), true);
                     }
                     pLevel.addFreshEntity(inkSplat);
                     pPlayer.removeEffect(MobEffects.BLINDNESS);
@@ -186,7 +186,7 @@ public class SquidFruitHandler
                                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 3, false, false));
                                 livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0, false, true));
                                 livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 60, 0, false, false));
-                                livingEntity.hurt(pPlayer.damageSources().playerAttack(pPlayer), fruit.getVAction().getDamage());
+                                livingEntity.hurt(pPlayer.damageSources().playerAttack(pPlayer), fruit.getUltimate().getDamage());
                             }
                         }
                     pLevel.playSound(null, pPlayer.getOnPos(), ModSounds.SQUID_SPLAT.get(), SoundSource.PLAYERS, 2F, 1F);

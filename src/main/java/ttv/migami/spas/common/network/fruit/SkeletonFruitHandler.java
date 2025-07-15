@@ -77,10 +77,10 @@ public class SkeletonFruitHandler
                     actionSlowdown(pPlayer);
                     Bone bone;
                     if (entityHitResult != null) {
-                        bone = new Bone(pLevel, pPlayer, playerPos.add(0, 1,0), entityHitResult.getEntity().getEyePosition().add(0, 1, 0), fruit.getZAction().getDamage());
+                        bone = new Bone(pLevel, pPlayer, playerPos.add(0, 1,0), entityHitResult.getEntity().getEyePosition().add(0, 1, 0), fruit.getMoveA().getDamage());
                     }
                     else {
-                        bone = new Bone(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getZAction().getDamage());
+                        bone = new Bone(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getMoveA().getDamage());
                     }
                     pLevel.addFreshEntity(bone);
                     ServerPlayHandler.smallFoodExhaustion(pPlayer);
@@ -104,10 +104,10 @@ public class SkeletonFruitHandler
 
                     actionSlowdown(pPlayer);
                     if (entityHitResult != null && !pPlayer.isCrouching() && !(entityHitResult.getEntity() instanceof SummonEntity)) {
-                        gasterBlaster = new GasterBlaster(pLevel, pPlayer, playerPos, entityHitResult.getEntity(), fruit.getXAction().getDamage());
+                        gasterBlaster = new GasterBlaster(pLevel, pPlayer, playerPos, entityHitResult.getEntity(), fruit.getMoveB().getDamage());
                     }
                     else {
-                        gasterBlaster = new GasterBlaster(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getXAction().getDamage());
+                        gasterBlaster = new GasterBlaster(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getMoveB().getDamage());
                     }
                     pLevel.addFreshEntity(gasterBlaster);
 
@@ -201,7 +201,7 @@ public class SkeletonFruitHandler
                         Vec3 pGasterPos = pTarget.getPosition(1F);
 
                         if (pTarget.onGround()) {
-                            pLevel.addFreshEntity(new BoneZone(pLevel, pPlayer, BlockPos.containing(entityHitResult.getLocation()), (float) look.x, fruit.getVAction().getDamage()));
+                            pLevel.addFreshEntity(new BoneZone(pLevel, pPlayer, BlockPos.containing(entityHitResult.getLocation()), (float) look.x, fruit.getUltimate().getDamage()));
                         }
                         else {
                             // Spawn Gaster Blasters in a triangle formation
@@ -213,13 +213,13 @@ public class SkeletonFruitHandler
                                 offsetZ = Math.sin(angle) * radius;
                                 Vec3 blasterPos = pGasterPos.add(offsetX, 3, offsetZ);
 
-                                gasterBlaster = new GasterBlaster(pLevel, pPlayer, blasterPos, entityHitResult.getEntity(), fruit.getVAction().getDamage());
+                                gasterBlaster = new GasterBlaster(pLevel, pPlayer, blasterPos, entityHitResult.getEntity(), fruit.getUltimate().getDamage());
                                 pLevel.addFreshEntity(gasterBlaster);
                             }
                         }
                     }
                     else {
-                        pLevel.addFreshEntity(new BoneZone(pLevel, pPlayer, blockPos, (float) look.x, fruit.getVAction().getDamage()));
+                        pLevel.addFreshEntity(new BoneZone(pLevel, pPlayer, blockPos, (float) look.x, fruit.getUltimate().getDamage()));
                     }
 
                     ServerPlayHandler.largeFoodExhaustion(pPlayer);

@@ -12,18 +12,18 @@ import ttv.migami.spas.annotation.Optional;
 public class Fruit implements INBTSerializable<CompoundTag>
 {
     protected General general = new General();
-    protected ZAction zAction = new ZAction();
-    protected XAction xAction = new XAction();
-    protected CAction cAction = new CAction();
-    protected VAction vAction = new VAction();
-    protected RAction rAction = new RAction();
+    protected MoveA moveA = new MoveA();
+    protected MoveB moveB = new MoveB();
+    protected Special special = new Special();
+    protected Ultimate ultimate = new Ultimate();
+    protected Mobility mobility = new Mobility();
 
     public General getGeneral() { return this.general; }
-    public ZAction getZAction() { return this.zAction; }
-    public XAction getXAction() { return this.xAction; }
-    public CAction getCAction() { return this.cAction; }
-    public VAction getVAction() { return this.vAction; }
-    public RAction getRAction() { return this.rAction; }
+    public MoveA getMoveA() { return this.moveA; }
+    public MoveB getMoveB() { return this.moveB; }
+    public Special getSpecial() { return this.special; }
+    public Ultimate getUltimate() { return this.ultimate; }
+    public Mobility getMobility() { return this.mobility; }
 
     public static class General implements INBTSerializable<CompoundTag>
     {
@@ -73,11 +73,11 @@ public class Fruit implements INBTSerializable<CompoundTag>
     }
     
     public static class Action implements INBTSerializable<CompoundTag> {
-        protected ActionType actionType = ActionType.Z;
+        protected ActionType actionType = ActionType.MOVE_A;
         protected String name = "";
         protected float damage;
         @Ignored
-        protected ActionMode actionMode = ActionMode.SINGLE;
+        protected ActionMode actionMode = ActionMode.PRESS;
         protected int cooldown;
         protected int rate;
         protected int attackAmount;
@@ -270,7 +270,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
         }
     }
 
-    public static class ZAction extends Action {
+    public static class MoveA extends Action {
         /*public ZAction(ActionType actionType, String name,
                        float damage, ActionMode actionMode, int cooldown,
                        int rate, int attackAmount, boolean enabledByDefault,
@@ -279,11 +279,11 @@ public class Fruit implements INBTSerializable<CompoundTag>
             super(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
         }*/
 
-        public ZAction() {
+        public MoveA() {
         }
 
-        public ZAction copy() {
-            ZAction action = new ZAction();
+        public MoveA copy() {
+            MoveA action = new MoveA();
             action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
@@ -317,13 +317,13 @@ public class Fruit implements INBTSerializable<CompoundTag>
         }
     }
 
-    public static class XAction extends Action {
+    public static class MoveB extends Action {
 
-        public XAction() {
+        public MoveB() {
         }
 
-        public XAction copy() {
-            XAction action = new XAction();
+        public MoveB copy() {
+            MoveB action = new MoveB();
             action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
@@ -357,13 +357,13 @@ public class Fruit implements INBTSerializable<CompoundTag>
         }
     }
 
-    public static class CAction extends Action {
+    public static class Special extends Action {
 
-        public CAction() {
+        public Special() {
         }
 
-        public CAction copy() {
-            CAction action = new CAction();
+        public Special copy() {
+            Special action = new Special();
             action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
@@ -397,13 +397,13 @@ public class Fruit implements INBTSerializable<CompoundTag>
         }
     }
 
-    public static class VAction extends Action {
+    public static class Ultimate extends Action {
 
-        public VAction() {
+        public Ultimate() {
         }
 
-        public VAction copy() {
-            VAction action = new VAction();
+        public Ultimate copy() {
+            Ultimate action = new Ultimate();
             action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
@@ -437,13 +437,13 @@ public class Fruit implements INBTSerializable<CompoundTag>
         }
     }
 
-    public static class RAction extends Action {
+    public static class Mobility extends Action {
 
-        public RAction() {
+        public Mobility() {
         }
 
-        public RAction copy() {
-            RAction action = new RAction();
+        public Mobility copy() {
+            Mobility action = new Mobility();
             action.actionType = this.actionType;
             action.name = this.name;
             action.damage = this.damage;
@@ -481,11 +481,11 @@ public class Fruit implements INBTSerializable<CompoundTag>
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
         tag.put("General", this.general.serializeNBT());
-        tag.put("ZAction", this.zAction.serializeNBT());
-        tag.put("XAction", this.xAction.serializeNBT());
-        tag.put("CAction", this.cAction.serializeNBT());
-        tag.put("VAction", this.vAction.serializeNBT());
-        tag.put("RAction", this.rAction.serializeNBT());
+        tag.put("ZAction", this.moveA.serializeNBT());
+        tag.put("XAction", this.moveB.serializeNBT());
+        tag.put("CAction", this.special.serializeNBT());
+        tag.put("VAction", this.ultimate.serializeNBT());
+        tag.put("RAction", this.mobility.serializeNBT());
         return tag;
     }
 
@@ -496,30 +496,30 @@ public class Fruit implements INBTSerializable<CompoundTag>
             this.general.deserializeNBT(tag.getCompound("General"));
         }
         if (tag.contains("ZAction", Tag.TAG_COMPOUND)) {
-            this.zAction.deserializeNBT(tag.getCompound("ZAction"));
+            this.moveA.deserializeNBT(tag.getCompound("ZAction"));
         }
         if (tag.contains("XAction", Tag.TAG_COMPOUND)) {
-            this.xAction.deserializeNBT(tag.getCompound("XAction"));
+            this.moveB.deserializeNBT(tag.getCompound("XAction"));
         }
         if (tag.contains("CAction", Tag.TAG_COMPOUND)) {
-            this.cAction.deserializeNBT(tag.getCompound("CAction"));
+            this.special.deserializeNBT(tag.getCompound("CAction"));
         }
         if (tag.contains("VAction", Tag.TAG_COMPOUND)) {
-            this.vAction.deserializeNBT(tag.getCompound("VAction"));
+            this.ultimate.deserializeNBT(tag.getCompound("VAction"));
         }
         if (tag.contains("RAction", Tag.TAG_COMPOUND)) {
-            this.rAction.deserializeNBT(tag.getCompound("RAction"));
+            this.mobility.deserializeNBT(tag.getCompound("RAction"));
         }
     }
 
     public JsonObject toJsonObject() {
         JsonObject object = new JsonObject();
         object.add("general", this.general.toJsonObject());
-        object.add("zAction", this.zAction.toJsonObject());
-        object.add("xAction", this.xAction.toJsonObject());
-        object.add("cAction", this.cAction.toJsonObject());
-        object.add("vAction", this.vAction.toJsonObject());
-        object.add("rAction", this.rAction.toJsonObject());
+        object.add("zAction", this.moveA.toJsonObject());
+        object.add("xAction", this.moveB.toJsonObject());
+        object.add("cAction", this.special.toJsonObject());
+        object.add("vAction", this.ultimate.toJsonObject());
+        object.add("rAction", this.mobility.toJsonObject());
         return object;
     }
 
@@ -533,11 +533,11 @@ public class Fruit implements INBTSerializable<CompoundTag>
     public Fruit copy() {
         Fruit fruit = new Fruit();
         fruit.general = this.general.copy();
-        fruit.zAction = this.zAction.copy();
-        fruit.xAction = this.xAction.copy();
-        fruit.cAction = this.cAction.copy();
-        fruit.vAction = this.vAction.copy();
-        fruit.rAction = this.rAction.copy();
+        fruit.moveA = this.moveA.copy();
+        fruit.moveB = this.moveB.copy();
+        fruit.special = this.special.copy();
+        fruit.ultimate = this.ultimate.copy();
+        fruit.mobility = this.mobility.copy();
         return fruit;
     }
 
@@ -567,7 +567,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
                                   float shooterPushback, float recoilKick) {
-            this.fruit.zAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
+            this.fruit.moveA.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
             return this;
         }
 
@@ -576,7 +576,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
                                   float shooterPushback, float recoilKick) {
-            this.fruit.xAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
+            this.fruit.moveB.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
             return this;
         }
 
@@ -585,7 +585,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
                                   float shooterPushback, float recoilKick) {
-            this.fruit.cAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
+            this.fruit.special.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
             return this;
         }
 
@@ -594,7 +594,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
                                   float shooterPushback, float recoilKick) {
-            this.fruit.vAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
+            this.fruit.ultimate.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
             return this;
         }
 
@@ -603,7 +603,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
                                   float shooterPushback, float recoilKick) {
-            this.fruit.rAction.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
+            this.fruit.mobility.setValues(actionType, name, damage, actionMode, cooldown, rate, attackAmount, enabledByDefault, masteryLevel, xpRequirement, foodExhaustion, shooterPushback, recoilKick);
             return this;
         }
     }

@@ -10,7 +10,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
-import ttv.migami.jeg.item.GunItem;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.client.KeyBinds;
 import ttv.migami.spas.common.ActionType;
@@ -18,10 +17,6 @@ import ttv.migami.spas.common.MoveManager;
 import ttv.migami.spas.effect.Action;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.init.ModEffects;
-
-import java.util.Locale;
-
-import static ttv.migami.spas.SuperpowerAllStars.jegLoaded;
 
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public class MovesetHandler {
@@ -56,7 +51,14 @@ public class MovesetHandler {
                 }
                 if (moveManager.getCooldown(action) == 0 && moveManager.getAmount(action) == 0) {
                     updateActionAmount(action);
-                    notifyPlayer(action);
+                }
+                if (moveManager.getAmount(action) > effect.getAction(action).getAttackAmount()) {
+                    Action fruitAction = effect.getAction(action);
+                    moveManager.setAmount(action, fruitAction.getAttackAmount());
+                }
+                if (moveManager.getCooldown(action) > effect.getAction(action).getCooldown()) {
+                    Action fruitAction = effect.getAction(action);
+                    moveManager.setCooldown(action, fruitAction.getCooldown());
                 }
             }
         }
@@ -75,28 +77,18 @@ public class MovesetHandler {
         moveManager.setAmount(action, fruitAction.getAttackAmount());
     }
 
-    private void notifyPlayer(ActionType action) {
-        String keyName = switch (action) {
-            case Z -> KeyBinds.KEY_Z_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
-            case X -> KeyBinds.KEY_X_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
-            case C -> KeyBinds.KEY_C_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
-            case V -> KeyBinds.KEY_V_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
-            case R -> KeyBinds.KEY_R_ACTION.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH);
-        };
-    }
-
     @SubscribeEvent
     public void onKeyPressed(InputEvent.Key event) {
         Player player = Minecraft.getInstance().player;
         if (player == null) return;
 
-        if (jegLoaded && ttv.migami.jeg.client.KeyBinds.KEY_ATTACHMENTS.getKey() == KeyBinds.KEY_Z_ACTION.getKey()) {
+        /*if (jegLoaded && ttv.migami.jeg.client.KeyBinds.KEY_ATTACHMENTS.getKey() == KeyBinds.KEY_Z_ACTION.getKey()) {
             if (event.getKey() == GLFW.GLFW_KEY_Z && event.getAction() == GLFW.GLFW_PRESS) {
                 if (player.getMainHandItem().getItem() instanceof GunItem && player.isCrouching()) {
                     return;
                 }
             }
-        }
+        }*/
 
         //if (effect != null && player.getMainHandItem().isEmpty() && player.getOffhandItem().isEmpty()) {
         if (effect != null && !(player.getUseItem().getItem() == Items.SHIELD)) {
@@ -113,25 +105,15 @@ public class MovesetHandler {
 
     private boolean isActionTriggered(ActionType action, InputEvent.Key event) {
         return switch (action) {
-            case Z -> KeyBinds.KEY_Z_ACTION.isDown() && moveManager.getCooldown(action) == 0;
-            case X -> KeyBinds.KEY_X_ACTION.isDown() && moveManager.getCooldown(action) == 0;
-            case C -> KeyBinds.KEY_C_ACTION.isDown() && moveManager.getCooldown(action) == 0;
-            case V -> KeyBinds.KEY_V_ACTION.isDown() && moveManager.getCooldown(action) == 0;
-            case R -> KeyBinds.KEY_R_ACTION.isDown() && moveManager.getCooldown(action) == 0;
+            default -> moveManager.getCooldown(action) == 0;
+            case MOBILITY -> KeyBinds.MOBILITY_MOVE.isDown() && moveManager.getCooldown(action) == 0;
         } && (actionCanBeHeld(action) || event.getAction() == GLFW.GLFW_PRESS);
     }
 
     private boolean isActionReleased(ActionType action, InputEvent.Key event) {
         return switch (action) {
-            case Z -> !KeyBinds.KEY_Z_ACTION.isDown() && moveManager.getAmount(action) != getActionAmount(action) &&
-                    moveManager.getCooldown(action) == 0;
-            case X -> !KeyBinds.KEY_X_ACTION.isDown() && moveManager.getAmount(action) != getActionAmount(action) &&
-                    moveManager.getCooldown(action) == 0;
-            case C -> !KeyBinds.KEY_C_ACTION.isDown() && moveManager.getAmount(action) != getActionAmount(action) &&
-                    moveManager.getCooldown(action) == 0;
-            case V -> !KeyBinds.KEY_V_ACTION.isDown() && moveManager.getAmount(action) != getActionAmount(action) &&
-                    moveManager.getCooldown(action) == 0;
-            case R -> !KeyBinds.KEY_R_ACTION.isDown() && moveManager.getAmount(action) != getActionAmount(action) &&
+            default -> moveManager.getCooldown(action) == 0;
+            case MOBILITY -> !KeyBinds.MOBILITY_MOVE.isDown() && moveManager.getAmount(action) != getActionAmount(action) &&
                     moveManager.getCooldown(action) == 0;
         } && (actionCanBeHeld(action));
     }

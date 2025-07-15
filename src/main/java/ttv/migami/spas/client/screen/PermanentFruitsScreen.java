@@ -232,12 +232,14 @@ public class PermanentFruitsScreen extends AbstractContainerScreen<PermanentFrui
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-        if (delta > 0) {
-            currentEffectIndex = (currentEffectIndex - 1 + fruitEffects.size()) % fruitEffects.size();
-        } else if (delta < 0) {
-            currentEffectIndex = (currentEffectIndex + 1) % fruitEffects.size();
+        if (!fruitEffects.isEmpty()) {
+            if (delta > 0) {
+                currentEffectIndex = (currentEffectIndex - 1 + fruitEffects.size()) % fruitEffects.size();
+            } else if (delta < 0) {
+                currentEffectIndex = (currentEffectIndex + 1) % fruitEffects.size();
+            }
+            updateFruit();
         }
-        updateFruit();
 
         return true;
     }

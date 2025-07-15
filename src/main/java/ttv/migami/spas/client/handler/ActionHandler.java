@@ -1,6 +1,5 @@
 package ttv.migami.spas.client.handler;
 
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
@@ -10,12 +9,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
-import ttv.migami.spas.compat.PlayerReviveHelper;
 import ttv.migami.jeg.item.GunItem;
 import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.client.KeyBinds;
-import ttv.migami.spas.common.ActionType;
 import ttv.migami.spas.common.*;
+import ttv.migami.spas.compat.PlayerReviveHelper;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.event.FruitFireEvent;
 import ttv.migami.spas.init.ModEffects;
@@ -29,11 +27,37 @@ public class ActionHandler
 {
     private static ActionHandler instance;
     private final MoveManager moveManager = new MoveManager();
-    private KeyMapping activeKey = KeyBinds.KEY_Z_ACTION;
     private Fruit fruit;
     private Fruit.Action action;
     private int move;
     private int amount = 1;
+
+    public void updateMove(int move) {
+        if (this.fruit == null) return;
+
+        switch (move) {
+            case 0:
+                this.action = this.fruit.getMoveA();
+                this.move = 1;
+                break;
+            case 3:
+                this.action = this.fruit.getMoveB();
+                this.move = 2;
+                break;
+            case 1:
+                this.action = this.fruit.getSpecial();
+                this.move = 3;
+                break;
+            case 2:
+                this.action = this.fruit.getUltimate();
+                this.move = 4;
+                break;
+            case 4:
+                this.action = this.fruit.getMobility();
+                this.move = 5;
+                break;
+        }
+    }
 
     public static ActionHandler get()
     {
@@ -49,7 +73,7 @@ public class ActionHandler
     private ActionHandler() {}
 
     public boolean isShooting() {
-        return  shooting;
+        return shooting;
     }
 
     private boolean isInGame()
@@ -73,64 +97,10 @@ public class ActionHandler
 
         if (event.getAction() == GLFW.GLFW_PRESS || event.getAction() == GLFW.GLFW_REPEAT) {
             int keyCode = event.getKey();
-            if (keyCode == KeyBinds.KEY_Z_ACTION.getKey().getValue()) {
-                this.activeKey = KeyBinds.KEY_Z_ACTION;
-                this.action = this.fruit.getZAction();
-                this.move = 1;
-                resetOtherKeys(KeyBinds.KEY_Z_ACTION);
-            } else if (keyCode == KeyBinds.KEY_X_ACTION.getKey().getValue()) {
-                this.activeKey = KeyBinds.KEY_X_ACTION;
-                this.action = this.fruit.getXAction();
-                this.move = 2;
-                resetOtherKeys(KeyBinds.KEY_X_ACTION);
-            } else if (keyCode == KeyBinds.KEY_C_ACTION.getKey().getValue()) {
-                this.activeKey = KeyBinds.KEY_C_ACTION;
-                this.action = this.fruit.getCAction();
-                this.move = 3;
-                resetOtherKeys(KeyBinds.KEY_C_ACTION);
-            } else if (keyCode == KeyBinds.KEY_V_ACTION.getKey().getValue()) {
-                this.activeKey = KeyBinds.KEY_V_ACTION;
-                this.action = this.fruit.getVAction();
-                this.move = 4;
-                resetOtherKeys(KeyBinds.KEY_V_ACTION);
-            } else if (keyCode == KeyBinds.KEY_R_ACTION.getKey().getValue()) {
-                this.activeKey = KeyBinds.KEY_R_ACTION;
-                this.action = this.fruit.getRAction();
+            if (keyCode == KeyBinds.MOBILITY_MOVE.getKey().getValue()) {
+                this.action = this.fruit.getMobility();
                 this.move = 5;
-                resetOtherKeys(KeyBinds.KEY_R_ACTION);
             }
-        }
-    }
-
-    private void resetOtherKeys(KeyMapping activeKey) {
-        KeyMapping[] keyMappings = {
-                KeyBinds.KEY_Z_ACTION,
-                KeyBinds.KEY_X_ACTION,
-                KeyBinds.KEY_C_ACTION,
-                KeyBinds.KEY_V_ACTION,
-                KeyBinds.KEY_R_ACTION
-        };
-
-        for (KeyMapping key : keyMappings) {
-            if (key != activeKey) {
-                KeyMapping.set(key.getKey(), false);
-                key.setDown(false);
-            }
-        }
-    }
-
-    private void resetAllKeys() {
-        KeyMapping[] keyMappings = {
-                KeyBinds.KEY_Z_ACTION,
-                KeyBinds.KEY_X_ACTION,
-                KeyBinds.KEY_C_ACTION,
-                KeyBinds.KEY_V_ACTION,
-                KeyBinds.KEY_R_ACTION
-        };
-
-        for (KeyMapping key : keyMappings) {
-            KeyMapping.set(key.getKey(), false);
-            key.setDown(false);
         }
     }
 
@@ -170,7 +140,7 @@ public class ActionHandler
                 }
             }
 
-            boolean shooting = activeKey.isDown();
+            boolean shooting = KeyBinds.getShootMapping().isDown();
 
             if(shooting)
             {
@@ -243,27 +213,25 @@ public class ActionHandler
                     //SuperpowerAllStars.LOGGER.atInfo().log("CurrentMove: " + action.getActionType() + " ZCooldown: " + moveManager.getCooldown(ActionType.Z) + " XCooldown: " + moveManager.getCooldown(ActionType.X) + " CCooldown: " + moveManager.getCooldown(ActionType.C) + " CAmounts: " + moveManager.getAmount(ActionType.C));
 
                     if(moveManager.getCooldown(action.getActionType()) == 0) {
-                        if(KeyBinds.getShootMapping().isDown() || KeyBinds.KEY_R_ACTION.isDown())
+                        if(KeyBinds.getShootMapping().isDown() || KeyBinds.MOBILITY_MOVE.isDown())
                         {
                             amount = moveManager.getAmount(action.getActionType());
-                            if (this.action.getActionMode() != ActionMode.SINGLE)
+                            if (this.action.getActionMode() != ActionMode.PRESS)
                             {
                                 this.fire(player, fruitEffect, move, amount);
                                 boolean doAutoFire = this.action.getActionMode() == ActionMode.HOLD || this.action.getActionMode() == ActionMode.BURST;
                                 if(!doAutoFire)
                                 {
                                     KeyBinds.getShootMapping().setDown(false);
-                                    resetAllKeys();
                                 }
                             } else {
                                 this.fire(player, fruitEffect, move, amount);
                                 KeyBinds.getShootMapping().setDown(false);
-                                resetAllKeys();
                             }
                         }
                         else
                         {
-                            if (this.action.getActionMode() != ActionMode.SINGLE && moveManager.getAmount(action.getActionType()) < action.getAttackAmount()) {
+                            if (this.action.getActionMode() != ActionMode.PRESS && moveManager.getAmount(action.getActionType()) < action.getAttackAmount()) {
                                 moveManager.setCooldown(action.getActionType(), action.getCooldown());
                                 moveManager.setAmount(action.getActionType(), 0);
                             }
@@ -292,7 +260,7 @@ public class ActionHandler
             MinecraftForge.EVENT_BUS.post(new FruitFireEvent.Post(player, effect, move));
 
             float pushBack = action.getShooterPushback();
-            if (player.isCrouching()) {
+            if (player.isCrouching() && player.level().getBlockState(player.getOnPos()).isSolid()) {
                 pushBack = pushBack / 2;
             }
             recoil(player, pushBack);
@@ -305,11 +273,11 @@ public class ActionHandler
 
     public Fruit.Action getFruitAction(ActionType action) {
         List<Fruit.Action> actions = List.of(
-                fruit.getZAction(),
-                fruit.getXAction(),
-                fruit.getCAction(),
-                fruit.getVAction(),
-                fruit.getRAction()
+                fruit.getMoveA(),
+                fruit.getMoveB(),
+                fruit.getSpecial(),
+                fruit.getUltimate(),
+                fruit.getMobility()
         );
 
         for (Fruit.Action currentAction : actions) {
