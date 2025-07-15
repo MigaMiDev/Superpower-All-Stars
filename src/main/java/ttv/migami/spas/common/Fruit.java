@@ -271,7 +271,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
     }
 
     public static class MoveA extends Action {
-        /*public ZAction(ActionType actionType, String name,
+        /*public MoveA(ActionType actionType, String name,
                        float damage, ActionMode actionMode, int cooldown,
                        int rate, int attackAmount, boolean enabledByDefault,
                        int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
@@ -481,11 +481,11 @@ public class Fruit implements INBTSerializable<CompoundTag>
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
         tag.put("General", this.general.serializeNBT());
-        tag.put("ZAction", this.moveA.serializeNBT());
-        tag.put("XAction", this.moveB.serializeNBT());
-        tag.put("CAction", this.special.serializeNBT());
-        tag.put("VAction", this.ultimate.serializeNBT());
-        tag.put("RAction", this.mobility.serializeNBT());
+        tag.put("MoveA", this.moveA.serializeNBT());
+        tag.put("MoveB", this.moveB.serializeNBT());
+        tag.put("Special", this.special.serializeNBT());
+        tag.put("Ultimate", this.ultimate.serializeNBT());
+        tag.put("Mobility", this.mobility.serializeNBT());
         return tag;
     }
 
@@ -495,31 +495,31 @@ public class Fruit implements INBTSerializable<CompoundTag>
         {
             this.general.deserializeNBT(tag.getCompound("General"));
         }
-        if (tag.contains("ZAction", Tag.TAG_COMPOUND)) {
-            this.moveA.deserializeNBT(tag.getCompound("ZAction"));
+        if (tag.contains("MoveA", Tag.TAG_COMPOUND)) {
+            this.moveA.deserializeNBT(tag.getCompound("MoveA"));
         }
-        if (tag.contains("XAction", Tag.TAG_COMPOUND)) {
-            this.moveB.deserializeNBT(tag.getCompound("XAction"));
+        if (tag.contains("MoveB", Tag.TAG_COMPOUND)) {
+            this.moveB.deserializeNBT(tag.getCompound("MoveB"));
         }
-        if (tag.contains("CAction", Tag.TAG_COMPOUND)) {
-            this.special.deserializeNBT(tag.getCompound("CAction"));
+        if (tag.contains("Special", Tag.TAG_COMPOUND)) {
+            this.special.deserializeNBT(tag.getCompound("Special"));
         }
-        if (tag.contains("VAction", Tag.TAG_COMPOUND)) {
-            this.ultimate.deserializeNBT(tag.getCompound("VAction"));
+        if (tag.contains("Ultimate", Tag.TAG_COMPOUND)) {
+            this.ultimate.deserializeNBT(tag.getCompound("Ultimate"));
         }
-        if (tag.contains("RAction", Tag.TAG_COMPOUND)) {
-            this.mobility.deserializeNBT(tag.getCompound("RAction"));
+        if (tag.contains("Mobility", Tag.TAG_COMPOUND)) {
+            this.mobility.deserializeNBT(tag.getCompound("Mobility"));
         }
     }
 
     public JsonObject toJsonObject() {
         JsonObject object = new JsonObject();
         object.add("general", this.general.toJsonObject());
-        object.add("zAction", this.moveA.toJsonObject());
-        object.add("xAction", this.moveB.toJsonObject());
-        object.add("cAction", this.special.toJsonObject());
-        object.add("vAction", this.ultimate.toJsonObject());
-        object.add("rAction", this.mobility.toJsonObject());
+        object.add("moveA", this.moveA.toJsonObject());
+        object.add("moveB", this.moveB.toJsonObject());
+        object.add("special", this.special.toJsonObject());
+        object.add("ultimate", this.ultimate.toJsonObject());
+        object.add("mobility", this.mobility.toJsonObject());
         return object;
     }
 
@@ -562,7 +562,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return this;
         }
 
-        public Builder setZAction(ActionType actionType, String name,
+        public Builder setMoveA(ActionType actionType, String name,
                                   float damage, ActionMode actionMode, int cooldown,
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
@@ -571,7 +571,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return this;
         }
 
-        public Builder setXAction(ActionType actionType, String name,
+        public Builder setMoveB(ActionType actionType, String name,
                                   float damage, ActionMode actionMode, int cooldown,
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
@@ -580,7 +580,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return this;
         }
 
-        public Builder setCAction(ActionType actionType, String name,
+        public Builder setSpecial(ActionType actionType, String name,
                                   float damage, ActionMode actionMode, int cooldown,
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
@@ -589,7 +589,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return this;
         }
 
-        public Builder setVAction(ActionType actionType, String name,
+        public Builder setUltimate(ActionType actionType, String name,
                                   float damage, ActionMode actionMode, int cooldown,
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,
@@ -598,7 +598,7 @@ public class Fruit implements INBTSerializable<CompoundTag>
             return this;
         }
 
-        public Builder setRAction(ActionType actionType, String name,
+        public Builder setMobility(ActionType actionType, String name,
                                   float damage, ActionMode actionMode, int cooldown,
                                   int rate, int attackAmount, boolean enabledByDefault,
                                   int masteryLevel, int xpRequirement, FoodExhaustion foodExhaustion,

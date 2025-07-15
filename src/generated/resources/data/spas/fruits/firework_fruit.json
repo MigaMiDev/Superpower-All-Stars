@@ -1,21 +1,8 @@
 {
-  "cAction": {
-    "actionMode": "spas:hold",
-    "actionType": "SPECIAL",
-    "attackAmount": 8,
-    "cooldown": 250,
-    "damage": 2.0,
-    "enabledByDefault": false,
-    "foodExhaustion": "MEDIUM",
-    "masteryLevel": 15,
-    "name": "info.spas.firework_fruit.special",
-    "rate": 5,
-    "xpRequirement": 5
-  },
   "general": {
     "disableSwimming": true
   },
-  "rAction": {
+  "mobility": {
     "actionMode": "spas:press",
     "actionType": "MOBILITY",
     "attackAmount": 1,
@@ -28,34 +15,7 @@
     "rate": 1,
     "xpRequirement": 0
   },
-  "vAction": {
-    "actionMode": "spas:hold",
-    "actionType": "ULTIMATE",
-    "attackAmount": 24,
-    "cooldown": 300,
-    "damage": 2.5,
-    "enabledByDefault": false,
-    "foodExhaustion": "SMALL",
-    "masteryLevel": 25,
-    "name": "info.spas.firework_fruit.ultimate",
-    "rate": 4,
-    "xpRequirement": 10
-  },
-  "xAction": {
-    "actionMode": "spas:press",
-    "actionType": "MOVE_B",
-    "attackAmount": 1,
-    "cooldown": 200,
-    "damage": 3.0,
-    "enabledByDefault": false,
-    "foodExhaustion": "BIG",
-    "masteryLevel": 5,
-    "name": "info.spas.firework_fruit.move_b",
-    "rate": 1,
-    "shooterPushback": -0.5,
-    "xpRequirement": 3
-  },
-  "zAction": {
+  "moveA": {
     "actionMode": "spas:press",
     "actionType": "MOVE_A",
     "attackAmount": 1,
@@ -69,5 +29,45 @@
     "recoilKick": 5.0,
     "shooterPushback": -0.5,
     "xpRequirement": 0
+  },
+  "moveB": {
+    "actionMode": "spas:press",
+    "actionType": "MOVE_B",
+    "attackAmount": 1,
+    "cooldown": 200,
+    "damage": 3.0,
+    "enabledByDefault": false,
+    "foodExhaustion": "BIG",
+    "masteryLevel": 5,
+    "name": "info.spas.firework_fruit.move_b",
+    "rate": 1,
+    "shooterPushback": -0.5,
+    "xpRequirement": 3
+  },
+  "special": {
+    "actionMode": "spas:hold",
+    "actionType": "SPECIAL",
+    "attackAmount": 8,
+    "cooldown": 250,
+    "damage": 2.0,
+    "enabledByDefault": false,
+    "foodExhaustion": "MEDIUM",
+    "masteryLevel": 15,
+    "name": "info.spas.firework_fruit.special",
+    "rate": 5,
+    "xpRequirement": 5
+  },
+  "ultimate": {
+    "actionMode": "spas:hold",
+    "actionType": "ULTIMATE",
+    "attackAmount": 24,
+    "cooldown": 300,
+    "damage": 2.5,
+    "enabledByDefault": false,
+    "foodExhaustion": "SMALL",
+    "masteryLevel": 25,
+    "name": "info.spas.firework_fruit.ultimate",
+    "rate": 4,
+    "xpRequirement": 10
   }
 }

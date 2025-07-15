@@ -20,6 +20,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 import ttv.migami.spas.Reference;
+import ttv.migami.spas.SuperpowerAllStars;
 import ttv.migami.spas.client.handler.ActionHandler;
 import ttv.migami.spas.client.util.RenderUtil;
 import ttv.migami.spas.common.Fruit;
@@ -50,7 +51,6 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
     @Override
     public void onClose() {
         super.onClose();
-        // TODO IF MOUSE IS, SELECT POWER
     }
 
     @Override
@@ -81,6 +81,7 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
 
         if (this.currentFruit instanceof FruitEffect fruitEffect) {
             Fruit fruit = fruitEffect.getFruit();
+            SuperpowerAllStars.LOGGER.atInfo().log(fruit.getMoveA().getName());
             graphics.drawCenteredString(this.font, Component.translatable(fruit.getMoveA().getName()), centerX, (int) (centerY - 55 * guiSize), getColor(0));
             String powerB = Component.translatable(fruit.getMoveB().getName()).getString();
             int textWidth = this.font.width(powerB);
@@ -158,7 +159,7 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
 
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_G) {
+        if (keyCode == GLFW.GLFW_KEY_R) {
             onSelectFruit(selectedIndex);
             this.onClose();
             return true;

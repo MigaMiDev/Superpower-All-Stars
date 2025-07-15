@@ -1,5 +1,48 @@
 {
-  "cAction": {
+  "general": {
+    "disableSwimming": false
+  },
+  "mobility": {
+    "actionMode": "spas:press",
+    "actionType": "MOBILITY",
+    "attackAmount": 1,
+    "cooldown": 120,
+    "damage": 0.0,
+    "enabledByDefault": false,
+    "foodExhaustion": "MEDIUM",
+    "masteryLevel": 0,
+    "name": "info.spas.skeleton_fruit.mobility",
+    "rate": 1,
+    "xpRequirement": 0
+  },
+  "moveA": {
+    "actionMode": "spas:hold",
+    "actionType": "MOVE_A",
+    "attackAmount": 5,
+    "cooldown": 160,
+    "damage": 2.0,
+    "enabledByDefault": true,
+    "foodExhaustion": "SMALL",
+    "masteryLevel": 0,
+    "name": "info.spas.skeleton_fruit.move_a",
+    "rate": 5,
+    "recoilKick": 0.2,
+    "xpRequirement": 0
+  },
+  "moveB": {
+    "actionMode": "spas:press",
+    "actionType": "MOVE_B",
+    "attackAmount": 2,
+    "cooldown": 200,
+    "damage": 2.0,
+    "enabledByDefault": false,
+    "foodExhaustion": "BIG",
+    "masteryLevel": 5,
+    "name": "info.spas.skeleton_fruit.move_b",
+    "rate": 1,
+    "xpRequirement": 3
+  },
+  "special": {
     "actionMode": "spas:press",
     "actionType": "SPECIAL",
     "attackAmount": 1,
@@ -13,23 +56,7 @@
     "recoilKick": 1.0,
     "xpRequirement": 5
   },
-  "general": {
-    "disableSwimming": false
-  },
-  "rAction": {
-    "actionMode": "spas:press",
-    "actionType": "MOBILITY",
-    "attackAmount": 1,
-    "cooldown": 120,
-    "damage": 0.0,
-    "enabledByDefault": false,
-    "foodExhaustion": "MEDIUM",
-    "masteryLevel": 0,
-    "name": "info.spas.skeleton_fruit.mobility",
-    "rate": 1,
-    "xpRequirement": 0
-  },
-  "vAction": {
+  "ultimate": {
     "actionMode": "spas:press",
     "actionType": "ULTIMATE",
     "attackAmount": 1,
@@ -42,32 +69,5 @@
     "rate": 1,
     "recoilKick": 0.5,
     "xpRequirement": 10
-  },
-  "xAction": {
-    "actionMode": "spas:press",
-    "actionType": "MOVE_B",
-    "attackAmount": 2,
-    "cooldown": 200,
-    "damage": 2.0,
-    "enabledByDefault": false,
-    "foodExhaustion": "BIG",
-    "masteryLevel": 5,
-    "name": "info.spas.skeleton_fruit.move_b",
-    "rate": 1,
-    "xpRequirement": 3
-  },
-  "zAction": {
-    "actionMode": "spas:hold",
-    "actionType": "MOVE_A",
-    "attackAmount": 5,
-    "cooldown": 160,
-    "damage": 2.0,
-    "enabledByDefault": true,
-    "foodExhaustion": "SMALL",
-    "masteryLevel": 0,
-    "name": "info.spas.skeleton_fruit.move_a",
-    "rate": 5,
-    "recoilKick": 0.2,
-    "xpRequirement": 0
   }
 }

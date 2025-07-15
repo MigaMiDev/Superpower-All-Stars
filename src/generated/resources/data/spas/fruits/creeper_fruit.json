@@ -1,23 +1,8 @@
 {
-  "cAction": {
-    "actionMode": "spas:press",
-    "actionType": "SPECIAL",
-    "attackAmount": 1,
-    "cooldown": 200,
-    "damage": 0.0,
-    "enabledByDefault": false,
-    "foodExhaustion": "BIG",
-    "masteryLevel": 15,
-    "name": "info.spas.creeper_fruit.special",
-    "rate": 1,
-    "recoilKick": 5.0,
-    "shooterPushback": 1.0,
-    "xpRequirement": 5
-  },
   "general": {
     "disableSwimming": false
   },
-  "rAction": {
+  "mobility": {
     "actionMode": "spas:press",
     "actionType": "MOVE_A",
     "damage": 0.0,
@@ -27,21 +12,22 @@
     "name": "",
     "xpRequirement": 3
   },
-  "vAction": {
+  "moveA": {
     "actionMode": "spas:press",
-    "actionType": "ULTIMATE",
+    "actionType": "MOVE_A",
     "attackAmount": 1,
-    "cooldown": 700,
-    "damage": 0.0,
-    "enabledByDefault": false,
+    "cooldown": 250,
+    "damage": 20.0,
+    "enabledByDefault": true,
     "foodExhaustion": "LARGE",
-    "masteryLevel": 25,
-    "name": "info.spas.creeper_fruit.ultimate",
+    "masteryLevel": 0,
+    "name": "info.spas.creeper_fruit.move_a",
     "rate": 1,
-    "recoilKick": -10.0,
-    "xpRequirement": 10
+    "recoilKick": -8.0,
+    "shooterPushback": -0.5,
+    "xpRequirement": 0
   },
-  "xAction": {
+  "moveB": {
     "actionMode": "spas:press",
     "actionType": "MOVE_B",
     "attackAmount": 1,
@@ -56,19 +42,33 @@
     "shooterPushback": -0.5,
     "xpRequirement": 3
   },
-  "zAction": {
+  "special": {
     "actionMode": "spas:press",
-    "actionType": "MOVE_A",
+    "actionType": "SPECIAL",
     "attackAmount": 1,
-    "cooldown": 250,
-    "damage": 20.0,
-    "enabledByDefault": true,
-    "foodExhaustion": "LARGE",
-    "masteryLevel": 0,
-    "name": "info.spas.creeper_fruit.move_a",
+    "cooldown": 200,
+    "damage": 0.0,
+    "enabledByDefault": false,
+    "foodExhaustion": "BIG",
+    "masteryLevel": 15,
+    "name": "info.spas.creeper_fruit.special",
     "rate": 1,
-    "recoilKick": -8.0,
-    "shooterPushback": -0.5,
-    "xpRequirement": 0
+    "recoilKick": 5.0,
+    "shooterPushback": 1.0,
+    "xpRequirement": 5
+  },
+  "ultimate": {
+    "actionMode": "spas:press",
+    "actionType": "ULTIMATE",
+    "attackAmount": 1,
+    "cooldown": 700,
+    "damage": 0.0,
+    "enabledByDefault": false,
+    "foodExhaustion": "LARGE",
+    "masteryLevel": 25,
+    "name": "info.spas.creeper_fruit.ultimate",
+    "rate": 1,
+    "recoilKick": -10.0,
+    "xpRequirement": 10
   }
 }
