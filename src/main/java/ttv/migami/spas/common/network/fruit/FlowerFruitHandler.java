@@ -81,10 +81,10 @@ public class FlowerFruitHandler
                     actionSlowdown(pPlayer);
                     if (entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity && !(entityHitResult.getEntity() instanceof FlowerSpear)) {
                         LivingEntity target = (LivingEntity) entityHitResult.getEntity();
-                        flowerSpear = new FlowerSpear(pPlayer, pLevel, playerPos, target, right);
+                        flowerSpear = new FlowerSpear(pPlayer, pLevel, playerPos, target, right, fruit.getMoveA().getDamage());
                     }
                     else {
-                        flowerSpear = new FlowerSpear(pPlayer, pLevel, playerPos, blockPos, right);
+                        flowerSpear = new FlowerSpear(pPlayer, pLevel, playerPos, blockPos, right, fruit.getMoveA().getDamage());
                     }
                     pLevel.addFreshEntity(flowerSpear);
 
@@ -119,10 +119,10 @@ public class FlowerFruitHandler
                         grappleMax = 2;
                     }
 
-                    //if (entityHitResult  != null) {
-                    PiranhaPlant piranhaPlant2 = new PiranhaPlant(pLevel, pPlayer, blockPos, 100);
+                    if (entityHitResult  == null) {
+                        PiranhaPlant piranhaPlant2 = new PiranhaPlant(pLevel, pPlayer, blockPos, 100, fruit.getMoveB().getDamage());
                         pLevel.addFreshEntity(piranhaPlant2);
-                    //}
+                    }
 
                     for (LivingEntity entity : entities) {
                         if (grappleCount >= grappleMax) {
@@ -133,7 +133,7 @@ public class FlowerFruitHandler
                         double angle = Math.acos(entityPos.normalize().dot(lookVec.normalize()));
 
                         if (angle < coneAngle / 2 && entity != pPlayer && !(entity instanceof SummonEntity)) {
-                            piranhaPlant = new PiranhaPlant(pLevel, pPlayer, entity.getOnPos(), 100);
+                            piranhaPlant = new PiranhaPlant(pLevel, pPlayer, entity.getOnPos(), 100, fruit.getMoveB().getDamage());
                             pLevel.addFreshEntity(piranhaPlant);
 
                             grappleCount++;
@@ -152,7 +152,7 @@ public class FlowerFruitHandler
                         if (i != 0) {
                             Vec3 spawnPosition = startPosition.add(lookDirection.scale(6 * i));
                             spawnPosition = new Vec3(spawnPosition.x, pPlayer.getY(), spawnPosition.z);
-                            vine = new Vine(pPlayer, pLevel, spawnPosition);
+                            vine = new Vine(pPlayer, pLevel, spawnPosition, fruit.getSpecial().getDamage());
                             pLevel.addFreshEntity(vine);
                         }
                     }
@@ -173,14 +173,14 @@ public class FlowerFruitHandler
 
                     if (entityHitResult != null) {
                         if (rand.nextDouble() > 0.7) {
-                            petal = new Petal(pLevel, pPlayer, entityHitResult.getLocation());
+                            petal = new Petal(pLevel, pPlayer, entityHitResult.getLocation(), fruit.getUltimate().getDamage());
                             pLevel.addFreshEntity(petal);
                         }
-                        petal = new Petal(pLevel, pPlayer, entityHitResult.getLocation().add(xOffset, 0, zOffset));
+                        petal = new Petal(pLevel, pPlayer, entityHitResult.getLocation().add(xOffset, 0, zOffset), fruit.getUltimate().getDamage());
                         pLevel.addFreshEntity(petal);
                     }
                     else {
-                        petal = new Petal(pLevel, pPlayer, blockPos.getCenter().add(xOffset, 0, zOffset));
+                        petal = new Petal(pLevel, pPlayer, blockPos.getCenter().add(xOffset, 0, zOffset), fruit.getUltimate().getDamage());
                         pLevel.addFreshEntity(petal);
                     }
                     pPlayer.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 20, 1, false, false));

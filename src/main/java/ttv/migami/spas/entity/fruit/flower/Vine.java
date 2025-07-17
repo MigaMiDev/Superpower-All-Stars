@@ -18,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -30,6 +31,7 @@ import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.entity.SummonEntity;
 import ttv.migami.spas.init.ModEntities;
 import ttv.migami.spas.init.ModSounds;
@@ -45,6 +47,7 @@ public class Vine extends SummonEntity implements GeoEntity {
     private LivingEntity owner;
     @Nullable
     private UUID ownerUUID;
+    private float damage = 3.0F;
 
     private static final EntityDataAccessor<Boolean> JUST_SPAWNED =
             SynchedEntityData.defineId(Vine.class, EntityDataSerializers.BOOLEAN);
@@ -53,7 +56,7 @@ public class Vine extends SummonEntity implements GeoEntity {
         super(pEntityType, pLevel);
     }
 
-    public Vine(LivingEntity owner, Level pLevel, Vec3 blockPos) {
+    public Vine(LivingEntity owner, Level pLevel, Vec3 blockPos, float damage) {
         super(ModEntities.VINE.get(), pLevel);
         this.setPos(blockPos);
         this.teleportToGroundOrAir();
@@ -63,6 +66,11 @@ public class Vine extends SummonEntity implements GeoEntity {
         this.lookAt(EntityAnchorArgument.Anchor.FEET, owner.getPosition(1F));
 
         this.setOwner(owner);
+
+        if (this.getOwner() instanceof Player) {
+            Player ownerAttack = (Player) this.getOwner();
+            this.damage = ServerPlayHandler.calculateCustomDamage(ownerAttack, damage);
+        }
     }
 
     protected void teleportToGroundOrAir() {
@@ -121,7 +129,7 @@ public class Vine extends SummonEntity implements GeoEntity {
                     if (entity instanceof LivingEntity && entity != owner && !(entity instanceof SummonEntity)) {
                         VineTrap vineTrap = new VineTrap(owner, level, entity.getPosition(1F), 100);
                         level.addFreshEntity(vineTrap);
-                        entity.hurt(this.damageSources().cactus(), 3);
+                        entity.hurt(this.damageSources().cactus(), this.damage);
                         this.remove(RemovalReason.KILLED);
                     }
                 }

@@ -27,6 +27,7 @@ import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.init.ModEffects;
 import ttv.migami.spas.init.ModEntities;
 import ttv.migami.spas.init.ModParticleTypes;
@@ -47,6 +48,7 @@ public class StringRing extends Entity implements GeoEntity {
     @Nullable
     private UUID ownerUUID;
     private Set<Entity> damagedEntities = new HashSet<>();
+    private float damage = 5F;
 
     private static final EntityDataAccessor<Boolean> JUST_SPAWNED =
             SynchedEntityData.defineId(StringRing.class, EntityDataSerializers.BOOLEAN);
@@ -58,22 +60,30 @@ public class StringRing extends Entity implements GeoEntity {
         super(pEntityType, pLevel);
     }
 
-    public StringRing(LivingEntity owner, Level pLevel, BlockPos blockPos, int life) {
+    public StringRing(LivingEntity owner, Level pLevel, BlockPos blockPos, int life, float damage) {
         super(ModEntities.STRING_RING.get(), pLevel);
         this.setPos(blockPos.getCenter().add(0.0, -0.5, 0.0));
         this.owner = owner;
         this.life = life;
 
         this.setOwner(owner);
+
+        if (owner instanceof Player player) {
+            this.damage = ServerPlayHandler.calculateCustomDamage(player, damage);
+        }
     }
 
-    public StringRing(LivingEntity owner, Level pLevel, Vec3 targetPos, int life) {
+    public StringRing(LivingEntity owner, Level pLevel, Vec3 targetPos, int life, float damage) {
         super(ModEntities.STRING_RING.get(), pLevel);
         this.setPos(targetPos);
         this.owner = owner;
         this.life = life;
 
         this.setOwner(owner);
+
+        if (owner instanceof Player player) {
+            this.damage = ServerPlayHandler.calculateCustomDamage(player, damage);
+        }
     }
 
     @Override
@@ -125,7 +135,7 @@ public class StringRing extends Entity implements GeoEntity {
                     if (entity instanceof LivingEntity && entity != owner && !(entity instanceof SpiderFang)) {
                         entity.startRiding(this, true);
                         if (!hasBeenDamaged(entity)) {
-                            entity.hurt(this.damageSources().cactus(), calculateCustomDamage((Player) owner, 3F));
+                            entity.hurt(this.damageSources().cactus(), calculateCustomDamage((Player) owner, this.damage));
                             entity.invulnerableTime = 0;
                             ((ServerLevel) level).sendParticles(ParticleTypes.DAMAGE_INDICATOR, entity.getX(), entity.getY(), entity.getZ(), 6, 0.3, entity.getBbHeight(), 0.3, 0.2);
                         }

@@ -85,17 +85,17 @@ public class SpiderFruitHandler
 
                     if (amount == 3) {
                         LeftSpiderString string;
-                        string = new LeftSpiderString(pLevel, pPlayer, playerPos, blockPos.getCenter());
+                        string = new LeftSpiderString(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getMoveA().getDamage());
                         pLevel.addFreshEntity(string);
                     }
                     if (amount == 2) {
                         RightSpiderString string;
-                        string = new RightSpiderString(pLevel, pPlayer, playerPos, blockPos.getCenter());
+                        string = new RightSpiderString(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getMoveA().getDamage());
                         pLevel.addFreshEntity(string);
                     }
                     if (amount == 1) {
                         FireSpiderString string;
-                        string = new FireSpiderString(pLevel, pPlayer, playerPos, blockPos.getCenter());
+                        string = new FireSpiderString(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getMoveA().getDamage());
                         pLevel.addFreshEntity(string);
                     }
 
@@ -129,24 +129,24 @@ public class SpiderFruitHandler
 
                     if (randomValue < 1.0 / 3.0) {
                         if (entityHitResult != null) {
-                            teaKettle = new TeaKettle(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition());
+                            teaKettle = new TeaKettle(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition(), fruit.getMoveB().getDamage());
                         } else {
-                            teaKettle = new TeaKettle(pLevel, pPlayer, playerPos, blockPos.getCenter());
+                            teaKettle = new TeaKettle(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getMoveB().getDamage());
                         }
                         pLevel.addFreshEntity(teaKettle);
 
                     } else if (randomValue < 2.0 / 3.0) {
                         if (entityHitResult != null) {
-                            teaCup = new TeaCup(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition());
+                            teaCup = new TeaCup(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition(), fruit.getMoveB().getDamage());
                         } else {
-                            teaCup = new TeaCup(pLevel, pPlayer, playerPos, blockPos.getCenter());
+                            teaCup = new TeaCup(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getMoveB().getDamage());
                         }
                         pLevel.addFreshEntity(teaCup);
                     } else {
                         if (entityHitResult != null) {
-                            croissant = new Croissant(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition());
+                            croissant = new Croissant(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition(), fruit.getMoveB().getDamage());
                         } else {
-                            croissant = new Croissant(pLevel, pPlayer, playerPos, blockPos.getCenter());
+                            croissant = new Croissant(pLevel, pPlayer, playerPos, blockPos.getCenter(), fruit.getMoveB().getDamage());
                         }
                         pLevel.addFreshEntity(croissant);
                     }
@@ -177,10 +177,10 @@ public class SpiderFruitHandler
                         if (entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity && !(entityHitResult.getEntity() instanceof SpiderFang)) {
                             LivingEntity target = (LivingEntity) entityHitResult.getEntity();
                             spawnPos = target.blockPosition().offset((int) offsetX, 0, (int) offsetZ);
-                            spiderFang = new SpiderFang(pPlayer, pLevel, Vec3.atLowerCornerOf(spawnPos), BlockPos.containing(entityHitResult.getLocation()));
+                            spiderFang = new SpiderFang(pPlayer, pLevel, Vec3.atLowerCornerOf(spawnPos), BlockPos.containing(entityHitResult.getLocation()), fruit.getSpecial().getDamage());
                         } else {
                             spawnPos = blockPos.offset((int) offsetX, 0, (int) offsetZ);
-                            spiderFang = new SpiderFang(pPlayer, pLevel, Vec3.atLowerCornerOf(spawnPos), blockPos);
+                            spiderFang = new SpiderFang(pPlayer, pLevel, Vec3.atLowerCornerOf(spawnPos), blockPos, fruit.getSpecial().getDamage());
                         }
 
                         spiderFang.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
@@ -199,10 +199,10 @@ public class SpiderFruitHandler
 
                     //for (int i = 0; i < 10; i++) {
                     if (entityHitResult != null) {
-                        StringRing ring = new StringRing(pPlayer, pLevel, entityHitResult.getLocation(), 70);
+                        StringRing ring = new StringRing(pPlayer, pLevel, entityHitResult.getLocation(), 70, fruit.getUltimate().getDamage());
                         pLevel.addFreshEntity(ring);
                     } else {
-                        StringRing ring = new StringRing(pPlayer, pLevel, blockPos, 70);
+                        StringRing ring = new StringRing(pPlayer, pLevel, blockPos,70, fruit.getUltimate().getDamage());
                         pLevel.addFreshEntity(ring);
                     }
                     //}

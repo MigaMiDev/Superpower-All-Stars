@@ -58,7 +58,7 @@ public class SpiderFang extends SummonEntity implements GeoEntity {
         super(pEntityType, pLevel);
     }
 
-    public SpiderFang(Player owner, Level pLevel, Vec3 blockPos, LivingEntity target) {
+    public SpiderFang(Player owner, Level pLevel, Vec3 blockPos, LivingEntity target, float damage) {
         super(ModEntities.SPIDER_FANG.get(), pLevel);
         this.setPos(blockPos);
         this.owner = owner;
@@ -70,11 +70,11 @@ public class SpiderFang extends SummonEntity implements GeoEntity {
 
         if (this.getOwner() instanceof Player) {
             Player ownerAttack = (Player) this.getOwner();
-            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, this.damage);
+            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, damage);
         }
     }
 
-    public SpiderFang(Player owner, Level pLevel, Vec3 vec3, BlockPos blockPos) {
+    public SpiderFang(Player owner, Level pLevel, Vec3 vec3, BlockPos blockPos, float damage) {
         super(ModEntities.SPIDER_FANG.get(), pLevel);
         this.setPos(vec3.add(0.0, -0.5, 0.0));
         this.blockPos = blockPos;
@@ -86,7 +86,7 @@ public class SpiderFang extends SummonEntity implements GeoEntity {
 
         if (this.getOwner() instanceof Player) {
             Player ownerAttack = (Player) this.getOwner();
-            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, this.damage);
+            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, damage);
         }
     }
 

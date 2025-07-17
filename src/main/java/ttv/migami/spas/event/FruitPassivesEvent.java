@@ -2,7 +2,9 @@ package ttv.migami.spas.event;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,6 +28,7 @@ import net.minecraftforge.fml.common.Mod;
 import ttv.migami.spas.Config;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.SuperpowerAllStars;
+import ttv.migami.spas.common.Fruit;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.effect.FruitEffect;
@@ -145,15 +148,29 @@ public class FruitPassivesEvent {
                         double radius = 3; // This will cover a 4x4 area centered on the player
                         AABB areaOfEffect = new AABB(player.getX() - radius, player.getY() - radius /2 , player.getZ() - radius, player.getX() + radius, player.getY() + radius / 2, player.getZ() + radius);
                         List<Entity> entitiesArea = serverLevel.getEntities(player, areaOfEffect);
-                        for (Entity entity : entitiesArea) {
-                            if (entity instanceof LivingEntity livingEntity && entity != player && entity.invulnerableTime == 0) {
-                                entity.invulnerableTime = 6;
-                                if (!entity.level().isClientSide) {
-                                    ((ServerLevel) entity.level()).sendParticles(ParticleTypes.DAMAGE_INDICATOR, entity.getX(), entity.getY(), entity.getZ(), 3, 0.3, entity.getBbHeight(), 0.3, 0.2);
+
+                        MobEffect effect = FruitDataHandler.getCurrentEffect(player);
+                        ResourceLocation effectId = BuiltInRegistries.MOB_EFFECT.getKey(effect);
+
+                        if (effect instanceof FruitEffect fruitEffect) {
+                            if (effectId != null) {
+                                Fruit fruit = fruitEffect.getFruit();
+
+                                if (fruit != null) {
+                                    for (Entity entity : entitiesArea) {
+                                        if (entity instanceof LivingEntity livingEntity && entity != player && entity.invulnerableTime == 0) {
+                                            entity.invulnerableTime = 6;
+                                            if (!entity.level().isClientSide) {
+                                                ((ServerLevel) entity.level()).sendParticles(ParticleTypes.DAMAGE_INDICATOR, entity.getX(), entity.getY(), entity.getZ(), 3, 0.3, entity.getBbHeight(), 0.3, 0.2);
+                                            }
+                                            livingEntity.hurt(player.damageSources().playerAttack(player), ServerPlayHandler.calculateCustomDamage(player, fruit.getMobility().getDamage()));
+                                        }
+                                    }
                                 }
-                                livingEntity.hurt(player.damageSources().playerAttack(player), ServerPlayHandler.calculateCustomDamage(player, 3.0F));
                             }
                         }
+
+
                         if ((player.getEffect(ModEffects.SLINGSHOT.get()).getDuration() % 2) == 0) {
                             ((ServerLevel) player.level()).sendParticles(ModParticleTypes.GENERIC_HIT.get(), player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0.0);
                         }

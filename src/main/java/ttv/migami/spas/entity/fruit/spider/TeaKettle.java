@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Display;
@@ -17,15 +16,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import ttv.migami.spas.common.network.ServerPlayHandler;
-import ttv.migami.spas.entity.CustomProjectileEntityOld;
+import ttv.migami.spas.entity.CustomProjectileEntity;
 import ttv.migami.spas.init.ModEntities;
 import ttv.migami.spas.init.ModParticleTypes;
 import ttv.migami.spas.init.ModSounds;
 
 import java.util.UUID;
 
-public class TeaKettle extends CustomProjectileEntityOld {
+public class TeaKettle extends CustomProjectileEntity {
     private int warmupDelayTicks;
     public int life = 100;
     @Nullable
@@ -40,29 +38,21 @@ public class TeaKettle extends CustomProjectileEntityOld {
         super(pEntityType, pLevel);
     }
 
-    public TeaKettle(Level pLevel, Player pPlayer, Vec3 pPos, Vec3 targetPos) {
+    public TeaKettle(Level pLevel, Player pPlayer, Vec3 pPos, Vec3 targetPos, float damage) {
         super(ModEntities.TEA_KETTLE.get(), pLevel);
+
         this.setPos(pPos.add(0, 1, 0));
-        this.setOwner(pPlayer);
-        this.owner = pPlayer;
         this.checkForCollisions = true;
-        Vec3 dir = this.getDirection(pPlayer);
+
         this.lookAt(EntityAnchorArgument.Anchor.EYES, targetPos);
         this.getLookAngle();
         this.affectedByGravity = true;
-        double speed = 1.5F;
-        this.setDeltaMovement(dir.x * speed, dir.y * speed, dir.z * speed);
-        this.updateHeading();
-    }
 
-    @Override
-    public void tick()
-    {
-        super.tick();
-        if(this.affectedByGravity)
-        {
-            this.setDeltaMovement(this.getDeltaMovement().add(0, this.modifiedGravity, 0));
-        }
+        this.damage = damage;
+        this.speed = 1.5D;
+
+        this.setDeltaMovement(this.getLookAngle().x * speed, this.getLookAngle().y * speed, this.getLookAngle().z * speed);
+        this.updateHeading();
     }
 
     @Override
@@ -77,17 +67,7 @@ public class TeaKettle extends CustomProjectileEntityOld {
     }
 
     @Override
-    public float calculateDamage() {
-        this.customDamage = this.damage;
-        if (this.getOwner() instanceof Player) {
-            Player owner = (Player) this.getOwner();
-            this.customDamage = ServerPlayHandler.calculateCustomDamage(owner, this.damage);
-        }
-        return this.customDamage;
-    }
-
-    @Override
-    protected void onHitEntity(Entity entity, Vec3 hitVec, Vec3 startVec, Vec3 endVec)
+    protected void onHitEntity(Entity entity)
     {
         if (entity instanceof Display.BlockDisplay) {
             return;
@@ -127,30 +107,4 @@ public class TeaKettle extends CustomProjectileEntityOld {
             this.remove(RemovalReason.KILLED);
         }
     }
-
-    @Nullable
-    @Override
-    public Entity getOwner() {
-        return this.owner;
-    }
-
-    public void setOwner(@Nullable LivingEntity pOwner) {
-        this.owner = pOwner;
-        this.ownerUUID = pOwner == null ? null : pOwner.getUUID();
-    }
-
-    private Vec3 getDirection(LivingEntity pShooter)
-    {
-        return this.getVectorFromRotation(pShooter.getXRot() - (5 / 2.0F) + random.nextFloat() * 2, pShooter.getYHeadRot() - (5 / 2.0F) + random.nextFloat() * 2);
-    }
-
-    private Vec3 getVectorFromRotation(float pitch, float yaw)
-    {
-        float f = Mth.cos(-yaw * 0.017453292F - (float) Math.PI);
-        float f1 = Mth.sin(-yaw * 0.017453292F - (float) Math.PI);
-        float f2 = -Mth.cos(-pitch * 0.017453292F);
-        float f3 = Mth.sin(-pitch * 0.017453292F);
-        return new Vec3(f1 * f2, f3, f * f2);
-    }
-
 }

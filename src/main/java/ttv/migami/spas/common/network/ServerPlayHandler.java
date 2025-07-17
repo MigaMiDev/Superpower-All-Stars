@@ -94,10 +94,14 @@ public class ServerPlayHandler
                     FruitHandler handler = ModPowers.getHandler(effectId);
                     Fruit fruit = fruitEffect.getFruit();
 
-                    if (handler != null) {
-                        handler.handle(player, fruit, move, amount);
+                    if (fruit != null) {
+                        if (handler != null) {
+                            handler.handle(player, fruit, move, amount);
+                        } else {
+                            SuperpowerAllStars.LOGGER.atWarn().log("No handler registered for effect: {}", effectId);
+                        }
                     } else {
-                        SuperpowerAllStars.LOGGER.atWarn().log("No handler registered for effect: {}", effectId);
+                        SuperpowerAllStars.LOGGER.atWarn().log("Could not parse the Fruit for: {}", effectId);
                     }
                 } else {
                     SuperpowerAllStars.LOGGER.atWarn().log("Effect ID could not be found for the effect: {}", effect.getDescriptionId());
@@ -215,6 +219,8 @@ public class ServerPlayHandler
     }
 
     public static float calculateCustomDamage(Player player, float baseDamage) {
+        if (baseDamage == 0) return baseDamage;
+
         if (FruitDataHandler.getCurrentEffect(player) instanceof FruitEffect fruitEffect) {
             double maxScaling = Config.COMMON.gameplay.maxScaling.get();
             double maxDamage = baseDamage * maxScaling;

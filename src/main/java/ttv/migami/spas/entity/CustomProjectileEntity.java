@@ -5,14 +5,18 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.game.ClientboundExplodePacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,6 +27,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.event.FruitProjectileHitEventNew;
+import ttv.migami.spas.interfaces.IExplosionDamageable;
+import ttv.migami.spas.world.ProjectileExplosion;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -498,6 +504,73 @@ public class CustomProjectileEntity extends Entity implements IEntityAdditionalS
         {
             return this.hitVec;
         }
+    }
+
+    /**
+     * Creates a projectile explosion for the specified entity.
+     *
+     * @param entity The entity to explode
+     * @param radius The amount of radius the entity should deal
+     * @param forceNone If true, forces the explosion mode to be NONE instead of config value
+     */
+    public static void createExplosion(Entity entity, float radius, boolean forceNone)
+    {
+        Level world = entity.level();
+        if(world.isClientSide())
+            return;
+
+        DamageSource source = entity instanceof CustomProjectileEntityOld projectile ? entity.damageSources().explosion(entity, projectile.getOwner()) : null;
+        Explosion.BlockInteraction mode = forceNone ? Explosion.BlockInteraction.KEEP : Explosion.BlockInteraction.DESTROY;
+        Explosion explosion = new ProjectileExplosion(world, entity, source, null, entity.getX(), entity.getY(), entity.getZ(), radius, false, mode);
+
+        if(net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion))
+            return;
+
+        // Do explosion logic
+        explosion.explode();
+        explosion.finalizeExplosion(true);
+
+        // Send event to blocks that are exploded (none if mode is none)
+        explosion.getToBlow().forEach(pos ->
+        {
+            if(world.getBlockState(pos).getBlock() instanceof IExplosionDamageable)
+            {
+                ((IExplosionDamageable) world.getBlockState(pos).getBlock()).onProjectileExploded(world, world.getBlockState(pos), pos, entity);
+            }
+        });
+
+        // Clears the affected blocks if mode is none
+        if(!explosion.interactsWithBlocks())
+        {
+            explosion.clearToBlow();
+        }
+
+        for(ServerPlayer player : ((ServerLevel) world).players())
+        {
+            if(player.distanceToSqr(entity.getX(), entity.getY(), entity.getZ()) < 4096)
+            {
+                player.connection.send(new ClientboundExplodePacket(entity.getX(), entity.getY(), entity.getZ(), radius, explosion.getToBlow(), explosion.getHitPlayers().get(player)));
+            }
+        }
+    }
+
+    public static void createFireExplosion(Entity entity, float radius, boolean forceNone)
+    {
+        Level world = entity.level();
+        if(world.isClientSide())
+            return;
+
+        DamageSource source = entity instanceof CustomProjectileEntityOld projectile ? entity.damageSources().explosion(entity, projectile.getOwner()) : null;
+        Explosion.BlockInteraction mode = Explosion.BlockInteraction.KEEP;
+        Explosion explosion = new ProjectileExplosion(world, entity, source, null, entity.getX(), entity.getY(), entity.getZ(), radius, true, mode);
+
+        if(net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion))
+            return;
+
+        // Do explosion logic
+        explosion.explode();
+        explosion.finalizeExplosion(true);
+
     }
 
     @Override

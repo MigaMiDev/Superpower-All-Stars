@@ -41,13 +41,9 @@ public class FlowerSpear extends SummonEntity implements GeoEntity {
     public int life = 14;
     @Nullable
     private LivingEntity owner;
-    private LivingEntity target;
     @Nullable
     private UUID ownerUUID;
-    private BlockPos blockPos;
-    private boolean right;
-    private float damage = 4F;
-    private float customDamage = damage;
+    private float customDamage = 4;
 
     private static final EntityDataAccessor<Boolean> JUST_SPAWNED =
             SynchedEntityData.defineId(FlowerSpear.class, EntityDataSerializers.BOOLEAN);
@@ -59,12 +55,11 @@ public class FlowerSpear extends SummonEntity implements GeoEntity {
         super(pEntityType, pLevel);
     }
 
-    public FlowerSpear(Player owner, Level pLevel, Vec3 blockPos, LivingEntity target, boolean right) {
+    public FlowerSpear(Player owner, Level pLevel, Vec3 blockPos, LivingEntity target, boolean right, float damage) {
         super(ModEntities.FLOWER_SPEAR.get(), pLevel);
         this.setRight(right);
         this.setPos(blockPos);
         this.owner = owner;
-        this.target = target;
         this.noPhysics = true;
         this.lookAt(EntityAnchorArgument.Anchor.FEET, target.getEyePosition());
 
@@ -72,15 +67,14 @@ public class FlowerSpear extends SummonEntity implements GeoEntity {
 
         if (this.getOwner() instanceof Player) {
             Player ownerAttack = (Player) this.getOwner();
-            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, this.damage);
+            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, damage);
         }
     }
 
-    public FlowerSpear(Player owner, Level pLevel, Vec3 vec3, BlockPos blockPos, boolean right) {
+    public FlowerSpear(Player owner, Level pLevel, Vec3 vec3, BlockPos blockPos, boolean right, float damage) {
         super(ModEntities.FLOWER_SPEAR.get(), pLevel);
         this.setRight(right);
         this.setPos(vec3.add(0.0, -0.5, 0.0));
-        this.blockPos = blockPos;
         this.owner = owner;
         this.noPhysics = true;
         this.lookAt(EntityAnchorArgument.Anchor.FEET, blockPos.getCenter());
@@ -89,7 +83,7 @@ public class FlowerSpear extends SummonEntity implements GeoEntity {
 
         if (this.getOwner() instanceof Player) {
             Player ownerAttack = (Player) this.getOwner();
-            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, this.damage);
+            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, damage);
         }
     }
 

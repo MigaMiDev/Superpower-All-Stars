@@ -20,7 +20,7 @@
     "actionType": "MOVE_A",
     "attackAmount": 2,
     "cooldown": 200,
-    "damage": 2.0,
+    "damage": 5.0,
     "enabledByDefault": true,
     "foodExhaustion": "MEDIUM",
     "masteryLevel": 0,
@@ -35,7 +35,7 @@
     "actionType": "MOVE_B",
     "attackAmount": 1,
     "cooldown": 250,
-    "damage": 2.0,
+    "damage": 15.0,
     "enabledByDefault": false,
     "foodExhaustion": "BIG",
     "masteryLevel": 5,
@@ -48,7 +48,7 @@
     "actionType": "SPECIAL",
     "attackAmount": 30,
     "cooldown": 350,
-    "damage": 0.0,
+    "damage": 0.2,
     "enabledByDefault": false,
     "foodExhaustion": "LARGE",
     "masteryLevel": 15,
@@ -58,16 +58,12 @@
   },
   "ultimate": {
     "actionMode": "spas:press",
-    "actionType": "ULTIMATE",
-    "attackAmount": 1,
-    "cooldown": 500,
-    "damage": 6.0,
+    "actionType": "MOVE_A",
+    "damage": 0.0,
     "enabledByDefault": false,
     "foodExhaustion": "SMALL",
-    "masteryLevel": 25,
-    "name": "info.spas.rubber_fruit.ultimate",
-    "recoilKick": -3.0,
-    "shooterPushback": -3.0,
-    "xpRequirement": 10
+    "masteryLevel": 5,
+    "name": "",
+    "xpRequirement": 3
   }
 }

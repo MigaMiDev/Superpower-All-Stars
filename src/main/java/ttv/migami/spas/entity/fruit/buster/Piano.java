@@ -32,8 +32,7 @@ public class Piano extends Entity {
     private LivingEntity owner;
     @Nullable
     private UUID ownerUUID;
-    public float damage = 4;
-    public float customDamage = damage;
+    public float customDamage = 4;
     public Vec3 fallPos = this.position();
     public double modifiedGravity = -0.05;
     public boolean falling = true;
@@ -43,7 +42,7 @@ public class Piano extends Entity {
         super(pEntityType, pLevel);
     }
 
-    public Piano(Player owner, Level pLevel, BlockPos blockPos) {
+    public Piano(Player owner, Level pLevel, BlockPos blockPos, float damage) {
         super(ModEntities.PIANO.get(), pLevel);
         this.owner = owner;
         this.setOwner(owner);
@@ -55,11 +54,11 @@ public class Piano extends Entity {
 
         if (this.getOwner() instanceof Player) {
             Player ownerAttack = (Player) this.getOwner();
-            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, this.damage);
+            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, damage);
         }
     }
 
-    public Piano(Player owner, Level pLevel, Vec3 targetPos) {
+    public Piano(Player owner, Level pLevel, Vec3 targetPos, float damage) {
         super(ModEntities.PIANO.get(), pLevel);
         this.owner = owner;
         this.setOwner(owner);
@@ -71,7 +70,7 @@ public class Piano extends Entity {
 
         if (this.getOwner() instanceof Player) {
             Player ownerAttack = (Player) this.getOwner();
-            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, this.damage);
+            this.customDamage = ServerPlayHandler.calculateCustomDamage(ownerAttack, damage);
         }
     }
 

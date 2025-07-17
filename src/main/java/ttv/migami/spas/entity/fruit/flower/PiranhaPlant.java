@@ -48,8 +48,7 @@ public class PiranhaPlant extends Entity implements TraceableEntity, GeoEntity {
     private LivingEntity owner;
     @Nullable
     private UUID ownerUUID;
-    private float damage = 3.0F;
-    private float customDamage = damage;
+    private float customDamage = 3;
     private Set<Entity> damagedEntities = new HashSet<>();
 
     private static final EntityDataAccessor<Boolean> JUST_SPAWNED =
@@ -62,7 +61,7 @@ public class PiranhaPlant extends Entity implements TraceableEntity, GeoEntity {
         super(pEntityType, pLevel);
     }
 
-    public PiranhaPlant(Level pLevel, Player pPlayer, BlockPos pPos, float pXRot) {
+    public PiranhaPlant(Level pLevel, Player pPlayer, BlockPos pPos, float pXRot, float damage) {
         super(ModEntities.PIRANHA_PLANT.get(), pLevel);
         this.setPos(pPos.getCenter().add(0, 0.1, 0));
         this.setXRot(pXRot);
@@ -71,7 +70,7 @@ public class PiranhaPlant extends Entity implements TraceableEntity, GeoEntity {
 
         if (this.getOwner() instanceof Player) {
             Player owner = (Player) this.getOwner();
-            this.customDamage = ServerPlayHandler.calculateCustomDamage(owner, this.damage);
+            this.customDamage = ServerPlayHandler.calculateCustomDamage(owner, damage);
         }
     }
 

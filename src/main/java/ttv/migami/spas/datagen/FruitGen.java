@@ -152,7 +152,6 @@ public class FruitGen extends FruitProvider
 
                 .build());
 
-        //TODO Damages and FoodExhaustion from here onwards
         this.addFruit(new ResourceLocation(Reference.MOD_ID, "buster_fruit"), Fruit.Builder.create()
 
                 // General
@@ -160,60 +159,27 @@ public class FruitGen extends FruitProvider
 
                 // Moves
                 .setMoveA(ActionType.MOVE_A, "info.spas.buster_fruit.move_a",
-                        5F, ActionMode.HOLD, 100, 1,6,
+                        2F, ActionMode.HOLD, 100, 2,6,
                         true, 0, 0, FoodExhaustion.BIG,
                         -0.2F, 2.5F)
 
                 .setMoveB(ActionType.MOVE_B, "info.spas.buster_fruit.move_b",
-                        3F, ActionMode.PRESS, 300, 0,1,
+                        15F, ActionMode.PRESS, 300, 0,1,
                         false, 5, 3, FoodExhaustion.BIG,
                         -0.5F, 3.0F)
 
                 .setSpecial(ActionType.SPECIAL, "info.spas.buster_fruit.special",
-                        2F, ActionMode.PRESS, 550, 0,1,
+                        5F, ActionMode.PRESS, 550, 0,1,
                         false, 15, 5, FoodExhaustion.MEDIUM,
                         0.0F, 0.0F)
 
                 .setUltimate(ActionType.ULTIMATE, "info.spas.buster_fruit.ultimate",
-                        2.5F, ActionMode.HOLD, 300, 0,1,
+                        7F, ActionMode.HOLD, 300, 0,1,
                         false, 25, 10, FoodExhaustion.SMALL,
                         0.5F, -2.0F)
 
                 .setMobility(ActionType.MOBILITY, "info.spas.buster_fruit.mobility",
-                        3F, ActionMode.PRESS, 800, 0,1,
-                        true, 0, 0, FoodExhaustion.MEDIUM,
-                        0.0F, 0.0F)
-
-                .build());
-
-        this.addFruit(new ResourceLocation(Reference.MOD_ID, "buster_fruit"), Fruit.Builder.create()
-
-                // General
-                .setSwimDisabled(false)
-
-                // Moves
-                .setMoveA(ActionType.MOVE_A, "info.spas.buster_fruit.move_a",
-                        5F, ActionMode.HOLD, 100, 3,6,
-                        true, 0, 0, FoodExhaustion.BIG,
-                        -0.2F, 2.5F)
-
-                .setMoveB(ActionType.MOVE_B, "info.spas.buster_fruit.move_b",
-                        3F, ActionMode.PRESS, 300, 0,1,
-                        false, 5, 3, FoodExhaustion.BIG,
-                        -0.5F, 3.0F)
-
-                .setSpecial(ActionType.SPECIAL, "info.spas.buster_fruit.special",
-                        2F, ActionMode.PRESS, 550, 0,1,
-                        false, 15, 5, FoodExhaustion.MEDIUM,
-                        0.0F, 0.0F)
-
-                .setUltimate(ActionType.ULTIMATE, "info.spas.buster_fruit.ultimate",
-                        2.5F, ActionMode.HOLD, 300, 0,1,
-                        false, 25, 10, FoodExhaustion.SMALL,
-                        0.5F, -2.0F)
-
-                .setMobility(ActionType.MOBILITY, "info.spas.buster_fruit.mobility",
-                        3F, ActionMode.PRESS, 800, 0,1,
+                        0F, ActionMode.PRESS, 800, 0,1,
                         true, 0, 0, FoodExhaustion.MEDIUM,
                         0.0F, 0.0F)
 
@@ -226,22 +192,22 @@ public class FruitGen extends FruitProvider
 
                 // Moves
                 .setMoveA(ActionType.MOVE_A, "info.spas.flower_fruit.move_a",
-                        2F, ActionMode.PRESS, 100, 20,2,
+                        4F, ActionMode.PRESS, 100, 20,2,
                         true, 0, 0, FoodExhaustion.MEDIUM,
                         -0.5F, 0.2F)
 
                 .setMoveB(ActionType.MOVE_B, "info.spas.flower_fruit.move_b",
-                        2F, ActionMode.PRESS, 500, 0,1,
+                        3F, ActionMode.PRESS, 500, 0,1,
                         false, 5, 3, FoodExhaustion.BIG,
                         0.0F, 3.0F)
 
                 .setSpecial(ActionType.SPECIAL, "info.spas.flower_fruit.special",
-                        0F, ActionMode.HOLD, 600, 20,3,
+                        3F, ActionMode.HOLD, 600, 20,3,
                         false, 15, 5, FoodExhaustion.LARGE,
                         0.0F, 0.0F)
 
                 .setUltimate(ActionType.ULTIMATE, "info.spas.flower_fruit.ultimate",
-                        6F, ActionMode.HOLD, 800, 3,82,
+                        5F, ActionMode.HOLD, 800, 3,82,
                         false, 25, 10, FoodExhaustion.SMALL,
                         0.0F, 0.0F)
 
@@ -254,27 +220,27 @@ public class FruitGen extends FruitProvider
 
                 // Moves
                 .setMoveA(ActionType.MOVE_A, "info.spas.fire_fruit.move_a",
-                        2F, ActionMode.HOLD, 200, 2,16,
+                        1.8F, ActionMode.HOLD, 200, 2,16,
                         true, 0, 0, FoodExhaustion.MEDIUM,
                         -0.2F, 0.2F)
 
                 .setMoveB(ActionType.MOVE_B, "info.spas.fire_fruit.move_b",
-                        2F, ActionMode.PRESS, 250, 0,1,
+                        4F, ActionMode.PRESS, 250, 0,1,
                         false, 5, 3, FoodExhaustion.BIG,
                         0.0F, 3.0F)
 
                 .setSpecial(ActionType.SPECIAL, "info.spas.fire_fruit.special",
-                        0F, ActionMode.PRESS, 350, 0,1,
+                        5F, ActionMode.PRESS, 350, 0,1,
                         false, 15, 5, FoodExhaustion.LARGE,
                         0.0F, 3.0F)
 
                 .setUltimate(ActionType.ULTIMATE, "info.spas.fire_fruit.ultimate",
-                        6F, ActionMode.PRESS, 300, 0,1,
+                        10F, ActionMode.PRESS, 300, 0,1,
                         false, 25, 10, FoodExhaustion.SMALL,
                         -3.0F, -3.0F)
 
                 .setMobility(ActionType.MOBILITY, "info.spas.fire_fruit.mobility",
-                        3F, ActionMode.PRESS, 150, 0,3,
+                        2F, ActionMode.PRESS, 150, 10,3,
                         true, 0, 0, FoodExhaustion.MEDIUM,
                         0.0F, 0.0F)
 
@@ -287,24 +253,21 @@ public class FruitGen extends FruitProvider
 
                 // Moves
                 .setMoveA(ActionType.MOVE_A, "info.spas.rubber_fruit.move_a",
-                        2F, ActionMode.PRESS, 200, 30,2,
+                        5F, ActionMode.PRESS, 200, 30,2,
                         true, 0, 0, FoodExhaustion.MEDIUM,
                         -0.2F, 1.7F)
 
                 .setMoveB(ActionType.MOVE_B, "info.spas.rubber_fruit.move_b",
-                        2F, ActionMode.PRESS, 250, 0,1,
+                        15F, ActionMode.PRESS, 250, 0,1,
                         false, 5, 3, FoodExhaustion.BIG,
                         0.0F, -2.5F)
 
                 .setSpecial(ActionType.SPECIAL, "info.spas.rubber_fruit.special",
-                        0F, ActionMode.HOLD, 350, 2,30,
+                        0.2F, ActionMode.HOLD, 350, 2,30,
                         false, 15, 5, FoodExhaustion.LARGE,
                         0.0F, 0.0F)
 
-                .setUltimate(ActionType.ULTIMATE, "info.spas.rubber_fruit.ultimate",
-                        6F, ActionMode.PRESS, 500, 0,1,
-                        false, 25, 10, FoodExhaustion.SMALL,
-                        -3.0F, -3.0F)
+                // Gear Shift coming soon!
 
                 .setMobility(ActionType.MOBILITY, "info.spas.rubber_fruit.mobility",
                         3F, ActionMode.PRESS, 200, 50,2,
@@ -330,17 +293,17 @@ public class FruitGen extends FruitProvider
                         0.0F, 2.0F)
 
                 .setSpecial(ActionType.SPECIAL, "info.spas.spider_fruit.special",
-                        0F, ActionMode.HOLD, 400, 5,20,
+                        3F, ActionMode.HOLD, 400, 5,20,
                         false, 15, 5, FoodExhaustion.LARGE,
                         0.0F, 0.0F)
 
                 .setUltimate(ActionType.ULTIMATE, "info.spas.spider_fruit.ultimate",
-                        6F, ActionMode.PRESS, 450, 0,1,
+                        5F, ActionMode.PRESS, 450, 0,1,
                         false, 25, 10, FoodExhaustion.SMALL,
                         0.0F, 2.5F)
 
                 .setMobility(ActionType.MOBILITY, "info.spas.spider_fruit.mobility",
-                        3F, ActionMode.PRESS, 35, 0,1,
+                        0F, ActionMode.PRESS, 35, 0,1,
                         true, 0, 0, FoodExhaustion.MEDIUM,
                         0.0F, 1.0F)
 

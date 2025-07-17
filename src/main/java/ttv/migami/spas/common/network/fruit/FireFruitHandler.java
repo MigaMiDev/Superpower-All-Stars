@@ -89,10 +89,10 @@ public class FireFruitHandler
                     playerPos = pPlayer.getPosition(1F).add(offsetX, offsetY, offsetZ);
 
                     if (entityHitResult != null) {
-                        fireball = new Fireball(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), false);
+                        fireball = new Fireball(pLevel, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), false, fruit.getMoveA().getDamage());
                     }
                     else {
-                        fireball = new Fireball(pLevel, pPlayer, playerPos, blockPos.getCenter(), false);
+                        fireball = new Fireball(pLevel, playerPos, blockPos.getCenter(), false, fruit.getMoveA().getDamage());
                     }
                     pLevel.addFreshEntity(fireball);
 
@@ -121,10 +121,10 @@ public class FireFruitHandler
                     playerPos = pPlayer.getPosition(1F).add(offsetX, offsetY, offsetZ);
 
                     if (entityHitResult != null) {
-                        fireball = new Fireball(pLevel, pPlayer, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), true);
+                        fireball = new Fireball(pLevel, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), true, fruit.getMoveB().getDamage());
                     }
                     else {
-                        fireball = new Fireball(pLevel, pPlayer, playerPos, blockPos.getCenter(), true);
+                        fireball = new Fireball(pLevel, playerPos, blockPos.getCenter(), true, fruit.getMoveB().getDamage());
                     }
                     pLevel.addFreshEntity(fireball);
 
@@ -154,7 +154,7 @@ public class FireFruitHandler
                             if (livingEntity.hasEffect(ModEffects.FLOWER_FRUIT.get())) {
                                 livingEntity.setSecondsOnFire(9);
                             }
-                            livingEntity.hurt(pPlayer.damageSources().playerAttack(pPlayer), ServerPlayHandler.calculateCustomDamage(pPlayer, 1.0F));
+                            livingEntity.hurt(pPlayer.damageSources().playerAttack(pPlayer), ServerPlayHandler.calculateCustomDamage(pPlayer, fruit.getSpecial().getDamage()));
                         }
                     }
                     //if(pPlayer.isCrouching()) {
@@ -194,9 +194,9 @@ public class FireFruitHandler
                     }
 
                     if (entityHitResult != null) {
-                        largeFireball = new LargeFireball(pLevel, pPlayer, spawnPosition, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), true);
+                        largeFireball = new LargeFireball(pLevel, spawnPosition, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), true, fruit.getUltimate().getDamage());
                     } else {
-                        largeFireball = new LargeFireball(pLevel, pPlayer, spawnPosition, blockPos.getCenter(), true);
+                        largeFireball = new LargeFireball(pLevel, spawnPosition, blockPos.getCenter(), true, fruit.getUltimate().getDamage());
                     }
 
                     pLevel.addFreshEntity(largeFireball);
@@ -226,7 +226,7 @@ public class FireFruitHandler
                                 livingEntity.setSecondsOnFire(9);
                             }
                             livingEntity.setSecondsOnFire(3);
-                            livingEntity.hurt(pPlayer.damageSources().playerAttack(pPlayer), ServerPlayHandler.calculateCustomDamage(pPlayer, 1.0F));
+                            livingEntity.hurt(pPlayer.damageSources().playerAttack(pPlayer), ServerPlayHandler.calculateCustomDamage(pPlayer, fruit.getMobility().getDamage()));
                             throwPlayerForward(livingEntity, motion);
                         }
                     }

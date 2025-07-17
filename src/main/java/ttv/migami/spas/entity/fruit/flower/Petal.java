@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-import static ttv.migami.spas.common.network.ServerPlayHandler.calculateCustomDamage;
-
 public class Petal extends Entity {
     private int warmupDelayTicks;
     public int life = 100;
@@ -30,13 +28,12 @@ public class Petal extends Entity {
     @Nullable
     private UUID ownerUUID;
     public float damage = 5.0F;
-    public float customDamage = damage;
 
     public Petal(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    public Petal(Level pLevel, Player pPlayer, Vec3 targetPos) {
+    public Petal(Level pLevel, LivingEntity pPlayer, Vec3 targetPos, float damage) {
         super(ModEntities.PETAL.get(), pLevel);
         this.setPos(targetPos.add(0, 10, 0));
         this.setOwner(pPlayer);
@@ -50,6 +47,10 @@ public class Petal extends Entity {
 
         this.setYHeadRot(yaw);
         this.setDeltaMovement(0, -0.5, 0);
+
+        if (pPlayer instanceof Player player) {
+            this.damage = ServerPlayHandler.calculateCustomDamage(player, damage);
+        }
     }
 
     @Override
@@ -93,19 +94,10 @@ public class Petal extends Entity {
         List<Entity> entities = this.level().getEntities(this, hitbox);
         for (Entity entity : entities) {
             if (entity instanceof LivingEntity && entity != owner && !(entity instanceof SummonEntity)) {
-                entity.hurt(this.damageSources().fallingBlock(entity), customDamage);
+                entity.hurt(this.damageSources().fallingBlock(entity), this.damage);
                 this.discard();
             }
         }
-    }
-
-    public float calculateDamage() {
-        this.customDamage = this.damage;
-        if (this.getOwner() instanceof Player) {
-            Player owner = (Player) this.getOwner();
-            this.customDamage = ServerPlayHandler.calculateCustomDamage(owner, calculateCustomDamage(owner, 2F));
-        }
-        return this.customDamage;
     }
 
     public void setOwner(@javax.annotation.Nullable LivingEntity pOwner) {

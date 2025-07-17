@@ -25,6 +25,7 @@ import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.init.ModEffects;
 import ttv.migami.spas.init.ModEntities;
 
@@ -44,6 +45,7 @@ public class Cactus extends Entity implements GeoEntity {
     @Nullable
     private UUID ownerUUID;
     private Set<Entity> damagedEntities = new HashSet<>();
+    private float damage = 3F;
 
     private static final EntityDataAccessor<Boolean> JUST_SPAWNED =
             SynchedEntityData.defineId(Cactus.class, EntityDataSerializers.BOOLEAN);
@@ -55,7 +57,7 @@ public class Cactus extends Entity implements GeoEntity {
         super(pEntityType, pLevel);
     }
 
-    public Cactus(LivingEntity owner, Level pLevel, BlockPos blockPos, int life) {
+    public Cactus(LivingEntity owner, Level pLevel, BlockPos blockPos, int life, float damage) {
         super(ModEntities.CACTUS.get(), pLevel);
         this.setPos(blockPos.getCenter().add(0.0, -0.5, 0.0));
         this.teleportToGroundOrAir();
@@ -64,15 +66,23 @@ public class Cactus extends Entity implements GeoEntity {
         this.life = life;
 
         this.setOwner(owner);
+
+        if (owner instanceof Player player) {
+            this.damage = ServerPlayHandler.calculateCustomDamage(player, damage);
+        }
     }
 
-    public Cactus(LivingEntity owner, Level pLevel, Vec3 targetPos, int life) {
+    public Cactus(LivingEntity owner, Level pLevel, Vec3 targetPos, int life, float damage) {
         super(ModEntities.CACTUS.get(), pLevel);
         this.setPos(targetPos);
         this.owner = owner;
         this.life = life;
 
         this.setOwner(owner);
+
+        if (owner instanceof Player player) {
+            this.damage = ServerPlayHandler.calculateCustomDamage(player, damage);
+        }
     }
 
     private void teleportToGroundOrAir() {
@@ -123,7 +133,7 @@ public class Cactus extends Entity implements GeoEntity {
                     if (entity instanceof LivingEntity && entity != owner) {
                         entity.startRiding(this, true);
                         if (!hasBeenDamaged(entity)) {
-                            entity.hurt(this.damageSources().cactus(), calculateCustomDamage((Player) owner, 3F));
+                            entity.hurt(this.damageSources().cactus(), calculateCustomDamage((Player) owner, this.damage));
                             entity.invulnerableTime = 0;
                             ((ServerLevel) level).sendParticles(ParticleTypes.DAMAGE_INDICATOR, entity.getX(), entity.getY(), entity.getZ(), 6, 0.3, entity.getBbHeight(), 0.3, 0.2);
                         }

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
+import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.init.ModEntities;
 
 import javax.annotation.Nullable;
@@ -33,6 +34,7 @@ public class Lasso extends Entity {
     private Vec3 launchDirection = Vec3.ZERO;
     private BlockPos ownerPos;
     public double strength = 1;
+    private float damage = 7F;
 
     private static final EntityDataAccessor<Vector3f> OWNER_POS =
             SynchedEntityData.defineId(Lasso.class, EntityDataSerializers.VECTOR3);
@@ -45,7 +47,7 @@ public class Lasso extends Entity {
         super(pEntityType, pLevel);
     }
 
-    public Lasso(LivingEntity owner, Level pLevel, Vec3 targetPos, int life, Entity target) {
+    public Lasso(LivingEntity owner, Level pLevel, Vec3 targetPos, int life, Entity target, float damage) {
         super(ModEntities.LASSO.get(), pLevel);
         this.setPos(targetPos);
         this.owner = owner;
@@ -54,6 +56,10 @@ public class Lasso extends Entity {
 
         this.setOwner(owner);
         this.setTarget(target);
+
+        if (owner instanceof Player player) {
+            this.damage = ServerPlayHandler.calculateCustomDamage(player, damage);
+        }
     }
 
     @Override

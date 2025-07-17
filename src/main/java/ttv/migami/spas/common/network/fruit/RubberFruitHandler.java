@@ -95,7 +95,7 @@ public class RubberFruitHandler
                     entityHitResult = ServerPlayHandler.hitEntity(pLevel, pPlayer, BlockPos.containing(targetPos));
 
                     if(entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity entity && entity != pPlayer) {
-                        entity.hurt(pPlayer.damageSources().playerAttack((Player) pPlayer), 5);
+                        entity.hurt(pPlayer.damageSources().playerAttack((Player) pPlayer), ServerPlayHandler.calculateCustomDamage(pPlayer, fruit.getMoveA().getDamage()));
                         double d1 = 0.5D * (1.0D - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
                         double d0 = 2.5D * (1.0D - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
                         entity.push(normal.x() * d0, normal.y() * d1, normal.z() * d0);
@@ -159,7 +159,7 @@ public class RubberFruitHandler
                         double angle = Math.acos(entityPos.normalize().dot(lookVec.normalize()));
 
                         if (angle < sweepAngle / 2 && entity != pPlayer) {
-                            float customDamage = 0.2F;
+                            float customDamage = ServerPlayHandler.calculateCustomDamage(pPlayer, fruit.getSpecial().getDamage());
                             entity.hurt(pPlayer.damageSources().generic(), ServerPlayHandler.calculateCustomDamage(pPlayer, customDamage) / 1.5F);
                             entity.invulnerableTime = 2;
                             entity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 5, 0, false, false));

@@ -44,7 +44,7 @@ public class BusterFruitHandler
                     actionSlowdown(pPlayer);
                     if (entityHitResult != null) {
                         Entity target = entityHitResult.getEntity();
-                        target.hurt(pPlayer.damageSources().mobProjectile(target, pPlayer), calculateCustomDamage(pPlayer, 1.5F));
+                        target.hurt(pPlayer.damageSources().mobProjectile(target, pPlayer),  ServerPlayHandler.calculateCustomDamage(pPlayer, fruit.getMoveA().getDamage()));
                         if (!pPlayer.level().isClientSide) {
                             ((ServerLevel) pPlayer.level()).sendParticles(ParticleTypes.DAMAGE_INDICATOR, target.getX(), target.getY(), target.getZ(), 2, 0.3, target.getBbHeight(), 0.3, 0.2);
                         }
@@ -74,10 +74,10 @@ public class BusterFruitHandler
 
                     actionSlowdown(pPlayer);
                     if (entityHitResult != null) {
-                        piano = new Piano(pPlayer, pLevel, entityHitResult.getLocation());
+                        piano = new Piano(pPlayer, pLevel, entityHitResult.getLocation(), fruit.getSpecial().getDamage());
                     }
                     else {
-                        piano = new Piano(pPlayer, pLevel, blockPos);
+                        piano = new Piano(pPlayer, pLevel, blockPos, fruit.getSpecial().getDamage());
                     }
                     pLevel.addFreshEntity(piano);
 
@@ -93,17 +93,17 @@ public class BusterFruitHandler
                     Cactus stun;
                     Lasso lasso;
                     if (entityHitResult != null && !pPlayer.onGround()) {
-                        lasso = new Lasso(pPlayer, pLevel, entityHitResult.getLocation(), 200, entityHitResult.getEntity());
+                        lasso = new Lasso(pPlayer, pLevel, entityHitResult.getLocation(), 200, entityHitResult.getEntity(), fruit.getUltimate().getDamage());
                         pPlayer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 2, false, false));
                         pPlayer.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 60, 0, false, false));
                         pLevel.addFreshEntity(lasso);
                         pLevel.playSound(null, pPlayer.getOnPos(), ModSounds.BUSTER_FIRE_LASSO.get(), SoundSource.PLAYERS, 2F, 1F);
                     } else if (entityHitResult != null) {
-                        stun = new Cactus(pPlayer, pLevel, entityHitResult.getLocation(), 60);
+                        stun = new Cactus(pPlayer, pLevel, entityHitResult.getLocation(), 60, fruit.getUltimate().getDamage());
                         pLevel.addFreshEntity(stun);
                         pLevel.playSound(null, stun.getOnPos(), ModSounds.BUSTER_FIRE_CACTUS_GROW.get(), SoundSource.PLAYERS, 2F, 1F);
                     } else {
-                        stun = new Cactus(pPlayer, pLevel, blockPos, 60);
+                        stun = new Cactus(pPlayer, pLevel, blockPos, 60, fruit.getUltimate().getDamage());
                         pLevel.addFreshEntity(stun);
                         pLevel.playSound(null, stun.getOnPos(), ModSounds.BUSTER_FIRE_CACTUS_GROW.get(), SoundSource.PLAYERS, 2F, 1F);
                     }
