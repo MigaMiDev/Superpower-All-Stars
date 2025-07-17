@@ -150,7 +150,7 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
     }
 
     private int getColor(int index) {
-        return index == selectedIndex ? 0xFFFFFF00 : 0xFFAAAAAA;
+        return index == selectedIndex ? 0xFFFFFF00 : 0xFFFFFFFF;
     }
 
     private int getIndexFromAngle(double angle) {
