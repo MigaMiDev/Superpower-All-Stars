@@ -32,7 +32,6 @@ public class TeaKettle extends CustomProjectileEntity {
     private UUID ownerUUID;
     public float damage = 3;
     public float customDamage = damage;
-    public boolean affectedByGravity;
 
     public TeaKettle(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
