@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL11;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.client.handler.ActionHandler;
 import ttv.migami.spas.client.util.RenderUtil;
@@ -137,7 +139,7 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
-        renderBackground(guiGraphics);
+        //renderBackground(guiGraphics);
 
         int centerX = this.width / 2;
         int centerY = this.height / 2;
@@ -232,6 +234,10 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
     }
 
     private void drawTrapezoid(GuiGraphics graphics, int cx, int cy, boolean selected, int index) {
+        RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, false);
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+
         Tesselator tess = Tesselator.getInstance();
         BufferBuilder buffer = tess.getBuilder();
 
