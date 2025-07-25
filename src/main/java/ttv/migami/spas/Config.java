@@ -86,6 +86,7 @@ public class Config {
     public static class Gameplay
     {
         public final Griefing griefing;
+        public final ForgeConfigSpec.BooleanValue onlyOneFruitPerLife;
         public final ForgeConfigSpec.BooleanValue applyHunger;
         public final ForgeConfigSpec.DoubleValue maxScaling;
         public final ForgeConfigSpec.IntValue damageMultiplier;
@@ -95,6 +96,7 @@ public class Config {
         {
             builder.comment("Properties relating to gameplay").push("gameplay");
             {
+                this.onlyOneFruitPerLife = builder.comment("CAREFUL! If this option is enabled, EATING another Fruit while having an active one, will explode the Player! This can be avoided by eating a Broccoli Veggie!").define("onlyOneFruitPerLife", true);
                 this.damageMultiplier = builder.comment("The damage will be multiplied by this number. It affects EVERY fruit.").defineInRange("damageMultiplier", 1, 1, 999);
                 this.griefing = new Griefing(builder);
                 this.maxScaling = builder.comment("The damage scaling will stop once the player reaches this Mastery level.").defineInRange("maxScaling", 3.0D, 1.0D, 999.0D);

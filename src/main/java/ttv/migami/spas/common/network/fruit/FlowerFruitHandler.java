@@ -119,7 +119,7 @@ public class FlowerFruitHandler
                         grappleMax = 2;
                     }
 
-                    if (entityHitResult  == null) {
+                    if (entities.isEmpty()) {
                         PiranhaPlant piranhaPlant2 = new PiranhaPlant(pLevel, pPlayer, blockPos, 100, fruit.getMoveB().getDamage());
                         pLevel.addFreshEntity(piranhaPlant2);
                     }

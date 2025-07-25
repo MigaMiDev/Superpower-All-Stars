@@ -63,6 +63,9 @@ public class CooldownBarRenderer {
         if (movesetHandler.getFruit() != null && FruitDataHandler.getCurrentEffect(player) != null) {
             for (ActionType action : ActionType.values()) {
                 Fruit.Action effectAction = movesetHandler.getFruitAction(action);
+
+                if (effectAction == null) return;
+
                 int cooldown = moveManager.getCooldown(action);
                 int interval = moveManager.getInterval(action);
                 int amount = moveManager.getAmount(action);

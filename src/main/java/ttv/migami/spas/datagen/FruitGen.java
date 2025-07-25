@@ -197,17 +197,17 @@ public class FruitGen extends FruitProvider
                         -0.5F, 0.2F)
 
                 .setMoveB(ActionType.MOVE_B, "info.spas.flower_fruit.move_b",
-                        3F, ActionMode.PRESS, 500, 0,1,
+                        3F, ActionMode.PRESS, 400, 0,1,
                         false, 5, 3, FoodExhaustion.BIG,
                         0.0F, 3.0F)
 
                 .setSpecial(ActionType.SPECIAL, "info.spas.flower_fruit.special",
-                        3F, ActionMode.HOLD, 600, 20,3,
+                        3F, ActionMode.HOLD, 500, 10,3,
                         false, 15, 5, FoodExhaustion.LARGE,
                         0.0F, 0.0F)
 
                 .setUltimate(ActionType.ULTIMATE, "info.spas.flower_fruit.ultimate",
-                        5F, ActionMode.HOLD, 800, 3,82,
+                        5F, ActionMode.HOLD, 600, 3,82,
                         false, 25, 10, FoodExhaustion.SMALL,
                         0.0F, 0.0F)
 

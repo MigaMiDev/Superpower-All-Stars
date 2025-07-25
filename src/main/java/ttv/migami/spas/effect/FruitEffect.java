@@ -1,22 +1,18 @@
 package ttv.migami.spas.effect;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import ttv.migami.spas.common.ActionType;
+import net.minecraft.world.item.ItemStack;
 import ttv.migami.spas.common.Fruit;
 import ttv.migami.spas.common.NetworkFruitManager;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Author: MigaMi
  */
 public abstract class FruitEffect extends MobEffect {
-    private final WeakHashMap<CompoundTag, Fruit> modifiedFruitCache = new WeakHashMap<>();
-    protected final Map<ActionType, Action> actions = new EnumMap<>(ActionType.class);
     private Fruit fruit = new Fruit();
 
     protected FruitEffect(MobEffectCategory typeIn, int liquidColorIn) {
@@ -31,9 +27,8 @@ public abstract class FruitEffect extends MobEffect {
         return this.fruit;
     }
 
-    public Action getAction(ActionType actionType) {
-        return actions.get(actionType);
+    @Override
+    public List<ItemStack> getCurativeItems() {
+        return Collections.emptyList();
     }
-
-    public abstract void initializeActions();
 }

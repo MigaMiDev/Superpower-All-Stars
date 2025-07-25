@@ -54,6 +54,7 @@ public class LargeFireball extends CustomProjectileEntity {
         this.lookAt(EntityAnchorArgument.Anchor.EYES, targetPos);
         this.getLookAngle();
         this.affectedByGravity = false;
+        this.checkForCollisions = true;
 
         this.damage = damage;
         this.speed = 3.5D;
@@ -72,6 +73,7 @@ public class LargeFireball extends CustomProjectileEntity {
         this.lookAt(EntityAnchorArgument.Anchor.EYES, targetPos);
         this.getLookAngle();
         this.affectedByGravity = false;
+        this.checkForCollisions = true;
 
         this.damage = damage;
         this.speed = 3.5D;
@@ -85,6 +87,9 @@ public class LargeFireball extends CustomProjectileEntity {
     protected void onHitEntity(Entity entity)
     {
         if (entity instanceof Display.BlockDisplay) {
+            return;
+        }
+        if (entity == this.getOwner()) {
             return;
         }
         int explosionRadius = 1;

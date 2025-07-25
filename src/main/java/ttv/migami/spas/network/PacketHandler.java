@@ -22,6 +22,7 @@ public class PacketHandler
                 .registerPlayMessage(C2SMessageMoveSelectionScreen.class, MessageDirection.PLAY_SERVER_BOUND)
                 .registerPlayMessage(C2SMessageFruitScreen.class, MessageDirection.PLAY_SERVER_BOUND)
                 .registerPlayMessage(C2SMessagePermanentFruitsScreen.class, MessageDirection.PLAY_SERVER_BOUND)
+                .registerPlayMessage(C2SMessageExplodePlayer.class, MessageDirection.PLAY_SERVER_BOUND)
                 .build();
     }
 

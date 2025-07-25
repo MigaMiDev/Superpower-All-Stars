@@ -84,6 +84,9 @@ public class InkSplat extends CustomProjectileEntity {
         if (entity instanceof Display.BlockDisplay) {
             return;
         }
+        if (entity == this.getOwner()) {
+            return;
+        }
         int explosionRadius = 1;
         if (this.explosive) {
             Level pLevel = this.level();

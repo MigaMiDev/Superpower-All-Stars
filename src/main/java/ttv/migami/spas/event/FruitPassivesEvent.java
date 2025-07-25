@@ -93,6 +93,9 @@ public class FruitPassivesEvent {
             }
 
             if (player.hasEffect(ModEffects.SQUID_FRUIT.get())) {
+                if (player.hasEffect(MobEffects.BLINDNESS)) {
+                    player.removeEffect(MobEffects.BLINDNESS);
+                }
                 if (player.isInWater()) {
                     player.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 20, 0, false, false));
                 }

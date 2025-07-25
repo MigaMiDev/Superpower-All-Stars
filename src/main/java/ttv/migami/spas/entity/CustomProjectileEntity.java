@@ -304,6 +304,15 @@ public class CustomProjectileEntity extends Entity implements IEntityAdditionalS
 
     protected void onHitEntity(Entity entity)
     {
+        if (entity == this.getOwner()) {
+            return;
+        }
+        if (entity.getId() == this.ownerID) {
+            return;
+        }
+        if (entity instanceof Player player && player.getUUID() == this.playerUUID) {
+            return;
+        }
         entity.hurt(this.damageSources().mobProjectile(this, this.owner), calculateDamage());
         entity.invulnerableTime = 0;
         if (!entity.level().isClientSide) {

@@ -28,6 +28,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
+import ttv.migami.jeg.entity.projectile.ProjectileEntity;
 import ttv.migami.spas.Config;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.SuperpowerAllStars;
@@ -275,6 +276,11 @@ public class ServerPlayHandler
         if (pPlayer.getFoodData().getFoodLevel() > 6 && Config.COMMON.gameplay.applyHunger.get()) {
             pPlayer.addEffect(new MobEffectInstance(MobEffects.HUNGER, 20, 0, false, false));
         }
+    }
+
+    public static void explodePlayer(Player pPlayer) {
+        ProjectileEntity.createExplosion(pPlayer, 3, true);
+        pPlayer.kill();
     }
 
     public static void handleMoveSelectionScreen(ServerPlayer player) {

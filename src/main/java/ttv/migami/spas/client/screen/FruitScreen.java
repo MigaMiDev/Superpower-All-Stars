@@ -199,17 +199,22 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
             String fruitID = ForgeRegistries.MOB_EFFECTS.getKey(this.currentFruit).getPath();
             ResourceLocation resourceLocation = new ResourceLocation(modId, "textures/gui/fruit/" + fruitID + ".png");
 
-            int x = (int) (centerX - (13));
+            int x = (int) (centerX - (15));
             int y = (int) (this.height * 0.65);
 
             graphics.pose().pushPose();
             graphics.pose().scale(1F, 1F, 1F);
+
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
 
             graphics.blit(resourceLocation, (int) (-128 + (x)), (int) (y), 0, 0, 30, 30);
             graphics.blit(resourceLocation, (int) (-64 + (x)), (int) (y), 30, 0, 30, 30);
             graphics.blit(resourceLocation, (int) (x), (int) (y), 60, 0, 30, 30);
             graphics.blit(resourceLocation, (int) (64 + (x)), (int) (y), 90, 0, 30, 30);
             graphics.blit(resourceLocation, (int) (128 + (x)), (int) (y), 120, 0, 30, 30);
+
+            RenderSystem.disableBlend();
 
             graphics.pose().popPose();
 
@@ -231,7 +236,7 @@ public class FruitScreen extends AbstractContainerScreen<FruitMenu> {
 
         //float guiSize = this.width / 400.0f;
 
-        int x =  (int) (centerX - (16));
+        int x =  (int) (centerX - (18));
         int y = (int) (this.height * 0.65) - 3;
 
         guiGraphics.pose().pushPose();

@@ -127,11 +127,16 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
             int x = (int) (centerX - (13 * 1));
             int y = (int) (this.height * 0.65);
 
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+
             graphics.blit(resourceLocation, centerX - 15, (int) (centerY - 90), 0, 0, 30, 30);
             graphics.blit(resourceLocation, (int) (centerX - (75) - 15), centerY - 12, 30, 0, 30, 30);
             graphics.blit(resourceLocation, (int) (centerX + (75) - 15), centerY - 12, 60, 0, 30, 30);
             graphics.blit(resourceLocation, centerX - 15, (int) (centerY + 60), 90, 0, 30, 30);
             //graphics.blit(resourceLocation, centerX + 100 - 15, centerY + 100, 120, 0, 30, 30);
+
+            RenderSystem.disableBlend();
 
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         }
@@ -182,9 +187,9 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
     private void onSelectFruit(int index) {
         if (index < 0 || index >= powers.length) return;
 
-        Minecraft.getInstance().player.sendSystemMessage(
+        /*Minecraft.getInstance().player.sendSystemMessage(
             Component.literal("Activated: " + powers[index])
-        );
+        );*/
 
         ActionHandler.get().updateMove(index);
 

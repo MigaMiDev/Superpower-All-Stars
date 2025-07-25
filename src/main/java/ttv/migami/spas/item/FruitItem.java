@@ -12,10 +12,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import ttv.migami.spas.Config;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.init.ModItems;
+import ttv.migami.spas.network.PacketHandler;
+import ttv.migami.spas.network.message.C2SMessageExplodePlayer;
 import ttv.migami.spas.util.EffectUtils;
 
 import javax.annotation.Nullable;
@@ -53,6 +56,19 @@ public class FruitItem extends Item {
     }
 
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
+        if (Config.COMMON.gameplay.onlyOneFruitPerLife.get() && level.isClientSide &&  user instanceof Player player) {
+            for (MobEffectInstance effect : this.getEffects()) {
+                if (effect.getEffect() instanceof FruitEffect) {
+                    if (FruitDataHandler.getCurrentEffect(player) != null && effect.getEffect() != FruitDataHandler.getCurrentEffect(player)) {
+                        removeOtherFruitEffects(player);
+                        PacketHandler.getPlayChannel().sendToServer(new C2SMessageExplodePlayer());
+
+                        return super.finishUsingItem(stack, level, user);
+                    }
+                }
+            }
+        }
+
         if (level.isClientSide && user instanceof Player player) {
             for (MobEffectInstance effect : this.getEffects()) {
                 if (effect.getEffect() instanceof FruitEffect) {
@@ -71,6 +87,7 @@ public class FruitItem extends Item {
                 }
             }
         }
+
         return super.finishUsingItem(stack, level, user);
     }
 
