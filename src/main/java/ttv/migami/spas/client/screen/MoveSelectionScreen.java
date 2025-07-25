@@ -185,15 +185,9 @@ public class MoveSelectionScreen extends AbstractContainerScreen<MoveSelectionMe
     }*/
 
     private void onSelectFruit(int index) {
-        if (index < 0 || index >= powers.length) return;
-
-        /*Minecraft.getInstance().player.sendSystemMessage(
-            Component.literal("Activated: " + powers[index])
-        );*/
+        if (index >= powers.length) return;
 
         ActionHandler.get().updateMove(index);
-
-        // TODO: Actually trigger your power logic here (e.g. send to server or call handler)
     }
 
     private void updateFruit() {

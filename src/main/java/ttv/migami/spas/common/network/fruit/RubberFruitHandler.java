@@ -26,7 +26,7 @@ import ttv.migami.spas.init.ModSounds;
 import java.util.List;
 
 import static ttv.migami.spas.common.network.ServerPlayHandler.actionHeavySlowdown;
-import static ttv.migami.spas.common.network.ServerPlayHandler.throwPlayerForward;
+import static ttv.migami.spas.common.network.ServerPlayHandler.throwEntityForward;
 import static ttv.migami.spas.entity.fx.CracksMarkEntity.summonCracksMark;
 import static ttv.migami.spas.world.CraterCreator.createCrater;
 
@@ -122,7 +122,7 @@ public class RubberFruitHandler
                     lookVec = pPlayer.getLookAngle();
                     motion = lookVec.scale(force);
 
-                    throwPlayerForward(pPlayer, motion);
+                    throwEntityForward(pPlayer, motion);
 
                     pPlayer.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 5, 48, false, false));
                     pPlayer.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 40, 0, false, false));

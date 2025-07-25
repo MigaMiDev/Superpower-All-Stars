@@ -6,10 +6,9 @@ import ttv.migami.spas.effect.FruitEffect;
 /**
  * Author: MigaMi
  */
+public class IceFruitEffect extends FruitEffect {
 
-public class RubberFruitEffect extends FruitEffect {
-
-    public RubberFruitEffect(MobEffectCategory typeIn, int liquidColorIn) {
+    public IceFruitEffect(MobEffectCategory typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
 }

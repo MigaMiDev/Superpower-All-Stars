@@ -73,6 +73,7 @@ public class SuperpowerAllStars {
         ModEffects.REGISTER.register(bus);
         ModEnchantments.REGISTER.register(bus);
         ModItems.REGISTER.register(bus);
+        ModBlocks.REGISTER.register(bus);
         ModEntities.REGISTER.register(bus);
         ModContainers.REGISTER.register(bus);
         ModParticleTypes.REGISTER.register(bus);

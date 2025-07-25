@@ -219,7 +219,7 @@ public class SpiderFruitHandler
                     lookVec = pPlayer.getLookAngle();
                     motion = lookVec.scale(force);
 
-                    throwPlayerForward(pPlayer, motion);
+                    throwEntityForward(pPlayer, motion);
                     pPlayer.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 15, 15, false, false));
 
                     ServerPlayHandler.smallFoodExhaustion(pPlayer);

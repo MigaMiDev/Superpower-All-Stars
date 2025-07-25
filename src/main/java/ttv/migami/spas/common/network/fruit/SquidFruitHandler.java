@@ -203,7 +203,7 @@ public class SquidFruitHandler
                         lookVec = pPlayer.getLookAngle();
                         Vec3 motion = lookVec.scale(force);
 
-                        throwPlayerForward(pPlayer, motion);
+                        throwEntityForward(pPlayer, motion);
                     }
 
                     pLevel.playSound(null, pPlayer.getOnPos(), SoundEvents.SQUID_SQUIRT, SoundSource.PLAYERS, 2F, 1F);

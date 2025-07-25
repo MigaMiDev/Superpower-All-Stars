@@ -25,7 +25,7 @@ import ttv.migami.spas.init.ModEffects;
 import java.util.List;
 
 import static ttv.migami.spas.common.network.ServerPlayHandler.rayTrace;
-import static ttv.migami.spas.common.network.ServerPlayHandler.throwPlayerForward;
+import static ttv.migami.spas.common.network.ServerPlayHandler.throwEntityForward;
 import static ttv.migami.spas.entity.fx.ScorchMarkEntity.summonScorchMark;
 
 /**
@@ -227,11 +227,11 @@ public class FireFruitHandler
                             }
                             livingEntity.setSecondsOnFire(3);
                             livingEntity.hurt(pPlayer.damageSources().playerAttack(pPlayer), ServerPlayHandler.calculateCustomDamage(pPlayer, fruit.getMobility().getDamage()));
-                            throwPlayerForward(livingEntity, motion);
+                            throwEntityForward(livingEntity, motion);
                         }
                     }
 
-                    throwPlayerForward(pPlayer, motion);
+                    throwEntityForward(pPlayer, motion);
                     pLevel.playSound(null, pPlayer.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.PLAYERS, 2F, 1F);
                     pPlayer.addEffect(new MobEffectInstance(ModEffects.FEATHER_FALLING.get(), 100, 0, false, false));
                     pPlayer.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 80, 0, false, false));

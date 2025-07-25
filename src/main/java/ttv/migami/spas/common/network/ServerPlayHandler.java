@@ -180,7 +180,7 @@ public class ServerPlayHandler
         return BlockPos.containing(rayTraceResult.getLocation());
     }
 
-    public static void throwPlayerForward(LivingEntity player, Vec3 motion) {
+    public static void throwEntityForward(LivingEntity player, Vec3 motion) {
         /*double force = 1;
         Vec3 lookVec = player.getLookAngle();
         Vec3 motion = lookVec.scale(force);*/
@@ -190,7 +190,7 @@ public class ServerPlayHandler
         player.hurtMarked = true;
     }
 
-    public static void throwPlayerDownward(LivingEntity player, double force) {
+    public static void throwEntityDownward(LivingEntity player, double force) {
         Vec3 motion = new Vec3(0, -force, 0);
 
         player.setDeltaMovement(

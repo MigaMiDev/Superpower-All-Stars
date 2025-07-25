@@ -23,6 +23,7 @@ import ttv.migami.spas.client.handler.FruitRecoilHandler;
 import ttv.migami.spas.client.screen.FruitScreen;
 import ttv.migami.spas.client.screen.MoveSelectionScreen;
 import ttv.migami.spas.client.screen.PermanentFruitsScreen;
+import ttv.migami.spas.init.ModBlocks;
 import ttv.migami.spas.init.ModContainers;
 import ttv.migami.spas.init.ModItems;
 import ttv.migami.spas.item.FruitItem;
@@ -85,6 +86,10 @@ public class ClientHandler {
                 {
                     ItemStack stack = new ItemStack(item);
                     output.accept(stack);
+                    return;
+                }
+                if(registryObject.get() == ModBlocks.COLD_MAGMA_BLOCK.get().asItem() ||
+                        registryObject.get() == ModBlocks.WEAK_MAGMA_BLOCK.get().asItem()) {
                     return;
                 }
                 output.accept(registryObject.get());

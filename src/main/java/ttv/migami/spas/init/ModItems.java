@@ -109,6 +109,16 @@ public class ModItems {
             ), "spider_fruit")
     );
 
+    public static final RegistryObject<Item> MAGMA_FRUIT = REGISTER.register("magma_fruit",
+            () -> new AnimatedFruitItem(new Item.Properties()
+                    .rarity(Rarity.RARE)
+                    , List.of(
+                    new MobEffectInstance(MobEffects.CONFUSION, 200, 0),
+                    new MobEffectInstance(MobEffects.WEAKNESS, 200, 0),
+                    new MobEffectInstance(ModEffects.MAGMA_FRUIT.get(), (72000 * 5), 0, false, false)
+            ), "spider_fruit")
+    );
+
     public static final RegistryObject<Item> BLESSED_FIREWORK_FRUIT = REGISTER.register("blessed_firework_fruit",
             () -> new AnimatedBlessedFruitItem(new Item.Properties()
                     .rarity(Rarity.EPIC)
@@ -196,6 +206,16 @@ public class ModItems {
                     new MobEffectInstance(MobEffects.CONFUSION, 200, 0),
                     new MobEffectInstance(MobEffects.WEAKNESS, 200, 0),
                     new MobEffectInstance(ModEffects.SPIDER_FRUIT.get(), -1, 0, false, false)
+            ), "spider_fruit")
+    );
+
+    public static final RegistryObject<Item> BLESSED_MAGMA_FRUIT = REGISTER.register("blessed_magma_fruit",
+            () -> new AnimatedBlessedFruitItem(new Item.Properties()
+                    .rarity(Rarity.EPIC)
+                    , List.of(
+                    new MobEffectInstance(MobEffects.CONFUSION, 200, 0),
+                    new MobEffectInstance(MobEffects.WEAKNESS, 200, 0),
+                    new MobEffectInstance(ModEffects.MAGMA_FRUIT.get(), -1, 0, false, false)
             ), "spider_fruit")
     );
 

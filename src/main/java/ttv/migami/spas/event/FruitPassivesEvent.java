@@ -1,6 +1,8 @@
 package ttv.migami.spas.event;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -10,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -17,9 +20,15 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStoppedEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
@@ -33,17 +42,18 @@ import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.entity.fruit.TimedBlockDisplayEntity;
+import ttv.migami.spas.init.ModBlocks;
 import ttv.migami.spas.init.ModEffects;
 import ttv.migami.spas.init.ModParticleTypes;
 import ttv.migami.spas.init.ModSounds;
 
+import java.util.Iterator;
 import java.util.List;
-
-import static ttv.migami.spas.common.network.ServerPlayHandler.throwPlayerDownward;
-import static ttv.migami.spas.common.network.ServerPlayHandler.throwPlayerForward;
 
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FruitPassivesEvent {
+    private static double lastX = 0;
+    private static double lastZ = 0;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.PlayerTickEvent event) {
@@ -51,8 +61,13 @@ public class FruitPassivesEvent {
         Player player = event.player;
         Level level = player.level();
 
+        if (player.isSpectator()) return;
+
         if (level instanceof ServerLevel serverLevel)
         {
+            double x = player.getX();
+            double z = player.getZ();
+
             ServerPlayHandler.syncToClient((ServerPlayer) player);
             MobEffect currentEffect = FruitDataHandler.getCurrentEffect(player);
 
@@ -68,7 +83,7 @@ public class FruitPassivesEvent {
                     if (player.isInWater() && !Config.COMMON.gameplay.noSwimming.get() &&
                             ((serverLevel.getBlockState(player.getOnPos().below()).is(Blocks.WATER) && player.isInWater()) || player.isUnderWater())) {
                         if (player.getRandom().nextDouble() < 0.06) {
-                            throwPlayerDownward(player, 0.2);
+                            ServerPlayHandler.throwEntityDownward(player, 0.2);
                             serverLevel.sendParticles(ParticleTypes.BUBBLE, player.getX(), player.getY(), player.getZ(), 10, player.getBbWidth(), player.getBbHeight(), player.getBbWidth(), 0.1);
                             serverLevel.playSound(null, player.getOnPos(), SoundEvents.PLAYER_SWIM, SoundSource.PLAYERS, 0.5F, 1);
                             serverLevel.playSound(null, player.getOnPos(), SoundEvents.BUBBLE_COLUMN_WHIRLPOOL_AMBIENT, SoundSource.PLAYERS, 1, 1);
@@ -92,6 +107,81 @@ public class FruitPassivesEvent {
                         player.getX(), player.getY() + 1, player.getZ(), 2, 0.3, 0.4, 0.3, 0);
             }
 
+            if (player.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
+                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20, 0, true, false));
+
+                if (!player.isCrouching()) {
+                    int i = Math.min(16, 2);
+                    BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                    Iterator var7;
+
+                    if (player.onGround()) {
+                        var7 = BlockPos.betweenClosed(player.getOnPos().offset(-i, 0, -i), player.getOnPos().offset(i, 0, i)).iterator();
+                    } else {
+                        var7 = BlockPos.betweenClosed(player.getOnPos().offset(-i, -1, -i), player.getOnPos().offset(i, -1, i)).iterator();
+                    }
+
+                    while(var7.hasNext()) {
+                        Block block;
+                        if (player.getRandom().nextFloat() > 0.2F) {
+                            block = ModBlocks.COLD_MAGMA_BLOCK.get();
+                        } else block = ModBlocks.WEAK_MAGMA_BLOCK.get();
+
+                        BlockState blockstate = block.defaultBlockState();
+
+                        BlockPos blockpos = (BlockPos)var7.next();
+                        if (blockpos.closerToCenterThan(player.position(), (double)i)) {
+                            blockpos$mutableblockpos.set(blockpos.getX(), blockpos.getY() + 1, blockpos.getZ());
+                            BlockState blockstate1 = player.level().getBlockState(blockpos$mutableblockpos);
+                            if (blockstate1.isAir()) {
+                                BlockState blockstate2 = player.level().getBlockState(blockpos);
+                                if ((blockstate2 == Blocks.WATER.defaultBlockState() || blockstate2 == Blocks.LAVA.defaultBlockState())
+                                        && blockstate.canSurvive(player.level(), blockpos) && player.level().isUnobstructed(blockstate, blockpos, CollisionContext.empty()) &&
+                                        !ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(player.level().dimension(), player.level(), blockpos), Direction.UP)) {
+                                    boolean waterlogged = true;
+                                    if (blockstate2 == Blocks.WATER.defaultBlockState()) {
+                                        waterlogged = true;
+                                    } else if (blockstate2 == Blocks.LAVA.defaultBlockState()) {
+                                        waterlogged = false;
+                                    }
+
+                                    if (blockstate.hasProperty(BlockStateProperties.WATERLOGGED)) {
+                                        blockstate = blockstate.setValue(BlockStateProperties.WATERLOGGED, waterlogged);
+                                    }
+
+                                    player.level().setBlockAndUpdate(blockpos, blockstate);
+                                    player.level().scheduleTick(blockpos, block, Mth.nextInt(player.getRandom(), 60, 120));
+
+                                    if (blockstate2 == Blocks.WATER.defaultBlockState()) {
+                                        serverLevel.sendParticles(ParticleTypes.CLOUD,
+                                                blockpos.getCenter().x, blockpos.getCenter().y + 0.5, blockpos.getCenter().z, 2, 0.2, 0.2, 0.2, .1);
+                                        serverLevel.playSound(null, blockpos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.1F, 1F);
+                                    }
+                                }
+                                else if (blockstate2.is(ModBlocks.COLD_MAGMA_BLOCK.get()) && block == blockstate2.getBlock()) {
+                                    if (blockstate2.hasProperty(BlockStateProperties.AGE_3) && blockstate2.hasProperty(BlockStateProperties.WATERLOGGED)) {
+                                        blockstate = blockstate.setValue(BlockStateProperties.AGE_3, 0);
+                                        blockstate = blockstate.setValue(BlockStateProperties.WATERLOGGED, blockstate2.getValue(BlockStateProperties.WATERLOGGED));
+
+                                        player.level().setBlockAndUpdate(blockpos, blockstate);
+                                        player.level().scheduleTick(blockpos, ModBlocks.COLD_MAGMA_BLOCK.get(), Mth.nextInt(player.getRandom(), 60, 120));
+                                    }
+                                }
+                                else if (blockstate2.is(ModBlocks.WEAK_MAGMA_BLOCK.get()) && block == blockstate2.getBlock()) {
+                                    if (blockstate2.hasProperty(BlockStateProperties.AGE_3) && blockstate2.hasProperty(BlockStateProperties.WATERLOGGED)) {
+                                        blockstate = blockstate.setValue(BlockStateProperties.AGE_3, 0);
+                                        blockstate = blockstate.setValue(BlockStateProperties.WATERLOGGED, blockstate2.getValue(BlockStateProperties.WATERLOGGED));
+
+                                        player.level().setBlockAndUpdate(blockpos, blockstate);
+                                        player.level().scheduleTick(blockpos, ModBlocks.WEAK_MAGMA_BLOCK.get(), Mth.nextInt(player.getRandom(), 60, 120));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             if (player.hasEffect(ModEffects.SQUID_FRUIT.get())) {
                 if (player.hasEffect(MobEffects.BLINDNESS)) {
                     player.removeEffect(MobEffects.BLINDNESS);
@@ -109,12 +199,6 @@ public class FruitPassivesEvent {
             }
 
             if (player.hasEffect(ModEffects.FIRE_FRUIT.get())) {
-                if (player.isInWater()) {
-                    player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 0, false, true));
-                }
-                if (player.isUnderWater()) {
-                    player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1, false, true));
-                }
                 if (player.hasEffect(MobEffects.LEVITATION) && player.hasEffect(MobEffects.MOVEMENT_SPEED)) {
                     serverLevel.sendParticles(ModParticleTypes.FIRE_RING.get(),
                             player.getX(), player.getY(), player.getZ(), 1, 0.3, 0.4, 0.3, 0);
@@ -128,6 +212,7 @@ public class FruitPassivesEvent {
             }
 
             if (player.hasEffect(ModEffects.RUBBER_FRUIT.get())) {
+                player.resetFallDistance();
                 player.addEffect(new MobEffectInstance(MobEffects.JUMP, 20, 1, false, false));
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 0, false, false));
 
@@ -142,7 +227,7 @@ public class FruitPassivesEvent {
                         Vec3 lookVec = player.getLookAngle();
                         Vec3 motion = lookVec.scale(force);
 
-                        throwPlayerForward(player, motion);
+                        ServerPlayHandler.throwEntityForward(player, motion);
                         player.level().playSound(null, player, ModSounds.GOMU_NO_THROW.get(), SoundSource.AMBIENT, 0.75F, 1F);
                         ((ServerLevel) player.level()).sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY() + 0.3, player.getZ(), 5, 0.0D, 0.0D, 0.0D, 0.1D);
                     }
@@ -182,22 +267,9 @@ public class FruitPassivesEvent {
                         }
                     }
                 }
-
-                if (player.isInWater()) {
-                    player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 0, false, true));
-                }
-                if (player.isUnderWater()) {
-                    player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1, false, true));
-                }
             }
 
             if (player.hasEffect(ModEffects.SPIDER_FRUIT.get())) {
-                if (player.isInWater()) {
-                    player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 0, false, true));
-                }
-                if (player.isUnderWater()) {
-                    player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1, false, true));
-                }
                 player.resetFallDistance();
             }
         }

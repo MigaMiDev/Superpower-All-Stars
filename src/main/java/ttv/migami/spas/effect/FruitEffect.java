@@ -31,4 +31,9 @@ public abstract class FruitEffect extends MobEffect {
     public List<ItemStack> getCurativeItems() {
         return Collections.emptyList();
     }
+
+    @Override
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return true;
+    }
 }

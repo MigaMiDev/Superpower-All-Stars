@@ -36,6 +36,10 @@ public class ActionHandler
         if (this.fruit == null) return;
 
         switch (move) {
+            case -1:
+                this.action = null;
+                this.move = 0;
+                break;
             case 0:
                 this.action = this.fruit.getMoveA();
                 this.move = 1;
