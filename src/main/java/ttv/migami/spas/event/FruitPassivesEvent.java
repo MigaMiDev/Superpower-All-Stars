@@ -182,6 +182,42 @@ public class FruitPassivesEvent {
                 }
             }
 
+            if (player.hasEffect(ModEffects.ICE_FRUIT.get())) {
+                if (!player.isCrouching()) {
+                    int i = Math.min(16, 3);
+                    BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                    Iterator var7;
+
+                    if (player.onGround()) {
+                        var7 = BlockPos.betweenClosed(player.getOnPos().offset(-i, 0, -i), player.getOnPos().offset(i, 0, i)).iterator();
+                    } else {
+                        var7 = BlockPos.betweenClosed(player.getOnPos().offset(-i, -1, -i), player.getOnPos().offset(i, -1, i)).iterator();
+                    }
+
+                    while(var7.hasNext()) {
+                        Block block = Blocks.FROSTED_ICE;
+
+                        BlockState blockstate = block.defaultBlockState();
+
+                        BlockPos blockpos = (BlockPos)var7.next();
+                        if (blockpos.closerToCenterThan(player.position(), (double)i)) {
+                            blockpos$mutableblockpos.set(blockpos.getX(), blockpos.getY() + 1, blockpos.getZ());
+                            BlockState blockstate1 = player.level().getBlockState(blockpos$mutableblockpos);
+                            if (blockstate1.isAir()) {
+                                BlockState blockstate2 = player.level().getBlockState(blockpos);
+                                if ((blockstate2 == Blocks.WATER.defaultBlockState())
+                                        && blockstate.canSurvive(player.level(), blockpos) && player.level().isUnobstructed(blockstate, blockpos, CollisionContext.empty()) &&
+                                        !ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(player.level().dimension(), player.level(), blockpos), Direction.UP)) {
+
+                                    player.level().setBlockAndUpdate(blockpos, blockstate);
+                                    player.level().scheduleTick(blockpos, block, Mth.nextInt(player.getRandom(), 60, 120));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             if (player.hasEffect(ModEffects.SQUID_FRUIT.get())) {
                 if (player.hasEffect(MobEffects.BLINDNESS)) {
                     player.removeEffect(MobEffects.BLINDNESS);

@@ -31,6 +31,19 @@ public class EntityHurtEvent {
                 event.setCanceled(true);
             }
         }
+        if (source.getEntity() instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
+            if (type == DamageTypes.PLAYER_ATTACK || type == DamageTypes.MOB_ATTACK) entity.setSecondsOnFire(3);
+        }
+
+        if (entity.hasEffect(ModEffects.ICE_FRUIT.get())) {
+            if (type == DamageTypes.FREEZE) {
+                event.setCanceled(true);
+            }
+
+            if (type == DamageTypes.IN_FIRE || type == DamageTypes.ON_FIRE) {
+                event.setAmount(event.getAmount() * 1.5F);
+            }
+        }
 
         if (entity.hasEffect(ModEffects.SQUID_FRUIT.get())) {
             if (type == DamageTypes.DROWN) {
