@@ -142,6 +142,16 @@ public class CustomProjectileEntity extends Entity implements IEntityAdditionalS
             List<Entity> nearbyEntities = this.level().getEntities(this, boundingBox);
 
             for (Entity entity : nearbyEntities) {
+                if (entity == this.getOwner()) {
+                    return;
+                }
+                if (entity.getId() == this.ownerID) {
+                    return;
+                }
+                if (entity instanceof Player player && player.getUUID() == this.playerUUID) {
+                    return;
+                }
+
                 if (entity != this && entity != this.owner && this.getBoundingBox().intersects(entity.getBoundingBox())) {
                     this.onHitEntity(entity);
 

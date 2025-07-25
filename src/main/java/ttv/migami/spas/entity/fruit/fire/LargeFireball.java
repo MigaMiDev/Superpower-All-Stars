@@ -63,8 +63,8 @@ public class LargeFireball extends CustomProjectileEntity {
         this.updateHeading();
     }
 
-    public LargeFireball(Level pLevel, Vec3 pPos, Vec3 targetPos, boolean explosive, float damage) {
-        super(ModEntities.LARGE_FIREBALL.get(), pLevel);
+    public LargeFireball(Level pLevel, Vec3 pPos, Vec3 targetPos, boolean explosive, float damage, LivingEntity owner) {
+        super(ModEntities.LARGE_FIREBALL.get(), pLevel, owner);
         this.setPos(pPos);
 
         this.affectedByGravity = false;

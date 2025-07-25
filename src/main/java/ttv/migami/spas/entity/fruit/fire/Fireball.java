@@ -61,8 +61,8 @@ public class Fireball extends CustomProjectileEntity {
         this.updateHeading();
     }
 
-    public Fireball(Level pLevel, Vec3 pPos, Vec3 targetPos, boolean explosive, float damage) {
-        super(ModEntities.FIREBALL.get(), pLevel);
+    public Fireball(Level pLevel, Vec3 pPos, Vec3 targetPos, boolean explosive, float damage, LivingEntity owner) {
+        super(ModEntities.FIREBALL.get(), pLevel, owner);
         this.setPos(pPos);
 
         this.affectedByGravity = false;

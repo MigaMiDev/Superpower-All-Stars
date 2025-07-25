@@ -89,10 +89,10 @@ public class FireFruitHandler
                     playerPos = pPlayer.getPosition(1F).add(offsetX, offsetY, offsetZ);
 
                     if (entityHitResult != null) {
-                        fireball = new Fireball(pLevel, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), false, fruit.getMoveA().getDamage());
+                        fireball = new Fireball(pLevel, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), false, fruit.getMoveA().getDamage(), pPlayer);
                     }
                     else {
-                        fireball = new Fireball(pLevel, playerPos, blockPos.getCenter(), false, fruit.getMoveA().getDamage());
+                        fireball = new Fireball(pLevel, playerPos, blockPos.getCenter(), false, fruit.getMoveA().getDamage(), pPlayer);
                     }
                     pLevel.addFreshEntity(fireball);
 
@@ -121,10 +121,10 @@ public class FireFruitHandler
                     playerPos = pPlayer.getPosition(1F).add(offsetX, offsetY, offsetZ);
 
                     if (entityHitResult != null) {
-                        fireball = new Fireball(pLevel, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), true, fruit.getMoveB().getDamage());
+                        fireball = new Fireball(pLevel, playerPos, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), true, fruit.getMoveB().getDamage(), pPlayer);
                     }
                     else {
-                        fireball = new Fireball(pLevel, playerPos, blockPos.getCenter(), true, fruit.getMoveB().getDamage());
+                        fireball = new Fireball(pLevel, playerPos, blockPos.getCenter(), true, fruit.getMoveB().getDamage(), pPlayer);
                     }
                     pLevel.addFreshEntity(fireball);
 
@@ -194,9 +194,9 @@ public class FireFruitHandler
                     }
 
                     if (entityHitResult != null) {
-                        largeFireball = new LargeFireball(pLevel, spawnPosition, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), true, fruit.getUltimate().getDamage());
+                        largeFireball = new LargeFireball(pLevel, spawnPosition, entityHitResult.getEntity().getEyePosition().add(0, 0.8, 0), true, fruit.getUltimate().getDamage(), pPlayer);
                     } else {
-                        largeFireball = new LargeFireball(pLevel, spawnPosition, blockPos.getCenter(), true, fruit.getUltimate().getDamage());
+                        largeFireball = new LargeFireball(pLevel, spawnPosition, blockPos.getCenter(), true, fruit.getUltimate().getDamage(), pPlayer);
                     }
 
                     pLevel.addFreshEntity(largeFireball);
