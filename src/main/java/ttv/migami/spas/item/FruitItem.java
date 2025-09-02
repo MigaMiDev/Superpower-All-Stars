@@ -16,7 +16,6 @@ import ttv.migami.spas.Config;
 import ttv.migami.spas.Reference;
 import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.effect.FruitEffect;
-import ttv.migami.spas.init.ModItems;
 import ttv.migami.spas.network.PacketHandler;
 import ttv.migami.spas.network.message.C2SMessageExplodePlayer;
 import ttv.migami.spas.util.EffectUtils;
@@ -108,7 +107,7 @@ public class FruitItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
-        if (!stack.is(ModItems.BROCCOLI_VEGGIE.get())) tooltip.add(Component.translatable("info.spas.fruit_info").withStyle(ChatFormatting.GRAY));
+        //if (!stack.is(ModItems.BROCCOLI_VEGGIE.get())) tooltip.add(Component.translatable("info.spas.fruit_info").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("info.spas.tooltip_item" + "." + this.asItem()).withStyle(ChatFormatting.GRAY));
     }
 

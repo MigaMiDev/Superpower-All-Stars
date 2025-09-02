@@ -31,7 +31,8 @@ public class ModEffects
     public static final RegistryObject<FruitEffect> FIRE_FRUIT = REGISTER.register("fire_fruit", () -> new FireFruitEffect(MobEffectCategory.BENEFICIAL, 0));
     public static final RegistryObject<FruitEffect> RUBBER_FRUIT = REGISTER.register("rubber_fruit", () -> new RubberFruitEffect(MobEffectCategory.BENEFICIAL, 0));
     public static final RegistryObject<FruitEffect> SPIDER_FRUIT = REGISTER.register("spider_fruit", () -> new SpiderFruitEffect(MobEffectCategory.BENEFICIAL, 0));
-    public static final RegistryObject<FruitEffect> MAGMA_FRUIT = REGISTER.register("magma_fruit", () -> new MagmaFruitEffect(MobEffectCategory.BENEFICIAL, 0));
-    public static final RegistryObject<FruitEffect> ICE_FRUIT = REGISTER.register("ice_fruit", () -> new IceFruitEffect(MobEffectCategory.BENEFICIAL, 0));
+    //TODO: Do CTRL-Shift-F "Magma Fruit"
+    //public static final RegistryObject<FruitEffect> MAGMA_FRUIT = REGISTER.register("magma_fruit", () -> new MagmaFruitEffect(MobEffectCategory.BENEFICIAL, 0));
+    //public static final RegistryObject<FruitEffect> ICE_FRUIT = REGISTER.register("ice_fruit", () -> new IceFruitEffect(MobEffectCategory.BENEFICIAL, 0));
 
 }

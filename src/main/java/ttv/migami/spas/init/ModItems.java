@@ -11,7 +11,6 @@ import ttv.migami.spas.Reference;
 import ttv.migami.spas.item.AnimatedBlessedFruitItem;
 import ttv.migami.spas.item.AnimatedFruitItem;
 import ttv.migami.spas.item.DebriVacuumItem;
-import ttv.migami.spas.item.VeggieItem;
 
 import java.util.List;
 
@@ -109,7 +108,7 @@ public class ModItems {
             ), "spider_fruit")
     );
 
-    public static final RegistryObject<Item> MAGMA_FRUIT = REGISTER.register("magma_fruit",
+    /*public static final RegistryObject<Item> MAGMA_FRUIT = REGISTER.register("magma_fruit",
             () -> new AnimatedFruitItem(new Item.Properties()
                     .rarity(Rarity.EPIC)
                     , List.of(
@@ -127,7 +126,7 @@ public class ModItems {
                     new MobEffectInstance(MobEffects.WEAKNESS, 200, 0),
                     new MobEffectInstance(ModEffects.ICE_FRUIT.get(), (72000 * 5), 0, false, false)
             ), "ice_fruit")
-    );
+    );*/
 
     public static final RegistryObject<Item> BLESSED_FIREWORK_FRUIT = REGISTER.register("blessed_firework_fruit",
             () -> new AnimatedBlessedFruitItem(new Item.Properties()
@@ -219,7 +218,8 @@ public class ModItems {
             ), "spider_fruit")
     );
 
-    public static final RegistryObject<Item> BLESSED_MAGMA_FRUIT = REGISTER.register("blessed_magma_fruit",
+    //TODO: Do CTRL-Shift-F "Magma Fruit"
+    /*public static final RegistryObject<Item> BLESSED_MAGMA_FRUIT = REGISTER.register("blessed_magma_fruit",
             () -> new AnimatedBlessedFruitItem(new Item.Properties()
                     .rarity(Rarity.EPIC)
                     , List.of(
@@ -237,15 +237,15 @@ public class ModItems {
                     new MobEffectInstance(MobEffects.WEAKNESS, 200, 0),
                     new MobEffectInstance(ModEffects.ICE_FRUIT.get(), -1, 0, false, false)
             ), "ice_fruit")
-    );
+    );*/
 
-    public static final RegistryObject<Item> BROCCOLI_VEGGIE = REGISTER.register("broccoli_veggie",
+    /*public static final RegistryObject<Item> BROCCOLI_VEGGIE = REGISTER.register("broccoli_veggie",
             () -> new VeggieItem(new Item.Properties()
                     .rarity(Rarity.UNCOMMON)
                     , List.of(
                     new MobEffectInstance(MobEffects.CONFUSION, 100, 0)
             ))
-    );
+    );*/
 
     public static final RegistryObject<Item> DEBRI_VACUUM = REGISTER.register("debri_vacuum",
             () -> new DebriVacuumItem(new Item.Properties().stacksTo(1)));

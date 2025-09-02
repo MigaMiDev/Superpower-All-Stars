@@ -102,8 +102,10 @@ public class ActionHandler
         if (event.getAction() == GLFW.GLFW_PRESS || event.getAction() == GLFW.GLFW_REPEAT) {
             int keyCode = event.getKey();
             if (keyCode == KeyBinds.MOBILITY_MOVE.getKey().getValue()) {
-                this.action = this.fruit.getMobility();
-                this.move = 5;
+                if (this.fruit.getMobility() != null) {
+                    this.action = this.fruit.getMobility();
+                    this.move = 5;
+                }
             }
         }
     }
@@ -221,7 +223,7 @@ public class ActionHandler
                     //SuperpowerAllStars.LOGGER.atInfo().log("CurrentMove: " + action.getActionType() + " ZCooldown: " + moveManager.getCooldown(ActionType.Z) + " XCooldown: " + moveManager.getCooldown(ActionType.X) + " CCooldown: " + moveManager.getCooldown(ActionType.C) + " CAmounts: " + moveManager.getAmount(ActionType.C));
 
                     if(moveManager.getCooldown(action.getActionType()) == 0) {
-                        if(KeyBinds.getShootMapping().isDown() || KeyBinds.MOBILITY_MOVE.isDown())
+                        if(KeyBinds.getShootMapping().isDown() || (KeyBinds.MOBILITY_MOVE.isDown() && this.fruit.getMobility() != null))
                         {
                             amount = moveManager.getAmount(action.getActionType());
                             if (this.action.getActionMode() != ActionMode.PRESS)
@@ -294,6 +296,25 @@ public class ActionHandler
             }
         }
         return this.action == null ? null : this.action;
+    }
+
+    public boolean actionExists(ActionType actionType) {
+        if (actionType.equals(ActionType.MOVE_A) && fruit.getMoveA() != null) {
+            return true;
+        }
+        else if (actionType.equals(ActionType.MOVE_B) && fruit.getMoveB() != null) {
+            return true;
+        }
+        else if (actionType.equals(ActionType.SPECIAL) && fruit.getSpecial() != null) {
+            return true;
+        }
+        else if (actionType.equals(ActionType.ULTIMATE) && fruit.getUltimate() != null) {
+            return true;
+        }
+        else if (actionType.equals(ActionType.MOBILITY) && fruit.getMobility() != null) {
+            return true;
+        }
+        return false;
     }
 
     public MoveManager getCooldownManager() {

@@ -6,7 +6,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import ttv.migami.spas.init.ModEffects;
 
 import javax.annotation.Nullable;
 
@@ -70,9 +68,9 @@ public class WeakMagmaBlock extends MagmaBlock {
 
     @Override
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        if (pEntity instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
+        /*if (pEntity instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
             return;
-        }
+        }*/
 
         super.stepOn(pLevel, pPos, pState, pEntity);
     }

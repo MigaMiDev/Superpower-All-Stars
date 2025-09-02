@@ -1,8 +1,6 @@
 package ttv.migami.spas.event;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -12,7 +10,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -20,15 +17,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraftforge.common.util.BlockSnapshot;
-import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStoppedEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
@@ -42,12 +33,10 @@ import ttv.migami.spas.common.FruitDataHandler;
 import ttv.migami.spas.common.network.ServerPlayHandler;
 import ttv.migami.spas.effect.FruitEffect;
 import ttv.migami.spas.entity.fruit.TimedBlockDisplayEntity;
-import ttv.migami.spas.init.ModBlocks;
 import ttv.migami.spas.init.ModEffects;
 import ttv.migami.spas.init.ModParticleTypes;
 import ttv.migami.spas.init.ModSounds;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -107,7 +96,7 @@ public class FruitPassivesEvent {
                         player.getX(), player.getY() + 1, player.getZ(), 2, 0.3, 0.4, 0.3, 0);
             }
 
-            if (player.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
+            /*if (player.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20, 0, true, false));
 
                 if (!player.isCrouching()) {
@@ -216,7 +205,7 @@ public class FruitPassivesEvent {
                         }
                     }
                 }
-            }
+            }*/
 
             if (player.hasEffect(ModEffects.SQUID_FRUIT.get())) {
                 if (player.hasEffect(MobEffects.BLINDNESS)) {

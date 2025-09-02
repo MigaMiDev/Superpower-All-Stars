@@ -20,18 +20,18 @@ public class EntityHurtEvent {
         DamageSource source = event.getSource();
         ResourceKey<DamageType> type = source.typeHolder().unwrapKey().orElse(null);
 
-        if (entity.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
+        /*if (entity.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
             if (type == DamageTypes.HOT_FLOOR || type == DamageTypes.LAVA || type == DamageTypes.IN_FIRE || type == DamageTypes.ON_FIRE) {
                 event.setCanceled(true);
             }
-        }
+        }*/
 
         if (entity.hasEffect(ModEffects.FIRE_FRUIT.get())) {
             if (type == DamageTypes.IN_FIRE || type == DamageTypes.ON_FIRE) {
                 event.setCanceled(true);
             }
         }
-        if (source.getEntity() instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
+        /*if (source.getEntity() instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
             if (type == DamageTypes.PLAYER_ATTACK || type == DamageTypes.MOB_ATTACK) entity.setSecondsOnFire(3);
         }
 
@@ -43,7 +43,7 @@ public class EntityHurtEvent {
             if (type == DamageTypes.IN_FIRE || type == DamageTypes.ON_FIRE) {
                 event.setAmount(event.getAmount() * 1.5F);
             }
-        }
+        }*/
 
         if (entity.hasEffect(ModEffects.SQUID_FRUIT.get())) {
             if (type == DamageTypes.DROWN) {

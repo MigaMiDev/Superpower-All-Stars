@@ -2,7 +2,6 @@ package ttv.migami.spas.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -10,7 +9,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import ttv.migami.spas.init.ModEffects;
 
 public class ColdMagmaBlock extends WeakMagmaBlock {
     public static final int MAX_AGE = 3;
@@ -29,11 +27,11 @@ public class ColdMagmaBlock extends WeakMagmaBlock {
 
     @Override
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        if (pEntity instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
+        /*if (pEntity instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModEffects.MAGMA_FRUIT.get())) {
             return;
         } else {
             pEntity.setSecondsOnFire(5);
-        }
+        }*/
 
         super.stepOn(pLevel, pPos, pState, pEntity);
     }
