@@ -44,7 +44,7 @@ public class MobFruitEffectEvent {
     public static void onSpecialSpawn(MobSpawnEvent.FinalizeSpawn event) {
         if (event.getEntity() instanceof PathfinderMob mob) {
             // 5% chance to equip the trumpet instead of a bow
-            if (mob.level().random.nextFloat() < 1) {
+            if (mob.getRandom().nextFloat() < 1) {
                 mob.addTag("HungryBoi");
             }
         }
